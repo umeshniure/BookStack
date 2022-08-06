@@ -4,22 +4,18 @@ package com.web;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 import com.config.Config;
 import com.secure.CheckEmail;
 import com.secure.Encrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.IllegalCharsetNameException;
 import java.sql.*;
-import java.util.Base64;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ValidateSignup", urlPatterns = {"/signup"})
 public class ValidateSignup extends HttpServlet {
-    
+
     private Encrypt encrypt;
     private CheckEmail checkemail;
 
@@ -36,7 +32,7 @@ public class ValidateSignup extends HttpServlet {
         checkemail = new CheckEmail();
     }
 
-    public void passvalue(HttpServletRequest request, HttpServletResponse response, String _firstname, String _lastname,
+    public void passValue(HttpServletRequest request, HttpServletResponse response, String _firstname, String _lastname,
             String _email, String message) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("SignUp.jsp");
         request.setAttribute("message", message);
@@ -45,7 +41,7 @@ public class ValidateSignup extends HttpServlet {
         request.setAttribute("email", _email);
         rd.forward(request, response);
     }
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String message = "";
@@ -92,22 +88,20 @@ public class ValidateSignup extends HttpServlet {
                         }
                     } else {
                         message = "The passwords didnot match!";
-                        passvalue(request, response, _firstname, _lastname, _email, message);
+                        passValue(request, response, _firstname, _lastname, _email, message);
                     }
                 } else {
                     message = "Invalid email address!";
-                    passvalue(request, response, _firstname, _lastname, _email, message);
+                    passValue(request, response, _firstname, _lastname, _email, message);
                 }
             } else {
                 message = "Empty email or password!";
-                passvalue(request, response, _firstname, _lastname, _email, message);
+                passValue(request, response, _firstname, _lastname, _email, message);
             }
             con.close();
 
         } catch (Exception e) {
-
             out.println(e);
-
         }
     }
 
