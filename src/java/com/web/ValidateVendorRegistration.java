@@ -51,7 +51,7 @@ public class ValidateVendorRegistration extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("vendor_registration.jsp");
+        response.sendRedirect("vendor_registrtion.jsp");
     }
 
     /**

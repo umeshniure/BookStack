@@ -166,7 +166,7 @@
                             <c:forEach var="book" items="${booklist}">
                                 <div class="group relative">
                                     <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
-                                        <img src="https://images-na.ssl-images-amazon.com/images/I/81bsw6fnUiL.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+                                        <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="Book Cover Page" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
                                     </div>
                                     <div class="mt-4 flex justify-between">
                                         <div class="overflow-hidden">
