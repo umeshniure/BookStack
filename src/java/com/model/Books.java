@@ -5,13 +5,13 @@ public class Books {
     protected int id, price, discounted_price, published_year;
     long isbn;
     protected String name, category, description, cover_type, type;
-    protected String author, cover_page, publication, language;
+    protected String author, cover_photo, cover_photo_name, publication, language;
 
     public Books() {
     }
 
     public Books(long isbn, String bookname, String authorname, String publication, int price, int discounted_price,
-            int published_year, String category, String cover_type, String language, String type, String description, String cover_page) {
+            int published_year, String category, String cover_type, String language, String type, String description, String cover_photo, String cover_photo_name) {
         super();
         this.isbn = isbn;
         this.name = bookname;
@@ -24,12 +24,13 @@ public class Books {
         this.cover_type = cover_type;
         this.language = language;
         this.type = type;
-        this.cover_page = cover_page;
+        this.cover_photo = cover_photo;
+        this.cover_photo_name = cover_photo_name;
         this.description = description;
     }
 
     public Books(int id, long isbn, String bookname, String authorname, String publication, int price, int discounted_price,
-            int published_year, String category, String cover_type, String language, String type, String description, String cover_page) {
+            int published_year, String category, String cover_type, String language, String type, String description, String cover_photo, String cover_photo_name) {
         super();
         this.id = id;
         this.isbn = isbn;
@@ -43,7 +44,8 @@ public class Books {
         this.cover_type = cover_type;
         this.language = language;
         this.type = type;
-        this.cover_page = cover_page;
+        this.cover_photo = cover_photo;
+        this.cover_photo_name = cover_photo_name;
         this.description = description;
     }
 
@@ -135,12 +137,20 @@ public class Books {
         this.language = language;
     }
 
-    public String getCover_page() {
-        return cover_page;
+    public String getCover_photo() {
+        return cover_photo;
     }
 
-    public void setCover_page(String cover_page) {
-        this.cover_page = cover_page;
+    public void setCover_photo(String cover_photo) {
+        this.cover_photo = cover_photo;
+    }
+    
+    public String getCover_photo_name() {
+        return cover_photo_name;
+    }
+
+    public void setCover_photo_name(String cover_photo_name) {
+        this.cover_photo_name = cover_photo_name;
     }
 
     public String getDescription() {

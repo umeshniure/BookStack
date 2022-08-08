@@ -11,13 +11,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">                
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
         <title>Bookstack: Home</title>
-        <script src="js/scrolltotop.js"></script>
     </head>
     <body>
 
@@ -36,7 +35,7 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
                         aria-label="Slide 3"></button>
             </div>
-            <div class="carousel-inner relative w-full overflow-hidden rounded">
+            <div class="carousel-inner relative w-full rounded">
                 <div class="carousel-item active bg-black rounded">
                     <div class="flex relative text-center rounded">
                         <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Welcome to Lightning deals</h1>
@@ -156,7 +155,7 @@
 
 
             <div class="w-full h-full p-4 m-8">
-                <div class="flex p-2 border-4 border-dotted">
+                <div class="flex p-2 border-4 border-dotted ">
                     <!--product list section-->
                     <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">Bestsellers</h3>
@@ -164,16 +163,18 @@
 
                         <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                             <c:forEach var="book" items="${booklist}">
-                                <div class="group relative">
-                                    <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
-                                        <img src="https://images-na.ssl-images-amazon.com/images/I/81bsw6fnUiL.jpg" alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full">
-                                    </div>
+                                <div class="group relative mr-3">
+                                    <a href="#">
+                                        <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
+                                            <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="Book Cover Page" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+                                        </div>
+                                    </a>
                                     <div class="mt-4 flex justify-between">
                                         <div class="overflow-hidden">
                                             <h3 class="text-sm text-gray-700">
                                                 <a href="#">
-                                                    <span aria-hidden="true" class="absolute inset-0"></span>
-                                                    <c:out value="${book.name}" />
+                                                    <span aria-hidden="true" class="absolute"></span>
+                                                    <c:out value="${book.name}"/>
                                                 </a>
                                             </h3>
                                             <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category}" /></p>
@@ -181,7 +182,7 @@
                                         <p class="text-sm font-medium text-gray-900"><c:out value="${book.price}" /></p>                                    
                                     </div>
                                     <div class="mt-2">
-                                        <a href="addtocart"><button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                        <a href="addtocart"><button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
                                                 Add to cart
                                             </button></a>
                                     </div>
