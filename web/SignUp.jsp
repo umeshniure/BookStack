@@ -106,16 +106,7 @@
                                                     type="submit"
                                                     data-mdb-ripple="true"
                                                     data-mdb-ripple-color="light"
-                                                    style="
-                                                    background: linear-gradient(
-                                                    to left,
-                                                    #C2DBFE,
-                                                    #bf66bf,
-                                                    #b44cb4,
-                                                    #950095
-                                                    );
-                                                    "
-                                                    >
+                                                    style="background: linear-gradient(to left, #C2DBFE, #bf66bf, #b44cb4, #950095);">
                                                     Register
                                                 </button>
                                             </div>
@@ -137,6 +128,6 @@
                 </div>
             </div>
         </section>
-                                            
+
     </body>
 </html>
