@@ -4,18 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/ForgotPassword.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/LogIn.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/validateLogin.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/newPassword.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/NewPassword.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/LogIn.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/register.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/validateLogin.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/EnterOtp.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/SignUp.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/ValidateOtp.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/index.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/forgotPassword.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/CSS/signin.css</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/newPassword.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/ValidateSignup.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/home.jsp</file>
         </group>
     </open-files>
 </project-private>
