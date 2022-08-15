@@ -12,13 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.model.Books;
-import com.dao.BookDAO;
-import com.web.ValidateVendorRegistration;
-import com.secure.*;
+import com.model.*;
+import com.dao.*;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -33,16 +33,49 @@ import javax.servlet.http.Part;
 public class UploadBook extends HttpServlet {
 
     BookDAO bookDAO;
+    CategoryDAO categoryDao;
+    LanguageDAO languageDAO;
+    BookTypeDAO bookTypeDAO;
+    BookCoverDAO bookCoverDAO;
     ValidateVendorRegistration validateVendor;
 
     public void init() {
         bookDAO = new BookDAO();
+        categoryDao = new CategoryDAO();
+        languageDAO = new LanguageDAO();
+        bookTypeDAO = new BookTypeDAO();
+        bookCoverDAO = new BookCoverDAO();
         validateVendor = new ValidateVendorRegistration();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                if ((Integer) session.getAttribute("user_type") == 2) {
+                    List<Category> categories = categoryDao.selectAllCategory();
+                    List<Language> language = languageDAO.selectAllLanguage();
+                    List<BookCover> bookCover = bookCoverDAO.selectAllCoverType();
+                    List<BookType> bookType = bookTypeDAO.selectAllBookType();
+                    RequestDispatcher rd = request.getRequestDispatcher("vendor-book-upload.jsp");
+                    request.setAttribute("categories", categories);
+                    request.setAttribute("language", language);
+                    request.setAttribute("bookCover", bookCover);
+                    request.setAttribute("bookType", bookType);
+                    rd.forward(request, response);
+
+                } else {
+                    out.println("you are not allowed to access this page.");
+                }
+            } else {
+                out.println("Hey user, You should login first.");
+            }
+        } catch (Exception e) {
+            out.println(e);
+        }
     }
 
     @Override
@@ -67,34 +100,48 @@ public class UploadBook extends HttpServlet {
 
     public void insertBook(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException {
-        String bookname = request.getParameter("bookname");
-        long isbn = Long.parseLong(request.getParameter("isbn"));
-        int price = Integer.parseInt(request.getParameter("price"));
-        int discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
-        String category = request.getParameter("category");
-        String cover_type = request.getParameter("cover_type");
-        String language = request.getParameter("language");
-        String book_type = request.getParameter("book_type");
-        String publication = request.getParameter("publication");
-        int published_year = Integer.parseInt(request.getParameter("published_year"));
-        String description = request.getParameter("description");
-        String cover_photo = request.getParameter("cover_photo");
-        String cover_photo_name = request.getParameter("cover_photo_name");
-        String authorname = request.getParameter("authorname");
-        String message = "";
-        try {
-            Part pic_part = null;
-            pic_part = request.getPart("cover_photo");
-            String fileName = validateVendor.extractFileName(pic_part);
-            String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos" + File.separator + fileName;
-            File fileSaveDir = new File(imageSavePath);
-            pic_part.write(imageSavePath + File.separator);
-            Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,
-                    published_year, category, cover_type, language, book_type, description, imageSavePath, fileName);
-            bookDAO.insertBook(newBook);
-            response.sendRedirect("home");
-        } catch (Exception e) {
-            System.out.println(e);
+        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if ((int) session.getAttribute("user_type") == 2) {
+                String bookname = request.getParameter("bookname");
+                long isbn = Long.parseLong(request.getParameter("isbn"));
+                int price = Integer.parseInt(request.getParameter("price"));
+                int discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
+                int category = Integer.parseInt(request.getParameter("category"));
+                int cover_type = Integer.parseInt(request.getParameter("cover_type"));
+                int language = Integer.parseInt(request.getParameter("language"));
+                int book_type = Integer.parseInt(request.getParameter("book_type"));
+                String publication = request.getParameter("publication");
+                int published_year = Integer.parseInt(request.getParameter("published_year"));
+                String description = request.getParameter("description");
+                String authorname = request.getParameter("authorname");
+                int vendor_id = (int) session.getAttribute("id");
+
+                String message = "";
+                try {
+                    Part pic_part = null;
+                    pic_part = request.getPart("cover_photo");
+                    //String fileName = validateVendor.extractFileName(pic_part);
+                    String fileName = bookname + "-vendor" + vendor_id;
+                    //String contextPath = request.getContextPath();
+                    String contextPath = new File("").getAbsolutePath();
+                    System.out.println("Context Path: " + contextPath);
+                    String imageSavePath = contextPath + "\\web\\images\\book_cover_photos" + (int) session.getAttribute("id") + File.separator + fileName;
+                    File fileSaveDir = new File(imageSavePath);
+                    pic_part.write(imageSavePath + File.separator);
+                    Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,
+                            published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
+                    bookDAO.insertBook(newBook);
+                    response.sendRedirect("home");
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            } else {
+                out.println("you are not allowed to upload book!");
+            }
+        } else {
+            out.println("You must login first to upload books");
         }
     }
 

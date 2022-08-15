@@ -12,8 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.model.Vendors;
-import com.dao.VendorsDAO;
+import com.model.Users;
+import com.dao.UsersDAO;
 import com.secure.*;
 import java.io.File;
 import javax.servlet.RequestDispatcher;
@@ -24,19 +24,21 @@ import javax.servlet.http.Part;
  *
  * @author Umesh
  */
-@WebServlet(name = "ValidateVendorRegistration", urlPatterns = {"/ValidateVendorRegistration"})
+@WebServlet(name = "ValidateVendorRegistration", urlPatterns = {"/vendor_registration"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, //2mb
         maxFileSize = 1024 * 1024 * 10, //10mb
         maxRequestSize = 1024 * 1024 * 50)
 
 public class ValidateVendorRegistration extends HttpServlet {
 
-    private VendorsDAO vendorsDAO;
+    private UsersDAO vendorsDAO;
     private CheckEmail check;
+    private Encrypt encrypt;
 
     public void init() {
-        vendorsDAO = new VendorsDAO();
+        vendorsDAO = new UsersDAO();
         check = new CheckEmail();
+        encrypt = new Encrypt();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +53,8 @@ public class ValidateVendorRegistration extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("vendor_registrtion.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("vendor_registration.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -93,6 +96,9 @@ public class ValidateVendorRegistration extends HttpServlet {
             String email = request.getParameter("email");
             String _password1 = request.getParameter("password1");
             String _password2 = request.getParameter("password2");
+            String first_name = null;
+            String last_name = null;
+            int user_type = 2;
             String message = "";
             if (!store_name.equals("")) {
                 if (!email.equals("")) {
@@ -101,14 +107,15 @@ public class ValidateVendorRegistration extends HttpServlet {
                             if (_password1.equals(_password2)) {
                                 try {
                                     pic_part = request.getPart("profile_pic");
+                                    System.out.println("Pic Part: " + pic_part);
                                     String fileName = extractFileName(pic_part);
                                     String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles" + File.separator + fileName;
                                     File fileSaveDir = new File(imageSavePath);
                                     pic_part.write(imageSavePath + File.separator);
 
-                                    Vendors newVendor = new Vendors(store_name, phone_number, email, imageSavePath, _password1);
-                                    vendorsDAO.insertVendor(newVendor);
-                                    response.sendRedirect("vendorTemplate/vendor_registration.jsp");
+                                    Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, encrypt.encryptPassword(_password1), user_type);
+                                    vendorsDAO.insertUser(newVendor);
+                                    response.sendRedirect("vendor_registration.jsp");
                                 } catch (Exception e) {
                                     System.out.println(e);
                                 }

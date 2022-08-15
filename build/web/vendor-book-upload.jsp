@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +14,11 @@
         <title>Book upload form</title>
     </head>
     <body>
+        
+        <!--navigation section-->
+        <jsp:include page="navigation-bar.jsp"/>
+        <!--navigation section ends-->
+        
         <section class=" py-1 bg-blueGray-50">
             <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
@@ -37,7 +43,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Book full name
                                         </label>
-                                        <input name="bookname" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="bookname" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -45,7 +51,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             ISBN
                                         </label>
-                                        <input name="isbn" type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="isbn" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -53,7 +59,12 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Category
                                         </label>
-                                        <input name="category" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <select name="category" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                            <c:forEach var="category" items="${categories}">
+                                                <option value="${category.id}">${category.category_name}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <!--<input name="category" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -61,7 +72,12 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Cover Type
                                         </label>
-                                        <input name="cover_type" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <select name="cover_type" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                            <c:forEach var="cover" items="${bookCover}">
+                                                <option value="${cover.id}">${cover.cover_type}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <!--<input name="cover_type" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -69,7 +85,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Price
                                         </label>
-                                        <input name="price" type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-6/12 px-4">
@@ -77,7 +93,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Discounted price
                                         </label>
-                                        <input name="discounted_price" type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="discounted_price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">
@@ -85,7 +101,12 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Language
                                         </label>
-                                        <input name="language" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <select name="language" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                            <c:forEach var="language" items="${language}">
+                                                <option value="${language.id}">${language.language_name}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <!--<input name="language" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">
@@ -93,7 +114,12 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Book type
                                         </label>
-                                        <input name="book_type" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <select name="book_type" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                            <c:forEach var="type" items="${bookType}">
+                                                <option value="${type.id}">${type.type}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <!--<input name="book_type" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">
@@ -101,7 +127,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Postal Code
                                         </label>
-                                        <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +143,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Author full name
                                         </label>
-                                        <input name="authorname" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="authorname" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-8/12 px-4">
@@ -125,7 +151,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Publication name
                                         </label>
-                                        <input name="publication" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="publication" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                                 <div class="w-full lg:w-4/12 px-4">
@@ -133,7 +159,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Published date
                                         </label>
-                                        <input name="published_year" type="year" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                        <input name="published_year" type="year" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +175,7 @@
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             short book description
                                         </label>
-                                        <textarea name="description" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4" placeholder="Describe about book in 150/200 words. You can write the content from back of the book."></textarea>
+                                        <textarea name="description" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4" placeholder="Describe about book in 150/200 words. You can write the content from back of the book."></textarea>
                                     </div>
                                 </div>
                             </div>

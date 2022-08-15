@@ -42,8 +42,9 @@ public class home extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Session : "+request.getSession(false));
         List<Books> booklist = bookDAO.selectAllBooks();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         request.setAttribute("booklist", booklist);
         dispatcher.forward(request, response);
     }

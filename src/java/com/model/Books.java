@@ -2,16 +2,15 @@ package com.model;
 
 public class Books {
 
-    protected int id, price, discounted_price, published_year;
-    long isbn;
-    protected String name, category, description, cover_type, type;
-    protected String author, cover_photo, cover_photo_name, publication, language;
+    protected int id, category, cover_type, type, language, price, discounted_price, published_year, vendor_id;
+    protected long isbn;
+    protected String name, description, author, cover_photo, cover_photo_name, publication;
 
     public Books() {
     }
 
-    public Books(long isbn, String bookname, String authorname, String publication, int price, int discounted_price,
-            int published_year, String category, String cover_type, String language, String type, String description, String cover_photo, String cover_photo_name) {
+    public Books(long isbn, String bookname, String authorname, String publication, int price, int discounted_price, int published_year, int category,
+            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id) {
         super();
         this.isbn = isbn;
         this.name = bookname;
@@ -27,10 +26,11 @@ public class Books {
         this.cover_photo = cover_photo;
         this.cover_photo_name = cover_photo_name;
         this.description = description;
+        this.vendor_id = vendor_id;
     }
 
-    public Books(int id, long isbn, String bookname, String authorname, String publication, int price, int discounted_price,
-            int published_year, String category, String cover_type, String language, String type, String description, String cover_photo, String cover_photo_name) {
+    public Books(int id, long isbn, String bookname, String authorname, String publication, int price, int discounted_price, int published_year, int category,
+            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id) {
         super();
         this.id = id;
         this.isbn = isbn;
@@ -47,6 +47,7 @@ public class Books {
         this.cover_photo = cover_photo;
         this.cover_photo_name = cover_photo_name;
         this.description = description;
+        this.vendor_id = vendor_id;
     }
 
     public int getId() {
@@ -97,11 +98,11 @@ public class Books {
         this.price = price;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -113,27 +114,27 @@ public class Books {
         this.discounted_price = discounted_price;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public String getCover_type() {
+    public int getCover_type() {
         return cover_type;
     }
 
-    public void setCover_type(String cover_type) {
+    public void setCover_type(int cover_type) {
         this.type = cover_type;
     }
 
-    public String getLanguage() {
+    public int getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(int language) {
         this.language = language;
     }
 
@@ -144,7 +145,7 @@ public class Books {
     public void setCover_photo(String cover_photo) {
         this.cover_photo = cover_photo;
     }
-    
+
     public String getCover_photo_name() {
         return cover_photo_name;
     }
@@ -167,6 +168,14 @@ public class Books {
 
     public void setPublished_year(int published_year) {
         this.published_year = published_year;
+    }
+
+    public int getVendor_id() {
+        return vendor_id;
+    }
+
+    public void setVendor_id(int vendor_id) {
+        this.vendor_id = vendor_id;
     }
 
 }

@@ -19,6 +19,9 @@
         <title>Login Page</title>
     </head>
     <body>
+        <!--navigation section-->
+        <jsp:include page="navigation-bar.jsp"/>
+        <!--navigation section ends-->
         <!--        <main class="form-signin m-auto">
                     <div class="container-fluid">
                         <div class="row">
@@ -67,7 +70,7 @@
                                         <div class="text-center">
                                             <img
                                                 class="mx-auto w-28"
-                                                src="images/booklogo.png"
+                                                src="images/bookstack-logo.png"
                                                 alt="logo"
                                                 />
                                             <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">We are The Bookstack Team</h4>

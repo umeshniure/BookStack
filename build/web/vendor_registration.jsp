@@ -16,6 +16,11 @@
         <!-- Section: Design Block -->
     </head>
     <body>
+
+        <!--navigation section-->
+        <jsp:include page="navigation-bar.jsp"/>
+        <!--navigation section ends-->
+
         <section class="background-radial-gradient overflow-hidden">
             <style>
                 .background-radial-gradient {
@@ -81,7 +86,7 @@
 
                         <div class="card bg-glass">
                             <div class="card-body px-4 py-5 px-md-5">
-                                <form method="POST" action="ValidateVendorRegistration" enctype='multipart/form-data'>
+                                <form method="POST" action="vendor_registration" enctype='multipart/form-data'>
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
                                     <div class="form-outline mb-4">
                                         <input name="store_name" type="pphone" id="form3Example33" class="form-control" value="${store_name}"/>
@@ -140,8 +145,22 @@
                                     <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">
                                         Sign up
                                     </button>
+                                    <!-- Register buttons --> 
 
-                                    <!-- Register buttons -->                                    
+                                    <div class="flex items-center justify-between pb-6">
+                                        <span class="mb-0 mr-2">Already have vendor account?? </span>
+                                        <!--<button type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                                            data-mdb-ripple="true"
+                                            data-mdb-ripple-color="light">
+                                            Register
+                                        </button> -->
+                                        <a href ="login" type="button" class="btn btn-outline-primary float-right"
+                                           data-mdb-ripple="true"
+                                           data-mdb-ripple-color="light">
+                                            Sign in
+                                        </a>
+
+                                    </div>
                                 </form>
                             </div>
                         </div>

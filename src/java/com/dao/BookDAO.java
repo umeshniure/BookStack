@@ -2,7 +2,6 @@ package com.dao;
 
 import com.model.Books;
 import com.config.Config;
-import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,7 @@ public class BookDAO {
 
     private static final String SELECT_ALL_BOOKS = "select * from books";
     private static final String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,\n"
-            + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
     public List<Books> selectAllBooks() {
         List<Books> booklist = new ArrayList<>();
@@ -27,17 +26,18 @@ public class BookDAO {
                 String author = rs.getString("author");
                 int price = rs.getInt("price");
                 String publication = rs.getString("publication");
-                String category = rs.getString("category");
-                String cover_type = rs.getString("cover_type");
-                String language = rs.getString("language");
-                String type = rs.getString("type");
+                int category = rs.getInt("category");
+                int cover_type = rs.getInt("cover_type");
+                int language = rs.getInt("language");
+                int type = rs.getInt("type");
                 String description = rs.getString("description");
                 String cover_photo = rs.getString("cover_photo");
                 String cover_photo_name = rs.getString("cover_photo_name");
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
+                int vendor_id = rs.getInt("vendor_id");
                 booklist.add(new Books(isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name));
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
             }
 
         } catch (Exception e) {
@@ -54,13 +54,14 @@ public class BookDAO {
             ps.setString(3, newBook.getAuthorName());
             ps.setString(4, newBook.getPublication());
             ps.setLong(1, newBook.getISBN());
-            ps.setString(8, newBook.getCategory());
-            ps.setString(9, newBook.getCover_type());
-            ps.setString(10, newBook.getLanguage());
+            ps.setInt(8, newBook.getCategory());
+            ps.setInt(9, newBook.getCover_type());
+            ps.setInt(10, newBook.getLanguage());
             ps.setString(12, newBook.getDescription());
-            ps.setString(11, newBook.getType());
+            ps.setInt(11, newBook.getType());
             ps.setString(13, newBook.getCover_photo());
             ps.setString(14, newBook.getCover_photo_name());
+            ps.setInt(15, newBook.getVendor_id());
             ps.setInt(5, newBook.getPrice());
             ps.setInt(6, newBook.getDiscounted_price());
             ps.setInt(7, newBook.getPublished_year());

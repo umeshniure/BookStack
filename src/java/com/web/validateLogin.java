@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -76,13 +77,16 @@ public class validateLogin extends HttpServlet {
             if (!_email.equals("") && !_password.equals("")) {
                 if (checkemail.emailValidity(_email)) {
                     if (rs.next()) {
-                        response.sendRedirect("welcomePage.html");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("id", rs.getInt("id"));
+                        session.setAttribute("user_type", rs.getInt("user_type"));
+                        response.sendRedirect("home.jsp");
                     } else {
                         message = "Incorect email or password!";
                         passvalue(request, response, _email, message);
                     }
                 } else {
-                    message = "Invalid email address!";
+                    message = "Invalid email format!";
                     passvalue(request, response, _email, message);
                 }
             } else {
