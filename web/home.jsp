@@ -70,12 +70,12 @@
 
 
         <div class="flex">
-            <div class="flex flex-col w-64 h-screen px-4 py-8">
+            <div class="flex flex-col w-64 h-screen px-4 py-8 hidden md:table-cell">
                 <div class="flex flex-col mt-4">
                     <!--sidebar section-->
-                    <aside class="w-64" aria-label="Sidebar">
+                    <aside class="w-64 text-black" aria-label="Sidebar">
                         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
-                            <ul class="space-y-2">
+                            <ul class="space-y-2 text-black ">
                                 <li>
                                     <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                         <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
@@ -158,22 +158,21 @@
                 <div class="flex p-2 border-4 border-dotted ">
                     <!--product list section-->
                     <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <h3 class="text-2xl font-bold tracking-tight text-gray-900">Bestsellers</h3>
-
+                        <h3 class="text-2xl font-bold tracking-tight text-gray-900">New Arrivals</h3>
 
                         <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                             <c:forEach var="book" items="${booklist}">
                                 <div class="group relative mr-3">
-                                    <a href="#">
+                                    <a href="${pageContext.request.contextPath}/book-detail?id=<c:out value='${book.id}'/>">
                                         <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
-                                            <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="Book Cover Page" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+                                            <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
                                         </div>
                                     </a>
                                     <div class="mt-4 flex justify-between">
                                         <div class="overflow-hidden">
                                             <h3 class="text-sm text-gray-700">
-                                                <a href="#">
-                                                    <span aria-hidden="true" class="absolute"></span>
+                                                <a href="#" class="line-clamp-1" title="<c:out value='${book.name}'/>" >
+                                                    <span aria-hidden="true" class="absolute line-clamp-1" ></span>
                                                     <c:out value="${book.name}"/>
                                                 </a>
                                             </h3>
@@ -195,6 +194,49 @@
                     </div>
                     <!--product list section-->
                 </div>
+
+
+                <div class="flex p-2 border-4 border-dotted mt-3">
+                    <!--product list section--> 
+                    <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                        <h3 class="text-2xl font-bold tracking-tight text-gray-900">Bestsellers</h3>
+
+                        <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                            <c:forEach var="book" items="${booklist}">
+                                <div class="group relative mr-3">
+                                    <a href="home/book-detail?id=<c:out value='${book.id}'/>" title="<c:out value='${book.name}'/>" >
+                                        <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
+                                            <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="Book Cover Page" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+                                        </div>
+                                    </a>
+                                    <div class="mt-4 flex justify-between">
+                                        <div class="overflow-hidden">
+                                            <h3 class="text-sm text-gray-700">
+                                                <a href="#" class="line-clamp-1" title="<c:out value='${book.name}'/>" >
+                                                    <span aria-hidden="true" class="absolute line-clamp-1" ></span>
+                                                    <c:out value="${book.name}"/>
+                                                </a>
+                                            </h3>
+                                            <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category}" /></p>
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-900"><c:out value="${book.price}" /></p>                                    
+                                    </div>
+                                    <div class="mt-2">
+                                        <a href="addtocart"><button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                                Add to cart
+                                            </button></a>
+                                    </div>
+                                </div>
+                                <!-- More products... -->
+                            </c:forEach>
+                        </div>
+
+
+                    </div>
+                    <!--product list section-->
+                </div>
+
+
             </div>
         </div>
 

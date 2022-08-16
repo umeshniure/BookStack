@@ -13,6 +13,7 @@ public class BookDAO {
     private static final String SELECT_ALL_BOOKS = "select * from books";
     private static final String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,\n"
             + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
 
     public List<Books> selectAllBooks() {
         List<Books> booklist = new ArrayList<>();
@@ -21,6 +22,7 @@ public class BookDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BOOKS);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 long isbn = rs.getLong("isbn");
                 String author = rs.getString("author");
@@ -36,7 +38,7 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
-                booklist.add(new Books(isbn, name, author, publication, price, discounted_price,
+                booklist.add(new Books(id, isbn, name, author, publication, price, discounted_price,
                         published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
             }
 
@@ -69,5 +71,39 @@ public class BookDAO {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public List<Books> selectBook(int id) {
+        List<Books> bookDetail = new ArrayList<>();
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+                String name = rs.getString("name");
+                long isbn = rs.getLong("isbn");
+                String author = rs.getString("author");
+                int price = rs.getInt("price");
+                String publication = rs.getString("publication");
+                int category = rs.getInt("category");
+                int cover_type = rs.getInt("cover_type");
+                int language = rs.getInt("language");
+                int type = rs.getInt("type");
+                String description = rs.getString("description");
+                String cover_photo = rs.getString("cover_photo");
+                String cover_photo_name = rs.getString("cover_photo_name");
+                int discounted_price = rs.getInt("discounted_price");
+                int published_year = rs.getInt("published_year");
+                int vendor_id = rs.getInt("vendor_id");
+                bookDetail.add(new Books(id, isbn, name, author, publication, price, discounted_price,
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bookDetail;
     }
 }

@@ -21,7 +21,7 @@
         
         <!--navigation section-->
         <jsp:include page="navigation-bar.jsp"/>
-        <!--navigation section ends-->
+        <!--navigation section ends--> 
 
         <section class="h-full gradient-form bg-gray-200">
             <div class="container py-12 px-6 h-full">

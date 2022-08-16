@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.config.Config;
 import com.dao.BookDAO;
 import com.model.Books;
+import java.sql.SQLException;
 
 /**
  *
@@ -40,23 +41,55 @@ public class home extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Session : "+request.getSession(false));
+        String action = request.getServletPath();
+        System.out.println("servlet path = " + action);
+        try {
+            switch (action) {
+                case ("/book-detail"):
+                    showBookDetail(request, response);
+                    break;
+//                case ("/insert"):
+//                    insertUser(request, response);
+//                    break;
+//                case ("/delete"):
+//                    deleteUser(request, response);
+//                    break;
+//                case ("/edit"):
+//                    showEditForm(request, response);
+//                    break;
+//                case ("/update"):
+//                    updateUser(request, response);
+//                    break;
+                default:
+                    showHome(request, response);
+                    break;
+            }
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        }
+    }
+
+    public void showBookDetail(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        List<Books> bookDetail = bookDAO.selectBook(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("book-detail.jsp");
+        request.setAttribute("listUser", bookDetail);
+        dispatcher.forward(request, response);
+    }
+
+    public void showHome(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("Session : " + request.getSession(false));
         List<Books> booklist = bookDAO.selectAllBooks();
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         request.setAttribute("booklist", booklist);
         dispatcher.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
