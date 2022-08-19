@@ -134,7 +134,7 @@
                                     </c:if>
 
                                     <!-- Checkbox -->
-                                    <div class="form-check d-flex justify-content-center mb-4">
+                                    <div class="form-check d-flex justify-content-left mb-4">
                                         <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" required/>
                                         <label class="form-check-label" for="form2Example33">
                                             I herby accept all the terms and conditions presented by Bookstack
@@ -142,11 +142,11 @@
                                     </div>
 
                                     <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">
+                                    <button type="submit" class="btn btn-primary btn-block mb-4 text-blue-600" style="width: 100%;">
                                         Sign up
                                     </button>
                                     <!-- Register buttons --> 
-
+                                    <label class=" d-flex justify-content-center">-------------------- OR --------------------</label>
                                     <div class="flex items-center justify-between pb-6">
                                         <span class="mb-0 mr-2">Already have vendor account?? </span>
                                         <!--<button type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"

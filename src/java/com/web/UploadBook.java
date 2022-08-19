@@ -123,11 +123,11 @@ public class UploadBook extends HttpServlet {
                     Part pic_part = null;
                     pic_part = request.getPart("cover_photo");
                     //String fileName = validateVendor.extractFileName(pic_part);
-                    String fileName = bookname + "-vendor" + vendor_id;
+                    String fileName = bookname + "-vendor" + vendor_id + ".png";
                     //String contextPath = request.getContextPath();
                     String contextPath = new File("").getAbsolutePath();
                     System.out.println("Context Path: " + contextPath);
-                    String imageSavePath = contextPath + "\\web\\images\\book_cover_photos" + (int) session.getAttribute("id") + File.separator + fileName;
+                    String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos" + File.separator + fileName;
                     File fileSaveDir = new File(imageSavePath);
                     pic_part.write(imageSavePath + File.separator);
                     Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,

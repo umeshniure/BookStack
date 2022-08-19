@@ -42,7 +42,7 @@
                     <ol role="list" class="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
                         <li>
                             <div class="flex items-center">
-                                <a href="#" class="mr-2 text-sm font-medium text-gray-900"> Men </a>
+                                <a href="#" class="mr-2 text-sm font-medium text-gray-900"> home </a>
                                 <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                                 </svg>
@@ -51,7 +51,7 @@
 
                         <li>
                             <div class="flex items-center">
-                                <a href="#" class="mr-2 text-sm font-medium text-gray-900"> Clothing </a>
+                                <a href="#" class="mr-2 text-sm font-medium text-gray-900"> Books </a>
                                 <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                                 </svg>
@@ -64,19 +64,20 @@
                     </ol>
                 </nav>
 
-                <!-- Image gallery -->
+                <!-- Image gallery -->                
                 <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
                     <div class="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 lg:border-r lg:border-gray-200 lg:pr-8 lg:block">
-                        <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg" alt="Model wearing plain white basic tee." class="w-full h-full object-center object-cover">
+                        <img src="images/book_cover_photos/<c:out value='${book.cover_photo_name}'/>" alt="<c:out value='${book.name}'/>" class="w-full h-full object-center object-cover">
                     </div>
-<!--                    <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden sm:rounded-lg sm:overflow-hidden  ">
-                        <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
-                    </div>-->
+                    <!-- <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden sm:rounded-lg sm:overflow-hidden  ">
+                         <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
+                     </div>-->
 
                     <!-- Options -->
                     <div class="mt-4 lg:mt-0 lg:row-span-1 sm:ml-2 sm:mr-2">
+                        <p class="tracking-tight text-3xl"><c:out value='${book.name}'/></p>
                         <h2 class="sr-only">Product information</h2>
-                        <p class="tracking-tight text-3xl text-gray-900">$192</p>
+                        <p class="tracking-tight text-xl text-gray-900 mt-2">By <a href="#" class="font-bold-medium text-purple-800"> ${book.author} </a></p>
 
                         <!-- Reviews -->
                         <div class="mt-6">
@@ -117,45 +118,20 @@
                             </div>
                         </div>
 
-                        <form class="mt-10">
+                        <div class="mt-4">
+                            <p class="tracking-tight text-xl text-gray-900 mt-2">NPR <c:out value='${book.price}'/></p>
+                        </div>
+
+
+                        <div class="mt-5">
                             <!-- Colors -->
                             <div>
-                                <h3 class="text-sm text-gray-900 font-medium">Color</h3>
+                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${category.category_name}'/> </a> </h3>
+                                <h3 class="text-md text-gray-900 font-medium mt-2">ISBN:  <c:out value='${book.isbn}'/> </h3>
+                            </div>
 
-                                <fieldset class="mt-4">
-                                    <legend class="sr-only">Choose a color</legend>
-                                    <div class="flex items-center space-x-3">
-                                        <!--
-                                          Active and Checked: "ring ring-offset-1"
-                                          Not Active and Checked: "ring-2"
-                                        -->
-                                        <label class="-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none ring-gray-400">
-                                            <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label">
-                                            <span id="color-choice-0-label" class="sr-only"> White </span>
-                                            <span aria-hidden="true" class="h-8 w-8 bg-white border border-black border-opacity-10 rounded-full"></span>
-                                        </label>
-
-                                        <!--
-                                          Active and Checked: "ring ring-offset-1"
-                                          Not Active and Checked: "ring-2"
-                                        -->
-                                        <label class="-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none ring-gray-400">
-                                            <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label">
-                                            <span id="color-choice-1-label" class="sr-only"> Gray </span>
-                                            <span aria-hidden="true" class="h-8 w-8 bg-gray-200 border border-black border-opacity-10 rounded-full"></span>
-                                        </label>
-
-                                        <!--
-                                          Active and Checked: "ring ring-offset-1"
-                                          Not Active and Checked: "ring-2"
-                                        -->
-                                        <label class="-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none ring-gray-900">
-                                            <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label">
-                                            <span id="color-choice-2-label" class="sr-only"> Black </span>
-                                            <span aria-hidden="true" class="h-8 w-8 bg-gray-900 border border-black border-opacity-10 rounded-full"></span>
-                                        </label>
-                                    </div>
-                                </fieldset>
+                            <div class="mt-5">
+                                <h3 class="text-md text-gray-900 font-medium">Seller:  <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${vendor.store_name}'/> </a> </h3>
                             </div>
 
                             <!-- Sizes -->
@@ -163,130 +139,29 @@
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-sm text-gray-900 font-medium">Size</h3>
                                     <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
-                                </div>
-
-                                <fieldset class="mt-4">
-                                    <legend class="sr-only">Choose a size</legend>
-                                    <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-gray-50 text-gray-200 cursor-not-allowed">
-                                            <input type="radio" name="size-choice" value="XXS" disabled class="sr-only" aria-labelledby="size-choice-0-label">
-                                            <span id="size-choice-0-label"> XXS </span>
-
-                                            <span aria-hidden="true" class="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none">
-                                                <svg class="absolute inset-0 w-full h-full text-gray-200 stroke-2" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                                                <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                                                </svg>
-                                            </span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
-                                            <span id="size-choice-1-label"> XS </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="S" class="sr-only" aria-labelledby="size-choice-2-label">
-                                            <span id="size-choice-2-label"> S </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label">
-                                            <span id="size-choice-3-label"> M </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
-                                            <span id="size-choice-4-label"> L </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label">
-                                            <span id="size-choice-5-label"> XL </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="2XL" class="sr-only" aria-labelledby="size-choice-6-label">
-                                            <span id="size-choice-6-label"> 2XL </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-
-                                        <!-- Active: "ring-2 ring-indigo-500" -->
-                                        <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
-                                            <input type="radio" name="size-choice" value="3XL" class="sr-only" aria-labelledby="size-choice-7-label">
-                                            <span id="size-choice-7-label"> 3XL </span>
-
-                                            <!--
-                                              Active: "border", Not Active: "border-2"
-                                              Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                            -->
-                                            <span class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></span>
-                                        </label>
-                                    </div>
-                                </fieldset>
+                                </div>                                    
                             </div>
 
                             <button type="submit" class="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add to bag</button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </div>                
 
                 <!-- Product info -->
                 <div class="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
                     <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:tracking-tight sm:text-3xl">Basic Tee 6-Pack</h1>
+                        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:tracking-tight sm:text-3xl">Description</h1>
                     </div>  
-                    
+
                     <!--add to cart portion here-->
 
                     <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                         <!-- Description and details -->
                         <div>
-                            <h3 class="sr-only">Description</h3>
+                            <h3 class="sr-only">Synopsis</h3>
 
                             <div class="space-y-6">
-                                <p class="text-base text-gray-900">The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: &quot;Black&quot;. Need to add an extra pop of color to your outfit? Our white tee has you covered.</p>
+                                <p class="text-base text-gray-900"> <c:out value='${book.description}'/> </p>
                             </div>
                         </div>
 
@@ -295,13 +170,24 @@
 
                             <div class="mt-4">
                                 <ul role="list" class="pl-4 list-disc text-sm space-y-2">
-                                    <li class="text-gray-400"><span class="text-gray-600">Hand cut and sewn locally</span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Book name: <c:out value='${book.name}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600">Dyed with our proprietary colors</span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Author: <c:out value='${book.author}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600">Pre-washed &amp; pre-shrunk</span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> ISBN: <c:out value='${book.isbn}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600">Ultra-soft 100% cotton</span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Category: <c:out value='${category.category_name}'/> </span></li>
+
+                                    <li class="text-gray-400"><span class="text-gray-600"> Published year: <c:out value='${book.published_year}'/> </span></li>
+
+                                    <li class="text-gray-400"><span class="text-gray-600"> Language: <c:out value='${language.language_name}'/> </span></li>
+
+                                    <li class="text-gray-400"><span class="text-gray-600"> Cover type: <c:out value='${coverType.cover_type}'/> </span></li>
+
+                                    <li class="text-gray-400"><span class="text-gray-600"> Book type: <c:out value='${bookType.type}'/> </span></li>
+
+                                    <li class="text-gray-400"><span class="text-gray-600"> Seller: <c:out value='${vendor.store_name}'/> </span></li>                                        
+
                                 </ul>
                             </div>
                         </div>

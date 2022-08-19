@@ -53,9 +53,9 @@ public class BookDAO {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(INSERT_BOOK_SQL);
             ps.setString(2, newBook.getName());
-            ps.setString(3, newBook.getAuthorName());
+            ps.setString(3, newBook.getAuthor());
             ps.setString(4, newBook.getPublication());
-            ps.setLong(1, newBook.getISBN());
+            ps.setLong(1, newBook.getIsbn());
             ps.setInt(8, newBook.getCategory());
             ps.setInt(9, newBook.getCover_type());
             ps.setInt(10, newBook.getLanguage());
@@ -73,8 +73,8 @@ public class BookDAO {
         }
     }
 
-    public List<Books> selectBook(int id) {
-        List<Books> bookDetail = new ArrayList<>();
+    public Books selectBook(int id) {
+        Books bookDetail = new Books();
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_ID);
@@ -88,6 +88,7 @@ public class BookDAO {
                 int price = rs.getInt("price");
                 String publication = rs.getString("publication");
                 int category = rs.getInt("category");
+
                 int cover_type = rs.getInt("cover_type");
                 int language = rs.getInt("language");
                 int type = rs.getInt("type");
@@ -97,7 +98,7 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
-                bookDetail.add(new Books(id, isbn, name, author, publication, price, discounted_price,
+                bookDetail = (new Books(id, isbn, name, author, publication, price, discounted_price,
                         published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
             }
 

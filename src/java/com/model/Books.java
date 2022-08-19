@@ -58,11 +58,11 @@ public class Books {
         this.id = id;
     }
 
-    public long getISBN() {
+    public long getIsbn() {
         return isbn;
     }
 
-    public void setISBN(long isbn) {
+    public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
 
@@ -74,11 +74,11 @@ public class Books {
         this.name = bookname;
     }
 
-    public String getAuthorName() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthorName(String authorname) {
+    public void setAuthor(String authorname) {
         this.author = authorname;
     }
 

@@ -5,7 +5,6 @@
 package com.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,41 +13,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.config.Config;
-import com.dao.BookDAO;
-import com.model.Books;
-import java.sql.SQLException;
+import com.dao.*;
+import com.model.*;
 
-/**
- *
- * @author Umesh
- */
 @WebServlet(name = "home", urlPatterns = {"/home"})
 public class home extends HttpServlet {
 
     private BookDAO bookDAO;
+    private CategoryDAO categoryDAO;
+    private LanguageDAO languageDAO;
+    private BookCoverDAO bookCoverDAO;
+    private BookTypeDAO bookTypeDAO;
+    private UsersDAO userDAO;
 
     public void init() {
         bookDAO = new BookDAO();
+        categoryDAO = new CategoryDAO();
+        languageDAO = new LanguageDAO();
+        bookCoverDAO = new BookCoverDAO();
+        bookTypeDAO = new BookTypeDAO();
+        userDAO = new UsersDAO();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getServletPath();
-        System.out.println("servlet path = " + action);
+//        String path = request.getServletPath();
+        String path = request.getParameter("action");
+        if (path == null) {
+            path = "";
+        }
+        System.out.println("Servlet call edin home jsp >>>>>>");
+        System.out.println("servlet path = " + path);
         try {
-            switch (action) {
-                case ("/book-detail"):
+            switch (path) {
+                case ("book-detail"):
                     showBookDetail(request, response);
                     break;
 //                case ("/insert"):
@@ -68,23 +67,39 @@ public class home extends HttpServlet {
                     break;
             }
         } catch (Exception ex) {
+            System.out.println("catch exception page");
+            System.out.println(ex);
             throw new ServletException(ex);
         }
     }
 
     public void showBookDetail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        List<Books> bookDetail = bookDAO.selectBook(id);
+        String bookno = request.getParameter("id");
+        if (bookno.equals("")) {
+            bookno = "" + 0;
+        }
+        int id = Integer.parseInt(bookno);
+        Books bookDetail = bookDAO.selectBook(id);
+        Category category = categoryDAO.selectCategory(bookDetail.getCategory());
+        Language language = languageDAO.selectLanguage(bookDetail.getLanguage());
+        BookCover coverType = bookCoverDAO.selectBookCover(bookDetail.getCover_type());
+        BookType bookType = bookTypeDAO.selectBookType(bookDetail.getType());
+        Users vendor = userDAO.selectUser(bookDetail.getVendor_id());
         RequestDispatcher dispatcher = request.getRequestDispatcher("book-detail.jsp");
-        request.setAttribute("listUser", bookDetail);
+        request.setAttribute("book", bookDetail);
+        request.setAttribute("category", category);
+        request.setAttribute("language", language);
+        request.setAttribute("coverType", coverType);
+        request.setAttribute("bookType", bookType);
+        request.setAttribute("vendor", vendor);
         dispatcher.forward(request, response);
     }
 
     public void showHome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Session : " + request.getSession(false));
         List<Books> booklist = bookDAO.selectAllBooks();
+//        Category category = categoryDAO.selectCategory(booklist.category);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         request.setAttribute("booklist", booklist);
         dispatcher.forward(request, response);

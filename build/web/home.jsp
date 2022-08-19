@@ -67,7 +67,7 @@
             </button>
         </div>
         <!--carausal section end-->
-
+        
 
         <div class="flex">
             <div class="flex flex-col w-64 h-screen px-4 py-8 hidden md:table-cell">
@@ -163,7 +163,7 @@
                         <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                             <c:forEach var="book" items="${booklist}">
                                 <div class="group relative mr-3">
-                                    <a href="${pageContext.request.contextPath}/book-detail?id=<c:out value='${book.id}'/>">
+                                    <a href="<c:out value='home?action=book-detail&id=${book.id}'/>">
                                         <div class="w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none">
                                             <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-full h-full object-center object-cover lg:w-full lg:h-full">
                                         </div>
@@ -194,7 +194,7 @@
                     </div>
                     <!--product list section-->
                 </div>
-
+                <hr>
 
                 <div class="flex p-2 border-4 border-dotted mt-3">
                     <!--product list section--> 
