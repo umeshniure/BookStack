@@ -151,11 +151,11 @@
                     </aside>
                     <!--sidebar section end-->
                 </div>
-            </div>
+            </div>           
 
 
-            <div class="w-full h-full p-4 m-8">
-                <div class="flex p-2 border-4 border-dotted ">
+            <div class="w-full h-full m-8">
+                <div class="flex p-2">
                     <!--product list section-->
                     <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">New Arrivals</h3>
@@ -169,7 +169,7 @@
                                         </div>
                                     </a>
                                     <div class="mt-4 flex justify-between">
-                                        <div class="overflow-hidden">
+                                        <div class="overflow-hidden ">
                                             <h3 class="text-sm text-gray-700">
                                                 <a href="#" class="line-clamp-1" title="<c:out value='${book.name}'/>" >
                                                     <span aria-hidden="true" class="absolute line-clamp-1" ></span>
@@ -182,12 +182,24 @@
                                                 </c:if>
                                             </c:forEach>
                                         </div>
-                                        <p class="text-sm font-medium text-gray-900"><c:out value="${book.price}" /></p>                                    
+                                        <c:if test="${book.discounted_price != ''}">
+                                            <div class="overflow-hidden">
+                                                <p class="text-lbaseg font-medium text-gray-900">NPR. <c:out value="${book.discounted_price}" /></p>
+                                                <p class="text-xs font-medium text-gray-900 line-through">NPR. <c:out value="${book.price}" /></p>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${book.discounted_price == ''}">
+                                            <div class="overflow-hidden">
+                                                <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.price}" /></p>
+                                            </div>
+                                        </c:if>
                                     </div>
                                     <div class="mt-2">
-                                        <a href="addtocart"><button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                        <a href="addtocart">
+                                            <button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
                                                 Add to cart
-                                            </button></a>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- More products... -->
@@ -199,9 +211,8 @@
                     </div>
                     <!--product list section-->
                 </div>
-                <hr>
 
-                <div class="flex p-2 border-4 border-dotted mt-3">
+                <div class="flex p-2">
                     <!--product list section--> 
                     <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">Bestsellers</h3>
@@ -222,9 +233,23 @@
                                                     <c:out value="${book.name}"/>
                                                 </a>
                                             </h3>
-                                            <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category}" /></p>
+                                            <c:forEach var="category" items="${category}">
+                                                <c:if test="${book.category == category.id}">
+                                                    <p class="mt-1 text-sm text-gray-500"><c:out value="${category.category_name}" /></p>                                                    
+                                                </c:if>
+                                            </c:forEach>
                                         </div>
-                                        <p class="text-sm font-medium text-gray-900"><c:out value="${book.price}" /></p>                                    
+                                        <c:if test="${book.discounted_price != ''}">
+                                            <div class="overflow-hidden">
+                                                <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.discounted_price}" /></p>
+                                                <p class="text-xs font-medium text-gray-900 line-through">NPR. <c:out value="${book.price}" /></p>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${book.discounted_price == ''}">
+                                            <div class="overflow-hidden">
+                                                <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.price}" /></p>
+                                            </div>
+                                        </c:if>                                    
                                     </div>
                                     <div class="mt-2">
                                         <a href="addtocart"><button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">

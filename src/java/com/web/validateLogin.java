@@ -80,7 +80,7 @@ public class validateLogin extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute("id", rs.getInt("id"));
                         session.setAttribute("user_type", rs.getInt("user_type"));
-                        response.sendRedirect("home.jsp");
+                        response.sendRedirect("home");
                     } else {
                         message = "Incorect email or password!";
                         passvalue(request, response, _email, message);

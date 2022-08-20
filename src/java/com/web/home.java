@@ -98,6 +98,7 @@ public class home extends HttpServlet {
 
     public void showHome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Session id: -->"+request.getSession(false).getAttribute("user_type"));
         List<Books> booklist = bookDAO.selectAllBooks();
         List<Category> category = categoryDAO.selectAllCategory();
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");

@@ -119,15 +119,15 @@
                         </div>
 
                         <div class="mt-4">
-                            <p class="tracking-tight text-xl text-gray-900 mt-2">NPR <c:out value='${book.price}'/></p>
+                            <p class="tracking-tight text-xl text-gray-900 mt-2">NPR. <c:out value='${book.price}'/></p>
                         </div>
 
 
                         <div class="mt-5">
                             <!-- Colors -->
                             <div>
-                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${category.category_name}'/> </a> </h3>
                                 <h3 class="text-md text-gray-900 font-medium mt-2">ISBN:  <c:out value='${book.isbn}'/> </h3>
+                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${category.category_name}'/> </a> </h3>
                             </div>
 
                             <div class="mt-5">

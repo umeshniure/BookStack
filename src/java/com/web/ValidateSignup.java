@@ -5,11 +5,12 @@ package com.web;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import com.config.Config;
+import com.dao.UsersDAO;
+import com.model.Users;
 import com.secure.CheckEmail;
 import com.secure.Encrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,10 +27,12 @@ public class ValidateSignup extends HttpServlet {
 
     private Encrypt encrypt;
     private CheckEmail checkemail;
+    private UsersDAO userDAO;
 
     public void init() {
         encrypt = new Encrypt();
         checkemail = new CheckEmail();
+        userDAO = new UsersDAO();
     }
 
     public void passValue(HttpServletRequest request, HttpServletResponse response, String _firstname, String _lastname,
@@ -61,44 +64,35 @@ public class ValidateSignup extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String _firstname = request.getParameter("firstname");
-        String _lastname = request.getParameter("lastname");
-        String _email = request.getParameter("email");
+        String first_name = request.getParameter("firstname");
+        String last_name = request.getParameter("lastname");
+        String email = request.getParameter("email");
         String _password1 = request.getParameter("password");
         String _password2 = request.getParameter("password2");
-
+        int user_type = 1;
+        String store_name = null;
+        long phone_number = 0;
+        String imageSavePath = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = Config.getConnection();
-            PreparedStatement stmt = con.prepareStatement("insert into users(firstname, lastname, email, password ) values(?,?,?,?)");
-            String message = " ";
-
-            RequestDispatcher rd = request.getRequestDispatcher("SignUp.jsp");
-            if (!_email.equals("") && !_password1.equals("") && !_password2.equals("")) {
-                if (checkemail.emailValidity(_email)) {
+            String message;
+            if (!email.equals("") && !_password1.equals("") && !_password2.equals("")) {
+                if (checkemail.emailValidity(email)) {
                     if (_password1.equals(_password2)) {
-                        out.println(_firstname);
-                        stmt.setString(1, _firstname);
-                        stmt.setString(2, _lastname);
-                        stmt.setString(3, _email);
-                        stmt.setString(4, encrypt.encryptPassword(_password1));
-                        int status = stmt.executeUpdate();
-                        if (status > 0) {
-                            out.print("Successfully registered!");
-                        }
+                        Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, encrypt.encryptPassword(_password1), user_type);
+                        userDAO.insertUser(newuser);
+                        response.sendRedirect("login");
                     } else {
                         message = "The passwords didnot match!";
-                        passValue(request, response, _firstname, _lastname, _email, message);
+                        passValue(request, response, first_name, last_name, email, message);
                     }
                 } else {
                     message = "Invalid email address!";
-                    passValue(request, response, _firstname, _lastname, _email, message);
+                    passValue(request, response, first_name, last_name, email, message);
                 }
             } else {
                 message = "Empty email or password!";
-                passValue(request, response, _firstname, _lastname, _email, message);
+                passValue(request, response, first_name, last_name, email, message);
             }
-            con.close();
 
         } catch (Exception e) {
             out.println(e);

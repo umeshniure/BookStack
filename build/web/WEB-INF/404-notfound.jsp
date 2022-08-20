@@ -53,33 +53,35 @@
 
                     <div class="flex flex-col items-stretch mt-5">
                         <!-- Nav Item #1 -->
-                        <div class="flex flex-row group px-4 py-8
-                             border-t hover:cursor-pointer
-                             transition-all duration-200 delay-100">
+                        <a href="home">
+                            <div class="flex flex-row group px-4 py-8
+                                 border-t hover:cursor-pointer
+                                 transition-all duration-200 delay-100">
 
-                            <!-- Nav Icon -->
-                            <div class="rounded-xl bg-blue-100 px-3 py-2 md:py-4">
-                                <i class="mdi mdi-home-outline mx-auto
-                                   text-indigo-900 text-2xl md:text-3xl"></i>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="grow flex flex-col pl-5 pt-2">
-                                <div class="font-bold text-sm md:text-lg lg:text-xl group-hover:underline">
-                                    Home Page
+                                <!-- Nav Icon -->
+                                <div class="rounded-xl bg-blue-100 px-3 py-2 md:py-4">
+                                    <i class="mdi mdi-home-outline mx-auto
+                                       text-indigo-900 text-2xl md:text-3xl"></i>
                                 </div>
 
-                                <div class="font-semibold text-sm md:text-md lg:text-lg
-                                     text-gray-400 group-hover:text-gray-500
-                                     transition-all duration-200 delay-100">
-                                    Everything starts here
-                                </div>
-                            </div>
+                                <!-- Text -->
+                                <div class="grow flex flex-col pl-5 pt-2">
+                                    <div class="font-bold text-sm md:text-lg lg:text-xl group-hover:underline">
+                                        Home Page
+                                    </div>
 
-                            <!-- Chevron -->
-                            <i class="mdi mdi-chevron-right text-gray-400 mdi-24px my-auto pr-2
-                               group-hover:text-gray-700 transition-all duration-200 delay-100"></i>
-                        </div>
+                                    <div class="font-semibold text-sm md:text-md lg:text-lg
+                                         text-gray-400 group-hover:text-gray-500
+                                         transition-all duration-200 delay-100">
+                                        Everything starts here
+                                    </div>
+                                </div>
+
+                                <!-- Chevron -->
+                                <i class="mdi mdi-chevron-right text-gray-400 mdi-24px my-auto pr-2
+                                   group-hover:text-gray-700 transition-all duration-200 delay-100"></i>
+                            </div>
+                        </a>
 
                         <!-- Nav Item #2 -->
                         <div class="flex flex-row group px-4 py-8
