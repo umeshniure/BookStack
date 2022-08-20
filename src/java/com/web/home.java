@@ -99,9 +99,10 @@ public class home extends HttpServlet {
     public void showHome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Books> booklist = bookDAO.selectAllBooks();
-//        Category category = categoryDAO.selectCategory(booklist.category);
+        List<Category> category = categoryDAO.selectAllCategory();
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         request.setAttribute("booklist", booklist);
+        request.setAttribute("category", category);
         dispatcher.forward(request, response);
     }
 

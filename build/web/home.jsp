@@ -67,7 +67,7 @@
             </button>
         </div>
         <!--carausal section end-->
-        
+
 
         <div class="flex">
             <div class="flex flex-col w-64 h-screen px-4 py-8 hidden md:table-cell">
@@ -176,7 +176,11 @@
                                                     <c:out value="${book.name}"/>
                                                 </a>
                                             </h3>
-                                            <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category}" /></p>
+                                            <c:forEach var="category" items="${category}">
+                                                <c:if test="${book.category == category.id}">
+                                                    <p class="mt-1 text-sm text-gray-500"><c:out value="${category.category_name}" /></p>                                                    
+                                                </c:if>
+                                            </c:forEach>
                                         </div>
                                         <p class="text-sm font-medium text-gray-900"><c:out value="${book.price}" /></p>                                    
                                     </div>
@@ -187,6 +191,7 @@
                                     </div>
                                 </div>
                                 <!-- More products... -->
+
                             </c:forEach>
                         </div>
 
