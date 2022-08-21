@@ -1,2 +1,2 @@
 # BookStack
-an online book ordering service currentlu on development phase
+an online book ordering service currently on development phase!
