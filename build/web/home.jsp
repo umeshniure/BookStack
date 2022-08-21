@@ -195,11 +195,14 @@
                                         </c:if>
                                     </div>
                                     <div class="mt-2">
-                                        <a href="addtocart">
-                                            <button type="button" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                        <form name="addToCartForm" method="POST" action="cart">
+                                            <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
+                                            <input type="hidden" name="user_id" value="<c:out value="${sessionScope.id}"/>">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
                                                 Add to cart
                                             </button>
-                                        </a>
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- More products... -->
