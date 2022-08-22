@@ -34,12 +34,18 @@ public class AddToCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String path = request.getServletPath();
-        System.out.println("servlet path = " + path);
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        System.out.println("cart servlet action = " + action);
         try {
-            switch (path) {
+            switch (action) {
                 case ("/add-to-cart"):
                     //addToCart(request, response);
+                    break;
+                case ("remove"):
+                    deleteCartItem(request, response);
                     break;
                 default:
                     showCart(request, response);
@@ -47,6 +53,24 @@ public class AddToCart extends HttpServlet {
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    public void deleteCartItem(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("delete cart item called");
+        int user_id = (int) request.getSession(false).getAttribute("id");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Cart cartItem = cartDAO.selectCart(id);
+        if (cartItem.getUser_id() == user_id) {
+            if (cartDAO.deleteCartById(id)) {
+                System.out.println("one Cart item Successfully Deleted.");
+                response.sendRedirect("cart");
+            } else {
+                System.out.println("Couldnot delete cart item.");
+            }
+        } else {
+            System.out.println("user " + user_id + " - tried to delete others cart.");
         }
     }
 

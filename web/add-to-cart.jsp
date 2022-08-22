@@ -44,7 +44,7 @@
                                 <div class="w-20">
                                     <c:forEach var="book" items="${book}">
                                         <c:if test="${book.id == cartItem.book_id}">
-                                            <img class="h-24" src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="">                                                  
+                                            <img class="h-24" src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>">                                                  
                                         </c:if>
                                     </c:forEach>                                    
                                 </div>
@@ -55,7 +55,7 @@
                                             <span class="text-gray-600 text-xs">By: <c:out value="${book.author}"/></span>                                                 
                                         </c:if>
                                     </c:forEach>
-                                    <a href="#" class="font-semibold hover:text-red-700 text-gray-500 text-xs">Remove</a>
+                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-700 text-gray-500 text-xs">Remove</a>
                                 </div>
                             </div>
                             <div class="flex justify-center w-1/5">
