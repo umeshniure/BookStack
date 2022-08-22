@@ -120,7 +120,7 @@
 
                         <div class="mt-4">
                             <p class="tracking-tight text-xl text-gray-900 mt-2">NPR. <c:out value='${book.price}'/></p>
-                        </div>
+                        </div> 
 
 
                         <div class="mt-5">
@@ -142,7 +142,15 @@
                                 </div>                                    
                             </div>
 
-                            <button type="submit" class="mt-10 w-full bg-purple-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Add to cart</button>
+                            <form name="addToCartForm" method="POST" action="cart">
+                                <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
+                                <input type="hidden" name="user_id" value="<c:out value="${sessionScope.id}"/>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="mt-10 w-full bg-purple-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                    Add to cart
+                                </button>
+                            </form>
+
                         </div>
                     </div>
                 </div>                

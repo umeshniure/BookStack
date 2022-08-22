@@ -3,22 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/LogIn.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/book-detail.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/UploadBook.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/validateLogin.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/UsersDAO.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/CategoryDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor_registration.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/navigation-bar.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/ValidateVendorRegistration.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor-book-upload.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/home.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/home.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/VendorsDAO.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/model/Vendors.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/model/Books.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/SignUp.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/index.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor-book-upload.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/forgotPassword.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/home.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/config/Config.java</file>
         </group>
     </open-files>
 </project-private>

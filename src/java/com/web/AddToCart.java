@@ -52,14 +52,23 @@ public class AddToCart extends HttpServlet {
 
     public void addToCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        int user_id = (int) request.getSession(false).getAttribute("id");
         int book_id = Integer.parseInt(request.getParameter("book_id"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int quantity = 1;
         Date created_date = new Date(System.currentTimeMillis());
-        Cart cartItem = cartDAO.selectCart(book_id);
+        Cart cartItem = cartDAO.selectCartByBookAndUserId(book_id, user_id);
+        System.out.println("cart Item: " + cartItem);
+        System.out.println(cartItem.getBook_id());
         if (cartItem.getBook_id() == book_id && cartItem.getUser_id() == user_id) {
             quantity = cartItem.getQuantity() + 1;
-            System.out.println("AddToCart.java-> cannot add same book multiple times at the moment!");
+            Cart updateCart = new Cart(cartItem.getId(), user_id, book_id, quantity, cartItem.getCreated_date());
+            if (cartDAO.updateCart(updateCart)) {
+                System.out.println("Quantity successfully updated!");
+                response.sendRedirect("home");
+            } else {
+                System.out.println("Failed to update cart!");
+            }
+
         } else {
             Cart newCart = new Cart(user_id, book_id, quantity, created_date);
             cartDAO.insertIntoCart(newCart);
@@ -70,7 +79,8 @@ public class AddToCart extends HttpServlet {
 
     public void showCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Cart> cartItemList = cartDAO.selectAllCart();
+        int user_id = (int) request.getSession(false).getAttribute("id");
+        List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
         List<Books> book = bookDAO.selectAllBooks();
         RequestDispatcher dispatcher = request.getRequestDispatcher("add-to-cart.jsp");
         request.setAttribute("cartItemList", cartItemList);
