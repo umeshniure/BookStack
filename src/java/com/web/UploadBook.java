@@ -55,23 +55,36 @@ public class UploadBook extends HttpServlet {
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
-                if ((Integer) session.getAttribute("user_type") == 2) {
-                    List<Category> categories = categoryDao.selectAllCategory();
-                    List<Language> language = languageDAO.selectAllLanguage();
-                    List<BookCover> bookCover = bookCoverDAO.selectAllCoverType();
-                    List<BookType> bookType = bookTypeDAO.selectAllBookType();
-                    RequestDispatcher rd = request.getRequestDispatcher("vendor-book-upload.jsp");
-                    request.setAttribute("categories", categories);
-                    request.setAttribute("language", language);
-                    request.setAttribute("bookCover", bookCover);
-                    request.setAttribute("bookType", bookType);
-                    rd.forward(request, response);
+                if (session.getAttribute("user_type") != null) {
+                    if ((int) session.getAttribute("user_type") == 2) {
+                        List<Category> categories = categoryDao.selectAllCategory();
+                        List<Language> language = languageDAO.selectAllLanguage();
+                        List<BookCover> bookCover = bookCoverDAO.selectAllCoverType();
+                        List<BookType> bookType = bookTypeDAO.selectAllBookType();
+                        RequestDispatcher rd = request.getRequestDispatcher("vendor-book-upload.jsp");
+                        request.setAttribute("categories", categories);
+                        request.setAttribute("language", language);
+                        request.setAttribute("bookCover", bookCover);
+                        request.setAttribute("bookType", bookType);
+                        rd.forward(request, response);
 
+                    } else {
+                        String errorMessage = "Sorry, You are not allowed to access this page.";
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                        request.setAttribute("errorMessage", errorMessage);
+                        dispatcher.forward(request, response);
+                    }
                 } else {
-                    out.println("you are not allowed to access this page.");
+                    String errorMessage = "Ohh! looks like you are not logged in yet. Please login first.";
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                    request.setAttribute("errorMessage", errorMessage);
+                    dispatcher.forward(request, response);
                 }
             } else {
-                out.println("Hey user, You should login first.");
+                String errorMessage = "Ohh! looks like you are not logged in yet. Please login first.";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
             }
         } catch (Exception e) {
             out.println(e);
@@ -99,7 +112,7 @@ public class UploadBook extends HttpServlet {
     }
 
     public void insertBook(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, SQLException {
+            throws IOException, SQLException, ServletException {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -139,9 +152,17 @@ public class UploadBook extends HttpServlet {
                 }
             } else {
                 out.println("you are not allowed to upload book!");
+                String errorMessage = "Sorry, You are not allowed to upload book. ";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
             }
         } else {
-            out.println("You must login first to upload books");
+            out.println("Ohh! looks like you are not logged yet. Please login first.");
+            String errorMessage = "Sorry, You are not allowed to book. ";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", errorMessage);
+            dispatcher.forward(request, response);
         }
     }
 

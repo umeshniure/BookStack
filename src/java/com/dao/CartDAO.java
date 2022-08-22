@@ -142,7 +142,6 @@ public class CartDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CART_ITEM);
             preparedStatement.setInt(1, id);
             deleted = preparedStatement.executeUpdate() > 0;
-            System.out.println("cart deleted");
         } catch (Exception e) {
             System.out.println(e);
         }
