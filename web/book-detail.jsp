@@ -119,7 +119,13 @@
                         </div>
 
                         <div class="mt-4">
-                            <p class="tracking-tight text-xl text-gray-900 mt-2">NPR. <c:out value='${book.price}'/></p>
+                            <c:if test="${book.discounted_price != ''}">
+                                <span class="tracking-tight text-xl text-gray-900 mt-2">NPR. <c:out value='${book.discounted_price}'/></span>
+                                <span class="tracking-tight text-xl text-gray-900 mt-2 text-xs line-through font-semibold">NPR. <c:out value='${book.price}'/></span>
+                            </c:if>
+                            <c:if test="${book.discounted_price == ''}">
+                                <p class="tracking-tight text-xl text-gray-900 mt-2">NPR. <c:out value='${book.price}'/></p>
+                            </c:if>
                         </div> 
 
 
@@ -144,6 +150,7 @@
 
                             <form name="addToCartForm" method="POST" action="cart">
                                 <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
+                                <input type="hidden" name="action" value="add-to-cart">
                                 <button type="submit" class="mt-10 w-full bg-purple-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
                                     Add to cart
                                 </button>
