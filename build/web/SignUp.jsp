@@ -18,7 +18,7 @@
     </head>
     <!--<body style="background-image: url('images/book1.jpg');">-->
     <body>
-        
+
         <!--navigation section-->
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends--> 
@@ -50,26 +50,51 @@
 
                                         <form action="signup" method="post">
                                             <p class="mb-4">Please register your account</p>
-                                            <div class=" md:w-1/2 mb-3 col-span-6 sm:col-span-3">
-                                                <input
-                                                    type="text"
-                                                    name="firstname" 
-                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="exampleFormControlInput1"
-                                                    placeholder="First name"
-                                                    value="${firstname}"
-                                                    />
+                                            <div class="w-full md:w-6/12 float-left pr-1">
+                                                <div class="relative w-full mb-3">
+                                                    <input
+                                                        type="text"
+                                                        name="firstname" 
+                                                        class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                        id="exampleFormControlInput1"
+                                                        placeholder="First name"
+                                                        value="${firstname}"
+                                                        />
+                                                </div>
                                             </div>
-                                            <div class=" md:w-1/2 mb-3 col-span-6 sm:col-span-4">
-                                                <input
-                                                    type="text"
-                                                    name="lastname" 
-                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="exampleFormControlInput2"
-                                                    placeholder="Last name"
-                                                    value="${lastname}"
-                                                    />
+                                            <div class="w-full md:w-6/12 float-right pl-1">
+                                                <div class="relative w-full mb-3">
+                                                    <input
+                                                        type="text"
+                                                        name="lastname" 
+                                                        class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                        id="exampleFormControlInput2"
+                                                        placeholder="Last name"
+                                                        value="${lastname}"
+                                                        />
+                                                </div>
                                             </div>
+
+                                            <!--                                            <div class="md:w-1/2 mb-3 col-span-3 sm:col-span-3 w-auto inline-block">
+                                                                                            <input
+                                                                                                type="text"
+                                                                                                name="firstname" 
+                                                                                                class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                                                                id="exampleFormControlInput1"
+                                                                                                placeholder="First name"
+                                                                                                value="${firstname}"
+                                                                                                />
+                                                                                        </div>
+                                                                                        <div class="md:w-1/2 mb-3 col-span-3 sm:col-span-3 w-auto inline-block">
+                                                                                            <input
+                                                                                                type="text"
+                                                                                                name="lastname" 
+                                                                                                class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                                                                id="exampleFormControlInput2"
+                                                                                                placeholder="Last name"
+                                                                                                value="${lastname}"
+                                                                                                />
+                                                                                        </div>-->
                                             <div class="mb-3">
                                                 <input type="text" name="email" 
                                                        class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"

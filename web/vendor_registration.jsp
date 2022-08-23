@@ -84,6 +84,7 @@
                         <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                         <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
+                        <h1 class="position-relative display-5 ls-tight text-white mb-3">Vendor registration form</h1>
                         <div class="card bg-glass">
                             <div class="card-body px-4 py-5 px-md-5">
                                 <form method="POST" action="vendor_registration" enctype='multipart/form-data'>
@@ -164,6 +165,7 @@
                                 </form>
                             </div>
                         </div>
+                        <h1 class="position-relative display-7 text-gray-300 mt-3">Are you mistakenly here? <a href="signup" class="text-purple-600">Click here </a>for user registration.</h1>
                     </div>
                 </div>
             </div>

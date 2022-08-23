@@ -38,7 +38,7 @@
                                 General book information
                             </h6>
                             <div class="flex flex-wrap">
-                                <div class="w-full lg:w-6/12 px-4">
+                                <div class="w-full md:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Book full name
@@ -46,7 +46,7 @@
                                         <input name="bookname" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-6/12 px-4">
+                                <div class="w-full md:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             ISBN
@@ -54,7 +54,7 @@
                                         <input name="isbn" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-6/12 px-4">
+                                <div class="w-full md:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Category
@@ -67,7 +67,7 @@
                                         <!--<input name="category" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-6/12 px-4">
+                                <div class="w-full md:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Cover Type
@@ -80,7 +80,7 @@
                                         <!--<input name="cover_type" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-6/12 px-4">
+                                <div class="w-full md:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Price
@@ -88,7 +88,7 @@
                                         <input name="price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-6/12 px-4">
+                                <div class="w-full md:w-6/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Discounted price
@@ -96,7 +96,7 @@
                                         <input name="discounted_price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-4/12 px-4">
+                                <div class="w-full md:w-4/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Language
@@ -109,7 +109,7 @@
                                         <!--<input name="language" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-4/12 px-4">
+                                <div class="w-full md:w-4/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Book type
@@ -122,7 +122,7 @@
                                         <!--<input name="book_type" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">-->
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-4/12 px-4">
+                                <div class="w-full md:w-4/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Postal Code
@@ -138,7 +138,7 @@
                                 Author and publication
                             </h6>
                             <div class="flex flex-wrap">
-                                <div class="w-full lg:w-12/12 px-4">
+                                <div class="w-full md:w-12/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Author full name
@@ -146,7 +146,7 @@
                                         <input name="authorname" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-8/12 px-4">
+                                <div class="w-full md:w-8/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Publication name
@@ -154,7 +154,7 @@
                                         <input name="publication" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                     </div>
                                 </div>
-                                <div class="w-full lg:w-4/12 px-4">
+                                <div class="w-full md:w-4/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             Published date
@@ -170,7 +170,7 @@
                                 About Book
                             </h6>
                             <div class="flex flex-wrap">
-                                <div class="w-full lg:w-12/12 px-4">
+                                <div class="w-full md:w-12/12 px-4">
                                     <div class="relative w-full mb-3">
                                         <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                             short book description
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="flex flex-wrap">
-                                <div class="w-full lg:w-12/12 px-4">
+                                <div class="w-full md:w-12/12 px-4">
                                     <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                         Book cover photo
                                     </label>
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                             <div class="mt-3 flex flex-wrap">
-                                <div class="w-full lg:w-12/12 px-4">
+                                <div class="w-full md:w-12/12 px-4">
                                     <button type="submit" class="justify-center items-center w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                                         Submit 
                                         <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>

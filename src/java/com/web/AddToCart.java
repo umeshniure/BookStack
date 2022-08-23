@@ -112,33 +112,48 @@ public class AddToCart extends HttpServlet {
 
     public void addToCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int user_id = (int) request.getSession(false).getAttribute("id");
-        int book_id = Integer.parseInt(request.getParameter("book_id"));
-        int quantity = 1;
-        Date created_date = new Date(System.currentTimeMillis());
-        Cart cartItem = cartDAO.selectCartByBookAndUserId(book_id, user_id);
-        System.out.println("cart Item: " + cartItem);
-        System.out.println(cartItem.getBook_id());
-        if (cartItem.getBook_id() == book_id && cartItem.getUser_id() == user_id) {
-            quantity = cartItem.getQuantity() + 1;
-            Cart updateCart = new Cart(cartItem.getId(), user_id, book_id, quantity, cartItem.getCreated_date());
-            if (cartDAO.updateCart(updateCart)) {
-                System.out.println("Quantity successfully updated!");
-                String successMessage = "Hurray! Successfully updated one item in the cart.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("successMessage", successMessage);
-                dispatcher.forward(request, response);
-            } else {
-                System.out.println("Failed to update cart!");
-            }
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            if (session.getAttribute("id") != null) {
+                int user_id = (int) session.getAttribute("id");
+                int book_id = Integer.parseInt(request.getParameter("book_id"));
+                int quantity = 1;
+                Date created_date = new Date(System.currentTimeMillis());
+                Cart cartItem = cartDAO.selectCartByBookAndUserId(book_id, user_id);
+                System.out.println("cart Item: " + cartItem);
+                System.out.println(cartItem.getBook_id());
+                if (cartItem.getBook_id() == book_id && cartItem.getUser_id() == user_id) {
+                    quantity = cartItem.getQuantity() + 1;
+                    Cart updateCart = new Cart(cartItem.getId(), user_id, book_id, quantity, cartItem.getCreated_date());
+                    if (cartDAO.updateCart(updateCart)) {
+                        System.out.println("Quantity successfully updated!");
+                        String successMessage = "Hurray! Successfully updated one item in the cart.";
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                        request.setAttribute("successMessage", successMessage);
+                        dispatcher.forward(request, response);
+                    } else {
+                        System.out.println("Failed to update cart!");
+                    }
 
+                } else {
+                    Cart newCart = new Cart(user_id, book_id, quantity, created_date);
+                    cartDAO.insertIntoCart(newCart);
+                    System.out.println("Successfully inserted into cart.");
+                    String successMessage = "Hurray! Successfully added one item to the cart.";
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                    request.setAttribute("successMessage", successMessage);
+                    dispatcher.forward(request, response);
+                }
+            } else {
+                String errorMessage = "Sorrry! you should log in first to add items to the cart.";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
+            }
         } else {
-            Cart newCart = new Cart(user_id, book_id, quantity, created_date);
-            cartDAO.insertIntoCart(newCart);
-            System.out.println("Successfully inserted into cart.");
-            String successMessage = "Hurray! Successfully added one item to the cart.";
+            String errorMessage = "Sorrry! you should log in first to add items to the cart.";
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("successMessage", successMessage);
+            request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
         }
     }
@@ -147,18 +162,25 @@ public class AddToCart extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         System.out.println("session is: " + session);
-        if (session.getAttribute("id") == null) {
-            String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
+        if (session != null) {
+            if (session.getAttribute("id") == null) {
+                String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
+            } else {
+                int user_id = (int) session.getAttribute("id");
+                List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
+                List<Books> book = bookDAO.selectAllBooks();
+                RequestDispatcher dispatcher = request.getRequestDispatcher("add-to-cart.jsp");
+                request.setAttribute("cartItemList", cartItemList);
+                request.setAttribute("book", book);
+                dispatcher.forward(request, response);
+            }
+        } else {
+            String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
             request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
-        } else {
-            int user_id = (int) session.getAttribute("id");
-            List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
-            List<Books> book = bookDAO.selectAllBooks();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("add-to-cart.jsp");
-            request.setAttribute("cartItemList", cartItemList);
-            request.setAttribute("book", book);
             dispatcher.forward(request, response);
         }
     }
