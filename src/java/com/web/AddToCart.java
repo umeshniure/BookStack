@@ -214,7 +214,6 @@ public class AddToCart extends HttpServlet {
                 request.setAttribute("cartItemList", cartItemList);
                 request.setAttribute("book", book);
                 dispatcher.forward(request, response);
-                System.out.println("there");
 
             }
         } else {
