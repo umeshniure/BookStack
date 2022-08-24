@@ -11,24 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://cdn.tailwindcss.com"></script>
-        <title>Book detail</title>    
-        <script>
-            // tailwind.config.js
-            module.exports = {
-                // ...
-                theme: {
-                    extend: {
-                        gridTemplateRows: {
-                            '[auto,auto,1fr]': 'auto auto 1fr',
-                        },
-                    },
-                },
-                plugins: [
-                    // ...
-                    require('@tailwindcss/aspect-ratio'),
-                ],
-            }
-        </script>
+        <title>Book detail</title>         
     </head>
     <body>
 

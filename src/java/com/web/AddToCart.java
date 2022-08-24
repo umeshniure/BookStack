@@ -90,6 +90,8 @@ public class AddToCart extends HttpServlet {
                 }
             } else {
                 cartDAO.deleteCartById(id);
+                System.out.println("one Cart item Successfully deleted.");
+                response.sendRedirect("cart");
             }
         } else {
             System.out.println("user " + user_id + " - tried to update others cart.");
