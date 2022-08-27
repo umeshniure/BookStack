@@ -10,10 +10,12 @@ import java.util.List;
 
 public class BookDAO {
 
-    private static final String SELECT_ALL_BOOKS = "select * from books";
+    private static final String SELECT_ALL_BOOKS = "select * from books INNER JOIN categories ON books.category = categories.id";
     private static final String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,\n"
             + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
+//    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
+    private static final String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
+    //SELECT table1.*, table2.first_name FROM table1 LEFT JOIN table2
 
     public List<Books> selectAllBooks() {
         List<Books> booklist = new ArrayList<>();
@@ -29,6 +31,7 @@ public class BookDAO {
                 int price = rs.getInt("price");
                 String publication = rs.getString("publication");
                 int category = rs.getInt("category");
+                String category_name = rs.getString("category_name");
                 int cover_type = rs.getInt("cover_type");
                 int language = rs.getInt("language");
                 int type = rs.getInt("type");
@@ -38,8 +41,13 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+
+                String language_name = "";
+                String book_type = "";
+                String cover = "";
+                String vendor = "";
                 booklist.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
             }
 
         } catch (Exception e) {
@@ -88,7 +96,6 @@ public class BookDAO {
                 int price = rs.getInt("price");
                 String publication = rs.getString("publication");
                 int category = rs.getInt("category");
-
                 int cover_type = rs.getInt("cover_type");
                 int language = rs.getInt("language");
                 int type = rs.getInt("type");
@@ -98,8 +105,14 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+
+                String language_name = rs.getString("language_name");
+                String category_name = rs.getString("category_name");
+                String book_type = rs.getString("book_type.type");
+                String cover = rs.getString("book_cover.cover_type");
+                String vendor = rs.getString("store_name");
                 bookDetail = (new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
             }
 
         } catch (Exception e) {

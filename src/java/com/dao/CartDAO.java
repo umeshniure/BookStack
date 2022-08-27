@@ -14,7 +14,8 @@ public class CartDAO {
     private static final String INSERT_INTO_CART = "INSERT INTO cart" + "  (user_id, book_id, quantity, created_date) VALUES " + " (?, ?, ?, ?);";
     private static final String SELECT_ALL_CART = "select * from cart";
     private static final String SELECT_CART_BY_ID = "select * from cart where id = ?";
-    private static final String SELECT_CART_BY_USER_ID = "select * from cart where user_id = ?";
+    private static final String SELECT_CART_BY_USER_ID = "select * from cart INNER JOIN books ON cart.book_id = books.id where user_id = ?";
+//    private static final String SELECT_CART_BY_USER_ID = "select * from cart where user_id=?";
     private static final String SELECT_CART_BY_BOOK_AND_USER_ID = "select * from cart where user_id = ? and book_id = ?";
     private static final String UPDATE_CART = "update cart set user_id = ?,book_id = ?, quantity = ?, created_date = ? where id = ?;";
     private static final String DELETE_CART_ITEM = "delete from cart where id = ?;";
@@ -73,7 +74,14 @@ public class CartDAO {
                 int book_id = rs.getInt("book_id");
                 int quantity = rs.getInt("quantity");
                 Date created_date = rs.getDate("created_date");
-                userCart.add(new Cart(id, user_id, book_id, quantity, created_date));
+
+                String book_name = rs.getString("name");
+                String book_author = rs.getString("author");
+                String cover_photo_name = rs.getString("cover_photo_name");
+                int price = rs.getInt("price");
+                int discounted_price = rs.getInt("discounted_price");
+                
+                userCart.add(new Cart(id, user_id, book_id, quantity, created_date, book_name, book_author, cover_photo_name, price, discounted_price));
             }
 
         } catch (Exception e) {
@@ -82,6 +90,26 @@ public class CartDAO {
         return userCart;
     }
 
+//    public List<Cart> selectCartByUserId(int user_id) {
+//        List<Cart> userCart = new ArrayList<>();
+//        try {
+//            Connection connection = Config.getConnection();
+//            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CART_BY_USER_ID);
+//            preparedStatement.setInt(1, user_id);
+//            ResultSet rs = preparedStatement.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                int book_id = rs.getInt("book_id");
+//                int quantity = rs.getInt("quantity");
+//                Date created_date = rs.getDate("created_date");
+//                userCart.add(new Cart(id, user_id, book_id, quantity, created_date));
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return userCart;
+//    }
     public Cart selectCartByBookAndUserId(int book_id, int user_id) {
         Cart cartItem = new Cart();
         try {

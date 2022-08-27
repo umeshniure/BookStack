@@ -41,22 +41,14 @@
                     <c:set var="total_price" value="${0}"/>
                     <c:forEach var="cartItem" items="${cartItemList}">
                         <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 rounded">
-                            <div class="flex w-2/5"> <!-- product -->
-                                <div class="w-20">
-                                    <c:forEach var="book" items="${book}">
-                                        <c:if test="${book.id == cartItem.book_id}">
-                                            <img class="h-24" src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>">                                                  
-                                        </c:if>
-                                    </c:forEach>                                    
+                            <div class="flex w-2/5 rounded"> <!-- product -->
+                                <div class="w-20 rounded">
+                                    <img class="h-24 rounded" src="images/book_cover_photos/<c:out value="${cartItem.cover_photo_name}"/>" alt="<c:out value="${cartItem.book_name}"/>">                                                  
                                 </div>
                                 <div class="flex flex-col justify-between ml-4 flex-grow">
-                                    <c:forEach var="book" items="${book}">
-                                        <c:if test="${book.id == cartItem.book_id}">
-                                            <span class="font-bold text-auto"><c:out value="${book.name}"/></span> 
-                                            <span class="text-gray-600 text-xs">By: <c:out value="${book.author}"/></span>                                                 
-                                        </c:if>
-                                    </c:forEach>
-                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-700 text-gray-500 text-xs">Remove</a>
+                                    <span class="font-bold text-auto"><c:out value="${cartItem.book_name}"/></span> 
+                                    <span class="text-gray-600 text-xs">By: <c:out value="${cartItem.book_author}"/></span>                                                 
+                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-800 text-red-500 text-xs">Remove</a>
                                 </div>
                             </div>
                             <div class="flex justify-center w-1/5">
@@ -71,24 +63,20 @@
                                     </svg>
                                 </a>
                             </div>
-                            <c:forEach var="book" items="${book}">
-                                <c:if test="${book.id == cartItem.book_id}">
-                                    <c:if test="${book.discounted_price != ''}">
-                                        <span class="text-center w-1/5">
-                                            <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${book.discounted_price}"/></span><br>
-                                            <span class="w-1/5 text-sm line-through text-xs">NPR. <c:out value="${book.price}"/></span>
-                                        </span>
-                                        <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${book.discounted_price * cartItem.quantity}"/></span>                                                  
-                                        <c:set var="total_price" value="${total_price + (book.discounted_price * cartItem.quantity)}"/>
-                                    </c:if>
-                                    <c:if test="${book.discounted_price == ''}">
-                                        <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${book.price}"/></span>
-                                        <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${book.price * cartItem.quantity}"/></span>                                                  
-                                        <c:set var="total_price" value="${total_price + (book.price * cartItem.quantity)}"/>
-                                    </c:if>
-                                    <%--<c:set var="total_price" value="${total_price + (book.price * cartItem.quantity)}"/>--%>
-                                </c:if>
-                            </c:forEach>
+                            <c:if test="${cartItem.discounted_price != ''}">
+                                <span class="text-center w-1/5">
+                                    <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.discounted_price}"/></span><br>
+                                    <span class="w-1/5 text-sm line-through text-xs">NPR. <c:out value="${cartItem.price}"/></span>
+                                </span>
+                                <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.discounted_price * cartItem.quantity}"/></span>                                                  
+                                <c:set var="total_price" value="${total_price + (cartItem.discounted_price * cartItem.quantity)}"/>
+                            </c:if>
+                            <c:if test="${cartItem.discounted_price == ''}">
+                                <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.price}"/></span>
+                                <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.price * cartItem.quantity}"/></span>                                                  
+                                <c:set var="total_price" value="${total_price + (cartItem.price * cartItem.quantity)}"/>
+                            </c:if>
+                            <%--<c:set var="total_price" value="${total_price + (book.price * cartItem.quantity)}"/>--%>
 
                         </div>
                     </c:forEach>

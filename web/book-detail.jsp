@@ -116,11 +116,11 @@
                             <!-- Colors -->
                             <div>
                                 <h3 class="text-md text-gray-900 font-medium mt-2">ISBN:  <c:out value='${book.isbn}'/> </h3>
-                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${category.category_name}'/> </a> </h3>
+                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${book.category_name}'/> </a> </h3>
                             </div>
 
                             <div class="mt-5">
-                                <h3 class="text-md text-gray-900 font-medium">Seller:  <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${vendor.store_name}'/> </a> </h3>
+                                <h3 class="text-md text-gray-900 font-medium">Seller:  <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${book.vendor}'/> </a> </h3>
                             </div>
 
                             <!-- Sizes -->
@@ -172,17 +172,17 @@
 
                                     <li class="text-gray-400"><span class="text-gray-600"> ISBN: <c:out value='${book.isbn}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600"> Category: <c:out value='${category.category_name}'/> </span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Category: <c:out value='${book.category_name}'/> </span></li>
 
                                     <li class="text-gray-400"><span class="text-gray-600"> Published year: <c:out value='${book.published_year}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600"> Language: <c:out value='${language.language_name}'/> </span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Language: <c:out value='${book.language_name}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600"> Cover type: <c:out value='${coverType.cover_type}'/> </span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Cover type: <c:out value='${book.cover}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600"> Book type: <c:out value='${bookType.type}'/> </span></li>
+                                    <li class="text-gray-400"><span class="text-gray-600"> Book type: <c:out value='${book.book_type}'/> </span></li>
 
-                                    <li class="text-gray-400"><span class="text-gray-600"> Seller: <c:out value='${vendor.store_name}'/> </span></li>                                        
+                                    <li class="text-gray-400"><span class="text-gray-600"> Seller: <c:out value='${book.vendor}'/> </span></li>                                        
 
                                 </ul>
                             </div>

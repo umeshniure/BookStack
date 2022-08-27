@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.dao.*;
 import com.model.*;
 
-@WebServlet(name = "home", urlPatterns = {"/home"})
-public class home extends HttpServlet {
+@WebServlet(name = "Home", urlPatterns = {"/home"})
+public class Home extends HttpServlet {
 
     private BookDAO bookDAO;
     private CategoryDAO categoryDAO;
@@ -43,7 +43,6 @@ public class home extends HttpServlet {
         if (path == null) {
             path = "";
         }
-        System.out.println("servlet path = " + path);
         try {
             switch (path) {
                 case ("book-detail"):
@@ -80,29 +79,16 @@ public class home extends HttpServlet {
         }
         int id = Integer.parseInt(bookno);
         Books bookDetail = bookDAO.selectBook(id);
-        Category category = categoryDAO.selectCategory(bookDetail.getCategory());
-        Language language = languageDAO.selectLanguage(bookDetail.getLanguage());
-        BookCover coverType = bookCoverDAO.selectBookCover(bookDetail.getCover_type());
-        BookType bookType = bookTypeDAO.selectBookType(bookDetail.getType());
-        Users vendor = userDAO.selectUser(bookDetail.getVendor_id());
         RequestDispatcher dispatcher = request.getRequestDispatcher("book-detail.jsp");
         request.setAttribute("book", bookDetail);
-        request.setAttribute("category", category);
-        request.setAttribute("language", language);
-        request.setAttribute("coverType", coverType);
-        request.setAttribute("bookType", bookType);
-        request.setAttribute("vendor", vendor);
         dispatcher.forward(request, response);
     }
 
     public void showHome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        System.out.println("Session id: -->"+request.getSession(false).getAttribute("user_type"));
         List<Books> booklist = bookDAO.selectAllBooks();
-        List<Category> category = categoryDAO.selectAllCategory();
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         request.setAttribute("booklist", booklist);
-        request.setAttribute("category", category);
         dispatcher.forward(request, response);
     }
 

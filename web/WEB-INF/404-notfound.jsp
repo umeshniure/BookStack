@@ -20,7 +20,7 @@
         <div class="flex items-center justify-center min-h-screen bg-white py-48">
             <div class="flex flex-col">
                 <!-- Notes -->
-                <span class="text-center font-bold my-10 opacity-30">
+<!--                <span class="text-center font-bold my-10 opacity-30">
                     MDI (npm i @mdi/font) reuqired for all icons
 
                     <hr class="my-4">
@@ -28,7 +28,7 @@
                     <a href="#" target="_blank" class="text-blue-600">
                         Convetert to SASS
                     </a>
-                </span>
+                </span>-->
 
                 <!-- Error Container -->
                 <div class="flex flex-col items-center">

@@ -5,20 +5,30 @@
         <group>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/UploadBook.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/validateLogin.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor_registration.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/checkout.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/Checkout.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/WEB-INF/404-notfound.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/navigation-bar.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookDAO.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/home.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/model/BookCover.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/book-detail.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/model/Books.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookTypeDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/UsersDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/CategoryDAO.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/CartDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/all-books.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor-book-upload.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/add-to-cart.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/home.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/AddToCart.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/LogIn.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookCoverDAO.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/checkout.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookDAO.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/home.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/css/allcss.css</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/SignUp.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/CartDAO.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/welcomePage.html</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor-book-upload.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/home-page-template.jsp</file>
         </group>
     </open-files>
 </project-private>
