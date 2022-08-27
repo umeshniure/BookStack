@@ -49,8 +49,8 @@
 
                 <!-- Image gallery -->                
                 <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-                    <div class="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 lg:border-r lg:border-gray-200 lg:pr-8 lg:block">
-                        <img src="images/book_cover_photos/<c:out value='${book.cover_photo_name}'/>" alt="<c:out value='${book.name}'/>" class="w-full h-full object-center object-cover">
+                    <div class="aspect-w-4 aspect-h-5 sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 lg:border-r lg:border-gray-200 lg:pr-8 lg:block">
+                        <img src="images/book_cover_photos/<c:out value='${book.cover_photo_name}'/>" alt="<c:out value='${book.name}'/>" class="w-full h-full object-center object-cover rounded-lg">
                     </div>
                     <!-- <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden sm:rounded-lg sm:overflow-hidden  ">
                          <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
