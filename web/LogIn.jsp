@@ -13,51 +13,16 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
         <title>Login Page</title>
     </head>
     <body>
+
         <!--navigation section-->
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends-->
-        <!--        <main class="form-signin m-auto">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="container-md-12  rounded-4" style="background-color: #f5f5f5; border-style: solid; border-color: rgb(149,0,149);">
-                                    <form autocomplete="off" class = " mt-3 mb-3 p-2" action="login" method="post">
-                                        <img class="mb-2" src="images/booklogo.png" alt="" width="72" height="72">
-                                        <h1 class="h4 mb-3 fw-normal text-start">Sign in</h1>
-        
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" name="email" id="floatingInput" value="${email}">
-                                            <label for="floatingInput">Email</label>
-                                        </div>
-                                        <div class="form-floating mt-3">
-                                            <input type="password" class="form-control" name = "password" id="floatingPassword" value="">
-                                            <label for="floatingPassword">Password</label>
-                                            <a href="forgotPassword" class="text-end" style="color: blue; font-size: 10px; float:right";> 
-                                                Forgot password? </a>
-                                        </div>
-                                        <br>
-                                        <div>
-                                            <span style="color: red; float:left">${message}</span>
-</div><br>
-<div><hr></div>
-<button id ="btn1" class="w-100 btn btn-lg" style="color: white; background-color: #950095" type="submit">Sign in</button>
-<a class="nav-link" href="signup">Sign up</a>
-</form>
-</div>  
-<a class="nav-link" href="home.jsp">home</a>
-</div>
-</div>
-</div>
-</main>-->
-
-
-
 
         <section class="h-full gradient-form bg-gray-200">
             <div class="container py-12 px-6 h-full">
@@ -96,7 +61,7 @@
                                                     placeholder="Password"
                                                     />
                                             </div>
-                                                    
+
                                             <c:if test="${not empty message}">
                                                 <div class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
                                                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -127,12 +92,12 @@
                                                 </button>
                                                 <a class="text-gray-500" href="forgotPassword">Forgot password?</a>
                                             </div>
-                                                    
+
                                             <div class="g-signin2" data-onsuccess="onSignIn">
-                                                
+
                                             </div>
 
-                                            
+
                                             <div class="flex items-center justify-between pb-6">
                                                 <p class="mb-0 mr-2">Don't have an account?</p>
                                                 <!--<button type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
@@ -140,7 +105,7 @@
                                                     data-mdb-ripple-color="light">
                                                     Register
                                                 </button> -->
-                                                <a href ="signup" type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                                                <a href ="signup" type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                                                    data-mdb-ripple="true"
                                                    data-mdb-ripple-color="light">
                                                     Register

@@ -43,13 +43,14 @@ public class Home extends HttpServlet {
         if (path == null) {
             path = "";
         }
+        System.out.println(path);
         try {
             switch (path) {
                 case ("book-detail"):
                     showBookDetail(request, response);
                     break;
-//                case ("/insert"):
-//                    insertUser(request, response);
+//                case ("books"):
+//                    allBooks(request, response);
 //                    break;
 //                case ("/delete"):
 //                    deleteUser(request, response);
@@ -82,7 +83,7 @@ public class Home extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("book-detail.jsp");
         request.setAttribute("book", bookDetail);
         dispatcher.forward(request, response);
-    }
+    }    
 
     public void showHome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

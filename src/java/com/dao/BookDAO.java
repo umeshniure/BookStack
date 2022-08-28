@@ -15,6 +15,7 @@ public class BookDAO {
             + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 //    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
     private static final String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
+    private static final String SELECT_BOOK_BY_VENDOR_ID = "select * from books where books.vendor_id = ?";
     //SELECT table1.*, table2.first_name FROM table1 LEFT JOIN table2
 
     public List<Books> selectAllBooks() {
@@ -119,5 +120,45 @@ public class BookDAO {
             System.out.println(e);
         }
         return bookDetail;
+    }
+
+    public List<Books> selectBookByVendorID(int id) {
+        List<Books> bookList = new ArrayList<>();
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_VENDOR_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+                String name = rs.getString("name");
+                long isbn = rs.getLong("isbn");
+                String author = rs.getString("author");
+                int price = rs.getInt("price");
+                String publication = rs.getString("publication");
+                int category = rs.getInt("category");
+                int cover_type = rs.getInt("cover_type");
+                int language = rs.getInt("language");
+                int type = rs.getInt("type");
+                String description = rs.getString("description");
+                String cover_photo = rs.getString("cover_photo");
+                String cover_photo_name = rs.getString("cover_photo_name");
+                int discounted_price = rs.getInt("discounted_price");
+                int published_year = rs.getInt("published_year");
+                int vendor_id = rs.getInt("vendor_id");
+
+//                String language_name = rs.getString("language_name");
+//                String category_name = rs.getString("category_name");
+//                String book_type = rs.getString("book_type.type");
+//                String cover = rs.getString("book_cover.cover_type");
+//                String vendor = rs.getString("store_name");
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bookList;
     }
 }

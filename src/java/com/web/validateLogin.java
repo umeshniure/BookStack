@@ -5,6 +5,8 @@ package com.web;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import com.config.Config;
+import com.dao.UsersDAO;
+import com.model.Users;
 import com.secure.CheckEmail;
 import com.secure.Encrypt;
 import java.io.IOException;
@@ -29,10 +31,12 @@ public class validateLogin extends HttpServlet {
 
     private Encrypt encrypt;
     private CheckEmail checkemail;
+    private UsersDAO userDAO;
 
     public void init() {
         encrypt = new Encrypt();
         checkemail = new CheckEmail();
+        userDAO = new UsersDAO();
     }
 
     public void passvalue(HttpServletRequest request, HttpServletResponse response, String _email, String message)
@@ -56,26 +60,23 @@ public class validateLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         String _email = request.getParameter("email");
         String _password = request.getParameter("password");
-
-        out.println(_email + _password);
-
+        String message;
         try {
-            Connection con = Config.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from users where email = '"
-                    + _email + "' and password = '" + encrypt.encryptPassword(_password) + "' ");
-            String message;
             if (!_email.equals("") && !_password.equals("")) {
                 if (checkemail.emailValidity(_email)) {
-                    if (rs.next()) {
+                    Users user = userDAO.selectUserByEmailAndPassword(_email, encrypt.encryptPassword(_password));
+                    System.out.println(user);
+                    if (user != null) {
                         HttpSession session = request.getSession();
-                        session.setAttribute("id", rs.getInt("id"));
-                        session.setAttribute("user_type", rs.getInt("user_type"));
-                        response.sendRedirect("home");
+                        session.setAttribute("id", user.getId());
+                        session.setAttribute("user_type", user.getUser_type());
+                        if (user.getUser_type() == 1) {
+                            response.sendRedirect("home");
+                        } else if (user.getUser_type() == 2) {
+                            response.sendRedirect("vendor-dashboard.jsp");
+                        }
                     } else {
                         message = "Incorect email or password!";
                         passvalue(request, response, _email, message);
@@ -88,12 +89,9 @@ public class validateLogin extends HttpServlet {
                 message = "Empty email or password!";
                 passvalue(request, response, _email, message);
             }
-            con.close();
 
         } catch (Exception e) {
-
             System.out.println(e);
-
         }
     }
 
