@@ -4,20 +4,24 @@
  */
 package com.web;
 
+import com.dao.BookCoverDAO;
+import com.dao.BookDAO;
+import com.dao.BookTypeDAO;
+import com.dao.CategoryDAO;
+import com.dao.LanguageDAO;
+import com.dao.UsersDAO;
+import com.model.Books;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.model.*;
-import com.dao.*;
-import java.io.File;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
@@ -25,69 +29,82 @@ import javax.servlet.http.Part;
  *
  * @author Umesh
  */
-@WebServlet(name = "UploadBook", urlPatterns = {"/UploadBook"})
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, //2mb
-        maxFileSize = 1024 * 1024 * 10, //10mb
-        maxRequestSize = 1024 * 1024 * 50)
+@WebServlet(name = "VendorBooks", urlPatterns = {"/vendorbook"})
+public class VendorBooks extends HttpServlet {
 
-public class UploadBook extends HttpServlet {
-
-    BookDAO bookDAO;
-    CategoryDAO categoryDao;
-    LanguageDAO languageDAO;
-    BookTypeDAO bookTypeDAO;
-    BookCoverDAO bookCoverDAO;
-    ValidateVendorRegistration validateVendor;
+    private BookDAO bookDAO;
+    private CategoryDAO categoryDAO;
+    private LanguageDAO languageDAO;
+    private BookCoverDAO bookCoverDAO;
+    private BookTypeDAO bookTypeDAO;
+    private UsersDAO userDAO;
 
     public void init() {
         bookDAO = new BookDAO();
-        categoryDao = new CategoryDAO();
+        categoryDAO = new CategoryDAO();
         languageDAO = new LanguageDAO();
-        bookTypeDAO = new BookTypeDAO();
         bookCoverDAO = new BookCoverDAO();
-        validateVendor = new ValidateVendorRegistration();
+        bookTypeDAO = new BookTypeDAO();
+        userDAO = new UsersDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
         try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                if (session.getAttribute("user_type") != null) {
-                    if ((int) session.getAttribute("user_type") == 2) {
-                        List<Category> categories = categoryDao.selectAllCategory();
-                        List<Language> language = languageDAO.selectAllLanguage();
-                        List<BookCover> bookCover = bookCoverDAO.selectAllCoverType();
-                        List<BookType> bookType = bookTypeDAO.selectAllBookType();
-                        RequestDispatcher rd = request.getRequestDispatcher("vendor-book-upload.jsp");
-                        request.setAttribute("categories", categories);
-                        request.setAttribute("language", language);
-                        request.setAttribute("bookCover", bookCover);
-                        request.setAttribute("bookType", bookType);
-                        rd.forward(request, response);
+            switch (action) {
+//                case ("updateCartQuantity"):
+//                    updateCartQuantity(request, response);
+//                    break;
+                case ("updateform"):
+                    showBookUpdateForm(request, response);
+                    break;
+//                case ("update"):
+//                    updateBook(request, response);
+//                    break;
+                default:
+                    vendorBookList(request, response);
+                    break;
+            }
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        }
 
-                    } else {
-                        String errorMessage = "Sorry, You are not allowed to access this page.";
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                        request.setAttribute("errorMessage", errorMessage);
-                        dispatcher.forward(request, response);
-                    }
-                } else {
-                    String errorMessage = "Ohh! looks like you are not logged in yet. Please login first.";
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                    request.setAttribute("errorMessage", errorMessage);
-                    dispatcher.forward(request, response);
-                }
+    }
+
+    public void showBookUpdateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Books book = bookDAO.selectBook(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-book-upload.jsp");
+        request.setAttribute("book", book);
+        request.setAttribute("action", "update");
+        dispatcher.forward(request, response);
+    }
+
+    public void vendorBookList(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("id") != null) {
+            if ((int) session.getAttribute("user_type") == 2) {
+                int id = (int) session.getAttribute("id");
+                List<Books> books = bookDAO.selectBookByVendorID(id);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-book-list.jsp");
+                request.setAttribute("books", books);
+                dispatcher.forward(request, response);
             } else {
-                String errorMessage = "Ohh! looks like you are not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                request.setAttribute("errorMessage", errorMessage);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", "Sorry! you are not authorised to access this page.");
                 dispatcher.forward(request, response);
             }
-        } catch (Exception e) {
-            out.println(e);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+            request.setAttribute("errorMessage", "Sorry! you are not authorised. Please login to access this page.");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -95,18 +112,19 @@ public class UploadBook extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            insertBook(request, response);
+            updateBook(request, response);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public void insertBook(HttpServletRequest request, HttpServletResponse response)
+    public void updateBook(HttpServletRequest request, HttpServletResponse response)
             throws IOException, SQLException, ServletException {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession(false);
         if (session != null) {
             if ((int) session.getAttribute("user_type") == 2) {
+                int id = Integer.parseInt(request.getParameter("id"));
                 String bookname = request.getParameter("bookname");
                 long isbn = Long.parseLong(request.getParameter("isbn"));
                 int price = Integer.parseInt(request.getParameter("price"));
@@ -134,9 +152,9 @@ public class UploadBook extends HttpServlet {
                     System.out.println("image save path: " + imageSavePath);
                     File fileSaveDir = new File(imageSavePath);
                     pic_part.write(imageSavePath + File.separator);
-                    Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,
+                    Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
                             published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
-                    bookDAO.insertBook(newBook);
+                    bookDAO.updateBook(newBook);
                     response.sendRedirect("home");
                 } catch (Exception e) {
                     System.out.println(e);

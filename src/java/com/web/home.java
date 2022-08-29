@@ -43,13 +43,14 @@ public class Home extends HttpServlet {
         if (path == null) {
             path = "";
         }
+        System.out.println(path);
         try {
             switch (path) {
                 case ("book-detail"):
                     showBookDetail(request, response);
                     break;
-//                case ("/insert"):
-//                    insertUser(request, response);
+//                case ("books"):
+//                    allBooks(request, response);
 //                    break;
 //                case ("/delete"):
 //                    deleteUser(request, response);

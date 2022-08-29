@@ -11,16 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.2/dist/flowbite.min.css" />
-        <script src="https://unpkg.com/flowbite@1.5.2/dist/flowbite.js"></script>
-
-        <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">                
-        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>-->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="css/allcss.css"></link>
+        <jsp:include page="allscripts.jsp"/>
         <title>Bookstack: Home</title>
     </head>
     <body>
@@ -29,52 +20,33 @@
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends--> 
 
-        <!--Error alert message section-->
         <c:if test="${errorMessage != null}">
-            <section class="mr-6 ml-6">
-                <div class="bg-red-400 alert alert-dismissible fade show rounded-lg py-4 px-6 text-white md:flex justify-between items-center text-center md:text-left">
-                    <div class="md:mb-0 flex items-center flex-wrap justify-center md:justify-start">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times-circle" class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>
-                        </svg>
-                        <c:out value="${errorMessage}"/>
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <a class="inline-block px-6 py-2.5 bg-white text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-200 active:shadow-lg transition duration-150 ease-in-out mr-4"
-                           href="" role="button" data-bs-dismiss="alert" aria-label="Close" data-mdb-ripple="true" data-mdb-ripple-color="light">Dismiss</a>
-                        <!--                <a href="" class="text-white" data-bs-dismiss="alert" aria-label="Close">
-                                            <svg class="w-4 h-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
-                                                <path fill="currentColor"
-                                                      d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
-                                                </path>
-                                            </svg>
-                                        </a>-->
-                    </div>
+            <div id="toast-warning" class="flex absolute top-5 right-5 items-center p-4 w-full max-w-lg text-white bg-red-400 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-600 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+                    <svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Warning icon</span>
                 </div>
-            </section>
+                <div class="ml-3 text-sm font-normal w-auto"><c:out value="${errorMessage}"/></div>
+                <button type="button" class="ml-auto -mx-1.5 -my-1.5 text-gray-800 hover:text-red-500 rounded-lg p-1.5 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close" title="Dismiss">
+                    <span class="sr-only">Close</span>
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
         </c:if>
-        <!--Error alert message section ends-->
 
-
-        <!--Success alert message section-->
         <c:if test="${successMessage != null}">
-            <section class="mr-6 ml-6">
-                <div class="bg-green-300 alert alert-dismissible fade show rounded-lg py-4 px-6 text-green-900 md:flex justify-between items-center text-center md:text-left">
-                    <div class="md:mb-0 flex items-center flex-wrap justify-center md:justify-start">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle" class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path>
-                        </svg>
-                        <c:out value="${successMessage}"/>
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <a class="inline-block px-6 py-2.5 bg-white text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-100 hover:shadow-lg focus:bg-gray-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-200 active:shadow-lg transition duration-150 ease-in-out mr-4"
-                           href="" role="button" data-bs-dismiss="alert" aria-label="Close" data-mdb-ripple="true" data-mdb-ripple-color="light">Dismiss</a>
-                    </div>
+            <div id="toast-success" class="flex absolute top-5 right-5 items-center p-4 mb-4 w-full max-w-lg text-white bg-green-400 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Check icon</span>
                 </div>
-            </section>
+                <div class="ml-3 text-sm font-normal"><c:out value="${successMessage}"/></div>
+                <button type="button" class="ml-auto -mx-1.5 -my-1.5 text-gray-800 hover:text-red-500 rounded-lg p-1.5 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close" title="Dismiss">
+                    <span class="sr-only">Close</span>
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
         </c:if>
-        <!--Success alert message section ends-->
-
 
         <!--carousal section-->
         <div id="carouselExampleIndicators" class="carousel slide relative mr-6 ml-6 rounded" data-bs-ride="carousel">
@@ -90,16 +62,16 @@
                 <div class="carousel-item active bg-black rounded">
                     <div class="flex relative text-center rounded">
                         <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Welcome to Lightning deals</h1>
-                        <img class="w-full object-cover h-72 block mx-auto  sm:block sm:w-full rounded" 
-                             src="https://images.ctfassets.net/7st9xm42xppc/7nM0Yq0F3UpZQEmrufuE7o/82f461ddcc8aadcf569e5cbf4096a49d/172864949344_0.png"
+                        <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
+                             src="https://dealsoftheday.net/wp-content/uploads/2021/09/0001-8193923584_20210919_175608_0000-1.png"
                              alt="Banner" width="1920" height="288" />
                     </div>
                 </div>
                 <div class="carousel-item bg-black rounded">
                     <div class="flex relative text-center rounded">
                         <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Your only book hub</h1>
-                        <img class="w-full object-cover h-72 block mx-auto  sm:block sm:w-full rounded" 
-                             src="https://cdn.ttgtmedia.com/rms/onlineimages/books_g1016740944.jpg"
+                        <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
+                             src="https://cdn.pixabay.com/photo/2020/04/26/01/34/books-5093228_960_720.png"
                              alt="Banner" width="1920" height="288" />
                     </div>
                 </div>
@@ -261,6 +233,30 @@
                     </div>
                     <!--product list section-->
                 </div>
+
+
+                <!--hero section-->
+                <div class="ml-10 mr-10 relative overflow-hidden bg-no-repeat bg-cover rounded" style="background-position: 50%;
+                     background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1290&q=80'); height: 350px;">
+                    <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
+                         style="background-color: rgba(0, 0, 0, 0.3)">
+                        <div class="flex justify-center items-center h-full">
+                            <div class="text-center text-white px-6 md:px-12">
+                                <h1 class="text-5xl font-bold mt-0 mb-6">We have more than 100 books to choose from</h1>
+                                <h3 class="text-3xl font-bold mb-8">All the books you need right at one place</h3>
+                                <a href="books"> <button type="button"
+                                                         class="inline-block px-6 py-2.5 border-2 border-white font-medium text-xs leading-tight uppercase rounded hover:text-gray-800 hover:bg-white  focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                                                         data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                        Explore
+                                    </button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--hero section ends-->
+
+
+
 
                 <div class="flex p-2">
                     <!--product list section--> 
