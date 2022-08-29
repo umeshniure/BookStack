@@ -57,15 +57,9 @@ public class VendorBooks extends HttpServlet {
         }
         try {
             switch (action) {
-//                case ("updateCartQuantity"):
-//                    updateCartQuantity(request, response);
-//                    break;
                 case ("updateform"):
                     showBookUpdateForm(request, response);
                     break;
-//                case ("update"):
-//                    updateBook(request, response);
-//                    break;
                 default:
                     vendorBookList(request, response);
                     break;
@@ -127,8 +121,13 @@ public class VendorBooks extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 String bookname = request.getParameter("bookname");
                 long isbn = Long.parseLong(request.getParameter("isbn"));
-                int price = Integer.parseInt(request.getParameter("price"));
-                int discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
+                int price = Integer.parseInt(request.getParameter("price"));;
+                Integer discounted_price;
+                if (request.getParameter("discounted_price") == null) {
+                    discounted_price = null;
+                } else {
+                    discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
+                }
                 int category = Integer.parseInt(request.getParameter("category"));
                 int cover_type = Integer.parseInt(request.getParameter("cover_type"));
                 int language = Integer.parseInt(request.getParameter("language"));
@@ -148,9 +147,11 @@ public class VendorBooks extends HttpServlet {
                     //String contextPath = request.getContextPath();
                     String contextPath = new File("").getAbsolutePath();
                     System.out.println("Context Path: " + contextPath);
-                    String imageSavePath = "\\web\\images\\book_cover_photos" + File.separator + fileName;
+                    String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
+                    File fileSaveDir = new File(imageFolderPath);
+                    fileSaveDir.mkdir();
+                    String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
                     System.out.println("image save path: " + imageSavePath);
-                    File fileSaveDir = new File(imageSavePath);
                     pic_part.write(imageSavePath + File.separator);
                     Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
                             published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);

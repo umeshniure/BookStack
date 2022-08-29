@@ -76,7 +76,11 @@ public class BookDAO {
             ps.setString(14, newBook.getCover_photo_name());
             ps.setInt(15, newBook.getVendor_id());
             ps.setInt(5, newBook.getPrice());
-            ps.setInt(6, newBook.getDiscounted_price());
+            if (newBook.getDiscounted_price() == null) {
+                ps.setNull(6, java.sql.Types.NULL);
+            } else {
+                ps.setInt(6, newBook.getDiscounted_price());
+            }
             ps.setInt(7, newBook.getPublished_year());
             ps.executeUpdate();
         } catch (Exception e) {

@@ -2,7 +2,8 @@ package com.model;
 
 public class Books {
 
-    protected int id, category, cover_type, type, language, price, discounted_price, published_year, vendor_id;
+    protected int id, category, cover_type, type, language, price, published_year, vendor_id;
+    Integer discounted_price;
     protected long isbn;
     protected String name, description, author, cover_photo, cover_photo_name, publication;
     private String category_name, language_name, book_type, cover, vendor;
@@ -10,7 +11,7 @@ public class Books {
     public Books() {
     }
 
-    public Books(long isbn, String bookname, String authorname, String publication, int price, int discounted_price, int published_year, int category,
+    public Books(long isbn, String bookname, String authorname, String publication, int price, Integer discounted_price, int published_year, int category,
             int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id) {
         super();
         this.isbn = isbn;
@@ -58,7 +59,7 @@ public class Books {
 
     }
 
-    public Books(int id, long isbn, String bookname, String authorname, String publication, int price, int discounted_price, int published_year, int category,
+    public Books(int id, long isbn, String bookname, String authorname, String publication, int price, Integer discounted_price, int published_year, int category,
             int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id) {
         super();
         this.id = id;
@@ -135,11 +136,11 @@ public class Books {
         this.category = category;
     }
 
-    public int getDiscounted_price() {
+    public Integer getDiscounted_price() {
         return discounted_price;
     }
 
-    public void setDiscounted_price(int discounted_price) {
+    public void setDiscounted_price(Integer discounted_price) {
         this.discounted_price = discounted_price;
     }
 

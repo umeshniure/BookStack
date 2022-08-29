@@ -110,7 +110,14 @@ public class UploadBook extends HttpServlet {
                 String bookname = request.getParameter("bookname");
                 long isbn = Long.parseLong(request.getParameter("isbn"));
                 int price = Integer.parseInt(request.getParameter("price"));
-                int discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
+                Integer discounted_price;
+                if (request.getParameter("discounted_price").equals("")) {
+                    discounted_price = null;
+                } else {
+                    System.out.println("here");
+                    discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
+                    System.out.println("there");
+                }
                 int category = Integer.parseInt(request.getParameter("category"));
                 int cover_type = Integer.parseInt(request.getParameter("cover_type"));
                 int language = Integer.parseInt(request.getParameter("language"));
@@ -120,8 +127,6 @@ public class UploadBook extends HttpServlet {
                 String description = request.getParameter("description");
                 String authorname = request.getParameter("authorname");
                 int vendor_id = (int) session.getAttribute("id");
-
-                String message = "";
                 try {
                     Part pic_part = null;
                     pic_part = request.getPart("cover_photo");
@@ -130,27 +135,28 @@ public class UploadBook extends HttpServlet {
                     //String contextPath = request.getContextPath();
                     String contextPath = new File("").getAbsolutePath();
                     System.out.println("Context Path: " + contextPath);
-                    String imageSavePath = "\\web\\images\\book_cover_photos" + File.separator + fileName;
+                    String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
+                    File fileSaveDir = new File(imageFolderPath);
+                    fileSaveDir.mkdir();
+                    String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
                     System.out.println("image save path: " + imageSavePath);
-                    File fileSaveDir = new File(imageSavePath);
                     pic_part.write(imageSavePath + File.separator);
                     Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,
                             published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
+                    System.out.println("book constructor called");
                     bookDAO.insertBook(newBook);
-                    response.sendRedirect("home");
+                    response.sendRedirect("UploadBook");
                 } catch (Exception e) {
                     System.out.println(e);
                 }
             } else {
-                out.println("you are not allowed to upload book!");
                 String errorMessage = "Sorry, You are not allowed to upload book. ";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");
                 request.setAttribute("errorMessage", errorMessage);
                 dispatcher.forward(request, response);
             }
         } else {
-            out.println("Ohh! looks like you are not logged yet. Please login first.");
-            String errorMessage = "Sorry, You are not allowed to book. ";
+            String errorMessage = "Sorry, You are not allowed to upload book. ";
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
