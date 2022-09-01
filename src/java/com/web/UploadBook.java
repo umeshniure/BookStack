@@ -16,6 +16,7 @@ import com.model.*;
 import com.dao.*;
 import java.io.File;
 import java.sql.SQLException;
+import java.time.Year;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
@@ -26,7 +27,7 @@ import javax.servlet.http.Part;
  * @author Umesh
  */
 @WebServlet(name = "UploadBook", urlPatterns = {"/UploadBook"})
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, //2mb
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, //2mb
         maxFileSize = 1024 * 1024 * 10, //10mb
         maxRequestSize = 1024 * 1024 * 50)
 
@@ -66,6 +67,7 @@ public class UploadBook extends HttpServlet {
                         request.setAttribute("language", language);
                         request.setAttribute("bookCover", bookCover);
                         request.setAttribute("bookType", bookType);
+                        request.setAttribute("action", "insert");
                         rd.forward(request, response);
 
                     } else {

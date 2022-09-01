@@ -25,7 +25,7 @@
                     <ol role="list" class="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
                         <li>
                             <div class="flex items-center">
-                                <a href="#" class="mr-2 text-sm font-medium text-gray-900"> home </a>
+                                <a href="home" class="mr-2 text-sm font-medium text-gray-900"> home </a>
                                 <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                                 </svg>
@@ -34,7 +34,7 @@
 
                         <li>
                             <div class="flex items-center">
-                                <a href="#" class="mr-2 text-sm font-medium text-gray-900"> Books </a>
+                                <a href="books" class="mr-2 text-sm font-medium text-gray-900"> Books </a>
                                 <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
                                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                                 </svg>
@@ -49,8 +49,8 @@
 
                 <!-- Image gallery -->                
                 <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-                    <div class="aspect-w-4 aspect-h-5 sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 lg:border-r lg:border-gray-200 lg:pr-8 lg:block">
-                        <img src="images/book_cover_photos/<c:out value='${book.cover_photo_name}'/>" alt="<c:out value='${book.name}'/>" class="w-full h-full object-center object-cover rounded-lg">
+                    <div class="flex h-96 w-auto sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 lg:border-r lg:border-gray-200 lg:pr-8 lg:block ">
+                        <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value='${book.cover_photo_name}'/>" alt="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover rounded-lg">
                     </div>
                     <!-- <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden sm:rounded-lg sm:overflow-hidden  ">
                          <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
@@ -124,12 +124,12 @@
                             </div>
 
                             <!-- Sizes -->
-                            <div class="mt-10">
+<!--                            <div class="mt-10">
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-sm text-gray-900 font-medium">Size</h3>
                                     <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
                                 </div>                                    
-                            </div>
+                            </div>-->
 
                             <form name="addToCartForm" method="POST" action="cart">
                                 <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">

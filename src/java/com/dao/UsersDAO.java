@@ -61,6 +61,7 @@ public class UsersDAO {
 
     public Users selectUserByEmailAndPassword(String email, String password) {
         Users user = new Users();
+        user = null;
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD);

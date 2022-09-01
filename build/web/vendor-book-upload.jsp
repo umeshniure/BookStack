@@ -33,17 +33,19 @@
                                 <h6 class="text-blueGray-700 text-xl font-bold">
                                     Vendor book upload form
                                 </h6>
-                                <button class="bg-purple-500 text-white active:bg-purple-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
-                                    Settings
-                                </button>
+                                <a href="vendorbook">
+                                    <button class="bg-purple-500 text-white active:bg-purple-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="button">
+                                        Back
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                             <c:if test='${action == "update"}'>
-                                <form method="post" action="vendorbook" enctype='multipart/form-data'>
+                                <form method="POST" action="vendorbook" enctype='multipart/form-data'>
                                 </c:if>
-                                <c:if test='${action != "update"}'>
-                                    <form method="post" action="UploadBook" enctype='multipart/form-data'>
+                                <c:if test='${action == "insert"}'>
+                                    <form method="POST" action="UploadBook" enctype='multipart/form-data'>
                                     </c:if>
                                     <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
                                         General book information
@@ -55,7 +57,7 @@
                                                     Book full name
                                                 </label>
                                                 <input name="bookname" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="<c:out value="${book.name}"/>">
-                                                <input name="id" type="hidden" value="<c:out value="${book.id}"/>">
+                                                <input name="id" type="hidden" value="<c:out value='${book.id}'/>">
                                             </div>
                                         </div>
                                         <div class="w-full md:w-6/12 px-4">
@@ -63,7 +65,7 @@
                                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     ISBN
                                                 </label>
-                                                <input name="isbn" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input name="isbn" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="<c:out value="${book.isbn}"/>">
                                             </div>
                                         </div>
                                         <div class="w-full md:w-6/12 px-4">
@@ -72,6 +74,7 @@
                                                     Category
                                                 </label>
                                                 <select name="category" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                    <option value="${book.category}">${book.category_name}</option>
                                                     <c:forEach var="category" items="${categories}">
                                                         <option value="${category.id}">${category.category_name}</option>
                                                     </c:forEach>
@@ -85,6 +88,7 @@
                                                     Cover Type
                                                 </label>
                                                 <select name="cover_type" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                    <option value="${book.cover_type}">${book.cover}</option>
                                                     <c:forEach var="cover" items="${bookCover}">
                                                         <option value="${cover.id}">${cover.cover_type}</option>
                                                     </c:forEach>
@@ -94,18 +98,23 @@
                                         </div>
                                         <div class="w-full md:w-6/12 px-4">
                                             <div class="relative w-full mb-3">
-                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                                                <label name="" class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     Price
                                                 </label>
-                                                <input name="price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input name="price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="<c:out value="${book.price}"/>">
                                             </div>
                                         </div>
                                         <div class="w-full md:w-6/12 px-4">
                                             <div class="relative w-full mb-3">
-                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                                                <label name="" class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     Discounted price
                                                 </label>
-                                                <input name="discounted_price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <c:if test='${book.discounted_price != null}'>
+                                                    <input name="discounted_price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="<c:out value="${book.discounted_price}"/>">
+                                                </c:if>
+                                                <c:if test='${book.discounted_price == null}'>
+                                                    <input name="discounted_price" type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                </c:if>
                                             </div>
                                         </div>
                                         <div class="w-full md:w-4/12 px-4">
@@ -114,6 +123,7 @@
                                                     Language
                                                 </label>
                                                 <select name="language" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                    <option value="${book.language}">${book.language_name}</option>
                                                     <c:forEach var="language" items="${language}">
                                                         <option value="${language.id}">${language.language_name}</option>
                                                     </c:forEach>
@@ -127,6 +137,7 @@
                                                     Book type
                                                 </label>
                                                 <select name="book_type" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                                    <option value="${book.type}">${book.book_type}</option>
                                                     <c:forEach var="type" items="${bookType}">
                                                         <option value="${type.id}">${type.type}</option>
                                                     </c:forEach>
@@ -136,10 +147,10 @@
                                         </div>
                                         <div class="w-full md:w-4/12 px-4">
                                             <div class="relative w-full mb-3">
-                                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
-                                                    Postal Code
+                                                <label class="block uppercase text-gray-200 text-xs font-bold mb-2" htmlfor="grid-password">
+                                                    Quantity
                                                 </label>
-                                                <input type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input disabled type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +166,7 @@
                                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     Author full name
                                                 </label>
-                                                <input name="authorname" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input name="authorname" value="${book.author}" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                             </div>
                                         </div>
                                         <div class="w-full md:w-8/12 px-4">
@@ -163,7 +174,7 @@
                                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     Publication name
                                                 </label>
-                                                <input name="publication" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input name="publication" value="${book.publication}" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                             </div>
                                         </div>
                                         <div class="w-full md:w-4/12 px-4">
@@ -171,7 +182,7 @@
                                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     Published date
                                                 </label>
-                                                <input name="published_year" type="year" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input name="published_year" value="${book.published_year}" type="year" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +198,7 @@
                                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     short book description
                                                 </label>
-                                                <textarea name="description" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4" placeholder="Describe about book in 150/200 words. You can write the content from back of the book."></textarea>
+                                                <textarea name="description" type="text" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="5" placeholder="Describe about book in 150/200 words. You can write the content from back of the book.">${book.description}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -204,17 +215,25 @@
                                                         <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                                         <p class="text-xs text-gray-500 dark:text-gray-400">(to be displayed to the users)</p>
                                                     </div>
-                                                    <input name="cover_photo" id="dropzone-file" type="file" class="hidden" />
+                                                    <input value="<c:out value="${book.cover_photo}"/>" name="cover_photo" id="dropzone-file" type="file" class="hidden" />
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-3 flex flex-wrap">
                                         <div class="w-full md:w-12/12 px-4">
-                                            <button type="submit" class="justify-center items-center w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                                                Submit 
-                                                <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                            </button>
+                                            <c:if test='${action == "update"}'>
+                                                <button type="submit" class="justify-center items-center w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                                                    Update 
+                                                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                </button>
+                                            </c:if>
+                                            <c:if test='${action == "insert"}'>
+                                                <button type="submit" class="justify-center items-center w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                                                    Submit 
+                                                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                </button>
+                                            </c:if>
                                         </div>
                                     </div>                            
                                 </form>

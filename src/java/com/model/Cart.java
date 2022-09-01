@@ -10,6 +10,7 @@ public class Cart {
     private int quantity, price, discounted_price;
     private Date created_date;
     private String book_name, book_author, cover_photo_name;
+    private int vendor_id;
 
     public Cart() {
     }
@@ -32,7 +33,7 @@ public class Cart {
     }
 
     // cart constructor for joined table
-    public Cart(int id, int user_id, int book_id, int quantity, Date created_date, String book_name, String book_author, String cover_photo_name, int price, int discounted_price) {
+    public Cart(int id, int user_id, int book_id, int quantity, Date created_date, String book_name, String book_author, String cover_photo_name, int price, int discounted_price, int vendor_id) {
         super();
         this.id = id;
         this.user_id = user_id;
@@ -44,6 +45,7 @@ public class Cart {
         this.cover_photo_name = cover_photo_name;
         this.price = price;
         this.discounted_price = discounted_price;
+        this.vendor_id = vendor_id;
     }
 
     /**
@@ -184,5 +186,19 @@ public class Cart {
      */
     public void setDiscounted_price(int discounted_price) {
         this.discounted_price = discounted_price;
+    }
+
+    /**
+     * @return the vendor_id
+     */
+    public int getVendor_id() {
+        return vendor_id;
+    }
+
+    /**
+     * @param vendor_id the vendor_id to set
+     */
+    public void setVendor_id(int vendor_id) {
+        this.vendor_id = vendor_id;
     }
 }

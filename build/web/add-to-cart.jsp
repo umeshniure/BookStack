@@ -43,7 +43,7 @@
                         <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 rounded">
                             <div class="flex w-2/5 rounded"> <!-- product -->
                                 <div class="w-20 rounded">
-                                    <img class="h-24 rounded" src="images/book_cover_photos/<c:out value="${cartItem.cover_photo_name}"/>" alt="<c:out value="${cartItem.book_name}"/>">                                                  
+                                    <img class="h-24 rounded" src="images/book_cover_photos/<c:out value="${cartItem.vendor_id}"/>/<c:out value="${cartItem.cover_photo_name}"/>" alt="<c:out value="${cartItem.book_name}"/>">                                                  
                                 </div>
                                 <div class="flex flex-col justify-between ml-4 flex-grow">
                                     <span class="font-bold text-auto"><c:out value="${cartItem.book_name}"/></span> 

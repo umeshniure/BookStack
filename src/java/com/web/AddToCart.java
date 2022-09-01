@@ -106,7 +106,7 @@ public class AddToCart extends HttpServlet {
             if (cartDAO.deleteCartById(id)) {
 //                System.out.println("one Cart item Successfully Deleted.");
 //                String SuccessMessage = "One cart item has been successfully deleted.";
-//                RequestDispatcher dispatcher = request.getRequestDispatcher("/cart");
+//                RequestDispatcher dispatcher = request.getRequestDispatcher("cart");
 //                request.setAttribute("SuccessMessage", SuccessMessage);
 //                dispatcher.forward(request, response);
                 response.sendRedirect("cart");

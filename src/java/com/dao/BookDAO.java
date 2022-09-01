@@ -14,11 +14,12 @@ public class BookDAO {
     private static final String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,\n"
             + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     private static final String UPDATE_BOOK_SQL = "UPDATE books set isbn=?, name=?, author=?, publication=?, price=?, discounted_price=?,\n"
-            + "                published_year=?, category=?, cover_type=?, language=?, type=?, description=?, cover_photo=?, cover_photo_name=?, vendor_id=?) where id=?;";
+            + "                published_year=?, category=?, cover_type=?, language=?, type=?, description=?, cover_photo=?, cover_photo_name=?, vendor_id=? where id=?;";
 //    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
     private static final String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
     private static final String SELECT_BOOK_BY_VENDOR_ID = "select * from books INNER JOIN categories ON books.category = categories.id where books.vendor_id = ?";
     //SELECT table1.*, table2.first_name FROM table1 LEFT JOIN table2
+    private static final String DELETE_BOOK_SQL = "delete from books where id = ?;";
 
     public List<Books> selectAllBooks() {
         List<Books> booklist = new ArrayList<>();
@@ -122,7 +123,6 @@ public class BookDAO {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                id = rs.getInt("id");
                 String name = rs.getString("name");
                 long isbn = rs.getLong("isbn");
                 String author = rs.getString("author");
@@ -192,5 +192,18 @@ public class BookDAO {
             System.out.println(e);
         }
         return bookList;
+    }
+
+    public boolean deleteBookById(int id) {
+        boolean deleted = false;
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOK_SQL);
+            preparedStatement.setInt(1, id);
+            deleted = preparedStatement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return deleted;
     }
 }

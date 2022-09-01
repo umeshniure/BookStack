@@ -35,13 +35,13 @@
                             <div class="group relative hover:scale-105 ease-in duration-200">
                                 <a href="<c:out value='vendorbook?action=updateform&id=${book.id}'/>">
                                     <div class="flex w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
-                                        <img src="images/book_cover_photos/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="Click to edit - <c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">
+                                        <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="Click to edit - <c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">
                                     </div>
                                 </a>
                                 <div class="mt-4 flex justify-between">
                                     <div class="overflow-hidden w-2/3">
                                         <h3 class="text-sm text-gray-700">
-                                            <a href="<c:out value='home?action=book-detail&id=${book.id}'/>" class="line-clamp" title="<c:out value='${book.name}'/>" >
+                                            <a href="#" class="line-clamp" title="<c:out value='${book.name}'/>" >
                                                 <span aria-hidden="true" class="absolute line-clamp-1" ></span>
                                                 <c:out value="${book.name}"/>
                                             </a>
@@ -62,24 +62,54 @@
                                     </c:if>
                                 </div>
                                 <div class="mt-2">
-                                    <form name="bookUpdateForm" method="POST" action="vendorbook">
-                                        <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
-                                        <input type="hidden" name="action" value="add-to-cart">
-                                        <button type="submit" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-                                            Edit
+                                    <a href="vendorbook?action=delete&id=<c:out value='${book.id}'/>">
+                                        <button onclick="" type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" class="w-full inline-block px-6 py-2 border-2 border-red-400 text-red-400 font-medium text-xs leading-tight uppercase rounded hover:bg-red-400 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                            Delete
                                         </button>
-                                    </form>
+                                    </a>
                                 </div>
                             </div>
-                            <!-- More products... -->
-                        </c:forEach>
+
+                            <!--modal section-->
+                            <!--                            <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalTitle" aria-modal="true" role="dialog">
+                                                            <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
+                                                                <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                                                                    <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                                                                        <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
+                                                                            Delete confirmation
+                                                                        </h5>
+                                                                        <button type="button"
+                                                                                class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body relative p-4">
+                                                                        <p>Are you sure you want to delete?</p>
+                                                                        <p>This book will be deleted from everywhere and customers wont be able to see or search it.</p>
+                                                                    </div>
+                                                                    <div
+                                                                        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                                                                        <button type="button"
+                                                                                class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                                data-bs-dismiss="modal">
+                                                                            Cancel
+                                                                        </button>
+                                                                        <a href="vendorbook?action=delete&id=<c:out value='${book.id}'/>">
+                                                                            <button type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+                                                                                Confirm delete
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+                            <!--modal section ends-->
+                        </c:forEach>  
+
+
                     </div>
-
-
                 </div>
                 <!--product list section-->
             </div>
-
         </div>
     </body>
 </html>

@@ -67,7 +67,8 @@ public class validateLogin extends HttpServlet {
             if (!_email.equals("") && !_password.equals("")) {
                 if (checkemail.emailValidity(_email)) {
                     Users user = userDAO.selectUserByEmailAndPassword(_email, encrypt.encryptPassword(_password));
-                    System.out.println(user);
+//                    System.out.println(user.getId());
+//                    System.out.println(user.getFirstname());
                     if (user != null) {
                         HttpSession session = request.getSession();
                         session.setAttribute("id", user.getId());
