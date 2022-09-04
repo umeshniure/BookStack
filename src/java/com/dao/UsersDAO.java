@@ -16,6 +16,24 @@ public class UsersDAO {
     private static final String DELETE_USERS_SQL = "delete from vendors where id = ?;";
     private static final String UPDATE_USERS_SQL = "update vendors set name = ?,email= ?, semester =? where id = ?;";
 
+    private static final String VENDOR_COUNT = "SELECT count(*) FROM users WHERE user_type=2";
+
+    public int countVendors() {
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(VENDOR_COUNT);
+            ResultSet rs = preparedStatement.executeQuery();
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     public void insertUser(Users newUser) throws SQLException {
         try {
             Connection connection = Config.getConnection();

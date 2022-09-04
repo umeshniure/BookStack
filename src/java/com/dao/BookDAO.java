@@ -27,6 +27,24 @@ public class BookDAO {
     //SELECT table1.*, table2.first_name FROM table1 LEFT JOIN table2
     private static final String DELETE_BOOK_SQL = "delete from books where id = ?;";
 
+    private static final String BOOK_COUNT = "SELECT count(*) FROM books";
+
+    public int countBooks() {
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(BOOK_COUNT);
+            ResultSet rs = preparedStatement.executeQuery();
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     public List<Books> selectAllBooks() {
         List<Books> booklist = new ArrayList<>();
         try {
