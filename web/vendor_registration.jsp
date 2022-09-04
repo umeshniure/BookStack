@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+
         <title>Bookstack: Home</title>
         <!-- Section: Design Block -->
     </head>
@@ -90,41 +92,41 @@
                                 <form method="POST" action="vendor_registration" enctype='multipart/form-data'>
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
                                     <div class="form-outline mb-4">
-                                        <input name="store_name" type="pphone" id="form3Example33" class="form-control" value="${store_name}"/>
                                         <label class="form-label" for="form3Example33">Store name</label>
+                                        <input name="store_name" type="pphone" id="form3Example33" class="form-control" value="${store_name}"/>
                                     </div>
 
                                     <!-- phone input -->
                                     <div class="form-outline mb-4">
-                                        <input name="phone_number" type="phone" id="form3Example3" class="form-control" maxlength="10" value="${phone_number}"/>
                                         <label class="form-label" for="form3Example3">Phone</label>
+                                        <input name="phone_number" type="phone" id="form3Example3" class="form-control" maxlength="10" value="${phone_number}"/>
                                     </div>
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
-                                        <input name="email" type="email" id="form3Example3" class="form-control" value="${email}"/>
                                         <label class="form-label" for="form3Example3">Email address</label>
+                                        <input name="email" type="email" id="form3Example3" class="form-control" value="${email}"/>
                                     </div>
 
                                     <!-- Password input -->                                                                   
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
-                                                <input name="password1" type="password" id="form3Example10" class="form-control" />
                                                 <label class="form-label" for="form3Example10">Password</label>
+                                                <input name="password1" type="password" id="form3Example10" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
-                                                <input name="password2" type="password" id="form3Example20" class="form-control" />
                                                 <label class="form-label" for="form3Example20">Confirm password</label>
+                                                <input name="password2" type="password" id="form3Example20" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input name="profile_pic" class="form-control" type="file" id="formFile">
                                         <label for="formFile" class="form-label">Upload an image/logo for public profile</label>
+                                        <input name="profile_pic" class="form-control" type="file" id="formFile">
                                     </div>
 
                                     <c:if test="${not empty vendorRegistrationError}">
@@ -172,4 +174,9 @@
         </section>
         <!-- Section: Design Block -->
     </body>
+
+    <!--footer section-->
+    <jsp:include page="footer.html"/>
+    <!--footer section ends-->
+
 </html>

@@ -10,8 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="css/allcss.css"></link>
+        <jsp:include page="allscripts.jsp"/>
         <title>Books</title>
     </head>
     <body>
@@ -23,7 +22,7 @@
         <div class="flex p-2 justify-around w-full">
             <!--product list section-->
             <div class="max-w-2xl mx-4 py-2 px-2 sm:px-6 lg:max-w-7xl lg:px-8">
-                <h3 class="text-2xl font-bold tracking-tight text-gray-900">Books</h3>
+                <h3 class="text-2xl font-bold tracking-tight text-gray-900"><c:out value="${name}"/></h3>
 
                 <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8 w-full">
                     <c:forEach var="book" items="${booklist}">
@@ -74,5 +73,10 @@
             </div>
             <!--product list section-->
         </div>
+
+        <!--footer section-->
+        <jsp:include page="footer.html"/>
+        <!--footer section ends-->
+
     </body>
 </html>

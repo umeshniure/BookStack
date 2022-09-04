@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://cdn.tailwindcss.com"></script>
+        <jsp:include page="allscripts.jsp"/>
         <title>Cart</title>
         <style>
             #summary {
@@ -48,7 +48,7 @@
                                 <div class="flex flex-col justify-between ml-4 flex-grow">
                                     <span class="font-bold text-auto"><c:out value="${cartItem.book_name}"/></span> 
                                     <span class="text-gray-600 text-xs">By: <c:out value="${cartItem.book_author}"/></span>                                                 
-                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-800 text-red-500 text-xs">Remove</a>
+                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-800 text-red-500 text-xs inline">Remove</a>
                                 </div>
                             </div>
                             <div class="flex justify-center w-1/5">
@@ -76,7 +76,6 @@
                                 <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.price * cartItem.quantity}"/></span>                                                  
                                 <c:set var="total_price" value="${total_price + (cartItem.price * cartItem.quantity)}"/>
                             </c:if>
-                            <%--<c:set var="total_price" value="${total_price + (book.price * cartItem.quantity)}"/>--%>
 
                         </div>
                     </c:forEach>

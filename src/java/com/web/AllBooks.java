@@ -53,6 +53,7 @@ public class AllBooks extends HttpServlet {
             throws ServletException, IOException {
         List<Books> booklist = bookDAO.selectAllBooks();
         RequestDispatcher dispatcher = request.getRequestDispatcher("all-books.jsp");
+        request.setAttribute("name", "Books");
         request.setAttribute("booklist", booklist);
         dispatcher.forward(request, response);
     }

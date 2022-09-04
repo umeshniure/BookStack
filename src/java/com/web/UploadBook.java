@@ -16,7 +16,6 @@ import com.model.*;
 import com.dao.*;
 import java.io.File;
 import java.sql.SQLException;
-import java.time.Year;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
@@ -68,6 +67,7 @@ public class UploadBook extends HttpServlet {
                         request.setAttribute("bookCover", bookCover);
                         request.setAttribute("bookType", bookType);
                         request.setAttribute("action", "insert");
+                        request.setAttribute("page", "Upload book");
                         rd.forward(request, response);
 
                     } else {
@@ -113,12 +113,13 @@ public class UploadBook extends HttpServlet {
                 long isbn = Long.parseLong(request.getParameter("isbn"));
                 int price = Integer.parseInt(request.getParameter("price"));
                 Integer discounted_price;
-                if (request.getParameter("discounted_price").equals("")) {
+                String temp = request.getParameter("discounted_price");
+                if (temp.equals("")) {
+                    discounted_price = null;
+                } else if (Integer.parseInt(temp) == 0) {
                     discounted_price = null;
                 } else {
-                    System.out.println("here");
-                    discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
-                    System.out.println("there");
+                    discounted_price = Integer.parseInt(temp);
                 }
                 int category = Integer.parseInt(request.getParameter("category"));
                 int cover_type = Integer.parseInt(request.getParameter("cover_type"));

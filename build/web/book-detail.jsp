@@ -48,19 +48,16 @@
                 </nav>
 
                 <!-- Image gallery -->                
-                <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-                    <div class="flex h-96 w-auto sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4 lg:border-r lg:border-gray-200 lg:pr-8 lg:block ">
+                <div class="mt-6 max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
+                    <div class="flex h-96 w-auto sm:overflow-hidden lg:border-r lg:border-gray-200 mr-6">
                         <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value='${book.cover_photo_name}'/>" alt="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover rounded-lg">
                     </div>
-                    <!-- <div class="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden sm:rounded-lg sm:overflow-hidden  ">
-                         <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-center object-cover">
-                     </div>-->
 
                     <!-- Options -->
-                    <div class="mt-4 lg:mt-0 lg:row-span-1 sm:ml-2 sm:mr-2">
+                    <div class="mt-4 lg:mt-0 lg:row-span-1 sm:ml-2 sm:mr-2 lg:border-r lg:border-gray-200 lg:pr-10">
                         <p class="tracking-tight text-3xl"><c:out value='${book.name}'/></p>
                         <h2 class="sr-only">Product information</h2>
-                        <p class="tracking-tight text-xl text-gray-900 mt-2">By <a href="#" class="font-bold-medium text-purple-800"> ${book.author} </a></p>
+                        <p class="tracking-tight text-xl text-gray-900 mt-2">By <a href="home?action=author&name=${book.author}" class="font-bold-medium text-purple-800"> ${book.author} </a></p>
 
                         <!-- Reviews -->
                         <div class="mt-6">
@@ -116,42 +113,68 @@
                             <!-- Colors -->
                             <div>
                                 <h3 class="text-md text-gray-900 font-medium mt-2">ISBN:  <c:out value='${book.isbn}'/> </h3>
-                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${book.category_name}'/> </a> </h3>
+                                <h3 class="text-md text-gray-900 font-medium">Category: <a href="<c:out value='home?action=category&id=${book.category}'/>" class="font-bold-medium text-purple-800"> <c:out value='${book.category_name}'/> </a> </h3>
                             </div>
 
                             <div class="mt-5">
-                                <h3 class="text-md text-gray-900 font-medium">Seller:  <a href="#" class="font-bold-medium text-purple-800"> <c:out value='${book.vendor}'/> </a> </h3>
+                                <h3 class="text-md text-gray-900 font-medium">Seller:  <a href="<c:out value='home?action=vendor&id=${book.vendor_id}'/>" class="font-bold-medium text-purple-800"> <c:out value='${book.vendor}'/> </a> </h3>
                             </div>
 
                             <!-- Sizes -->
-<!--                            <div class="mt-10">
-                                <div class="flex items-center justify-between">
-                                    <h3 class="text-sm text-gray-900 font-medium">Size</h3>
-                                    <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
+                            <div class="mt-5">
+                                <div class="flex items-center">
+                                    <h3 class="text-sm text-gray-900 font-medium">Status: <span class="text-green-500 text-base"> In stock </span></h3>
                                 </div>                                    
-                            </div>-->
+                            </div>
 
                             <form name="addToCartForm" method="POST" action="cart">
                                 <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
                                 <input type="hidden" name="action" value="add-to-cart">
-                                <button type="submit" class="mt-10 w-full bg-purple-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                <button type="submit" class="mt-5 w-full bg-purple-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
                                     Add to cart
                                 </button>
                             </form>
 
                         </div>
                     </div>
+
+                    <div class="mt-10 lg:mt-0">
+                        <h3 class="text-lg font-medium text-gray-900">Highlights</h3>
+                        <div class="mt-4">
+                            <ul role="list" class="pl-4 list-disc text-sm space-y-2 text-base">
+                                <li class="text-gray-400"><span class="text-gray-600"> Book name: <c:out value='${book.name}'/> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Author: <a href="home?action=author&name=${book.author}" class="font-bold-medium text-purple-800"><c:out value='${book.author}'/></a> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> ISBN: <c:out value='${book.isbn}'/> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Category: <a href="<c:out value='home?action=category&id=${book.category}'/>" class="font-bold-medium text-purple-800"><c:out value='${book.category_name}'/></a> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Published year: <c:out value='${book.published_year}'/> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Language: <a href="home?action=language&id=${book.language}" class="font-bold-medium text-purple-800"><c:out value='${book.language_name}'/></a> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Cover type: <a href="home?action=coverType&id=${book.cover_type}" class="font-bold-medium text-purple-800"><c:out value='${book.cover}'/></a> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Book type: <a href="home?action=bookType&id=${book.type}" class="font-bold-medium text-purple-800"><c:out value='${book.book_type}'/></a> </span></li>
+
+                                <li class="text-gray-400"><span class="text-gray-600"> Seller: <a href="<c:out value='home?action=vendor&id=${book.vendor_id}'/>" class="font-bold-medium text-purple-800"><c:out value='${book.vendor}'/></a> </span></li>                                        
+
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>                
 
                 <!-- Product info -->
-                <div class="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
-                    <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                <div class="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+                    <div class="lg:col-span-2 lg:pr-8">
                         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:tracking-tight sm:text-3xl">Description</h1>
                     </div>  
 
                     <!--add to cart portion here-->
 
-                    <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                    <div class="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:pr-8">
                         <!-- Description and details -->
                         <div>
                             <h3 class="sr-only">Synopsis</h3>
@@ -160,44 +183,122 @@
                                 <p class="text-base text-gray-900"> <c:out value='${book.description}'/> </p>
                             </div>
                         </div>
-
-                        <div class="mt-10">
-                            <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
-
-                            <div class="mt-4">
-                                <ul role="list" class="pl-4 list-disc text-sm space-y-2">
-                                    <li class="text-gray-400"><span class="text-gray-600"> Book name: <c:out value='${book.name}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Author: <c:out value='${book.author}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> ISBN: <c:out value='${book.isbn}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Category: <c:out value='${book.category_name}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Published year: <c:out value='${book.published_year}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Language: <c:out value='${book.language_name}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Cover type: <c:out value='${book.cover}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Book type: <c:out value='${book.book_type}'/> </span></li>
-
-                                    <li class="text-gray-400"><span class="text-gray-600"> Seller: <c:out value='${book.vendor}'/> </span></li>                                        
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="mt-10">
-                            <h2 class="text-sm font-medium text-gray-900">Details</h2>
-
-                            <div class="mt-4 space-y-6">
-                                <p class="text-sm text-gray-600">The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming &quot;Charcoal Gray&quot; limited release.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+
+
+            <div class="flex p-2 justify-around w-full">
+                <!--product list section-->
+                <div class="max-w-2xl mx-4 py-2 px-2 lg:max-w-7xl lg:px-8">
+                    <h3 class="text-2xl font-bold tracking-tight text-gray-900">Similar books</h3>
+
+                    <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8 w-full">
+                        <c:forEach var="book" items="${SameCategoryBook}">
+                            <div class="group relative hover:scale-105 ease-in duration-200">
+                                <a href="<c:out value='home?action=book-detail&id=${book.id}'/>">
+                                    <div class="flex w-full min-h-40 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
+                                        <img src="images/book_cover_photos/${book.vendor_id}/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">
+                                    </div>
+                                </a>
+                                <div class="mt-4 flex justify-between">
+                                    <div class="overflow-hidden w-2/3">
+                                        <h3 class="text-sm text-gray-700">
+                                            <a href="<c:out value='home?action=book-detail&id=${book.id}'/>" class="line-clamp" title="<c:out value='${book.name}'/>" >
+                                                <span aria-hidden="true" class="absolute line-clamp-1" ></span>
+                                                <c:out value="${book.name}"/>
+                                            </a>
+                                        </h3>
+                                        <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category_name}" /></p>                                                    
+
+                                    </div>
+                                    <c:if test="${book.discounted_price != ''}">
+                                        <div class="overflow-hidden  w-1/3 items-end">
+                                            <p class="text-lbaseg font-medium text-gray-900">NPR. <c:out value="${book.discounted_price}" /></p>
+                                            <p class="text-xs font-medium text-gray-900 line-through">NPR. <c:out value="${book.price}" /></p>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${book.discounted_price == ''}">
+                                        <div class="overflow-hidden  w-1/3 items-end">
+                                            <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.price}" /></p>
+                                        </div>
+                                    </c:if>
+                                </div>
+                                <div class="mt-2">
+                                    <form name="addToCartForm" method="POST" action="cart">
+                                        <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
+                                        <input type="hidden" name="action" value="add-to-cart">
+                                        <button type="submit" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- More products... -->
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="flex p-2 justify-around w-full">
+                <!--product list section-->
+                <div class="max-w-2xl mx-4 py-2 px-2 lg:max-w-7xl lg:px-8">
+                    <h3 class="text-2xl font-bold tracking-tight text-gray-900">More from same author</h3>
+
+                    <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8 w-full">
+                        <c:forEach var="book" items="${SameAuthorBook}">
+                            <div class="group relative hover:scale-105 ease-in duration-200">
+                                <a href="<c:out value='home?action=book-detail&id=${book.id}'/>">
+                                    <div class="flex w-full min-h-40 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
+                                        <img src="images/book_cover_photos/${book.vendor_id}/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">
+                                    </div>
+                                </a>
+                                <div class="mt-4 flex justify-between">
+                                    <div class="overflow-hidden w-2/3">
+                                        <h3 class="text-sm text-gray-700">
+                                            <a href="<c:out value='home?action=book-detail&id=${book.id}'/>" class="line-clamp" title="<c:out value='${book.name}'/>" >
+                                                <span aria-hidden="true" class="absolute line-clamp-1" ></span>
+                                                <c:out value="${book.name}"/>
+                                            </a>
+                                        </h3>
+                                        <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category_name}" /></p>                                                    
+
+                                    </div>
+                                    <c:if test="${book.discounted_price != ''}">
+                                        <div class="overflow-hidden  w-1/3 items-end">
+                                            <p class="text-lbaseg font-medium text-gray-900">NPR. <c:out value="${book.discounted_price}" /></p>
+                                            <p class="text-xs font-medium text-gray-900 line-through">NPR. <c:out value="${book.price}" /></p>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${book.discounted_price == ''}">
+                                        <div class="overflow-hidden  w-1/3 items-end">
+                                            <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.price}" /></p>
+                                        </div>
+                                    </c:if>
+                                </div>
+                                <div class="mt-2">
+                                    <form name="addToCartForm" method="POST" action="cart">
+                                        <input type="hidden" name="book_id" value="<c:out value='${book.id}'/>">
+                                        <input type="hidden" name="action" value="add-to-cart">
+                                        <button type="submit" class="w-full inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- More products... -->
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </body>
+
+    <!--footer section-->
+    <jsp:include page="footer.html"/>
+    <!--footer section ends-->
+
 </html>

@@ -158,5 +158,9 @@
             </div>
         </section>
 
+        <!--footer section-->
+        <jsp:include page="footer.html"/>
+        <!--footer section ends-->
+
     </body>
 </html>

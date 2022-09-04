@@ -75,6 +75,14 @@
                              alt="Banner" width="1920" height="288" />
                     </div>
                 </div>
+                <div class="carousel-item bg-black rounded">
+                    <div class="flex relative text-center rounded">
+                        <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Unbelievable discount on bundles</h1>
+                        <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
+                             src="https://waukeepubliclibrary.org/sites/default/files/BookBundles.png"
+                             alt="Banner" width="1920" height="288" />
+                    </div>
+                </div>
             </div>
             <button
                 class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
@@ -107,10 +115,10 @@
                                 </li>
                             </ul>
                             <ul class="mt-2 pt-2 space-y-2 text-black border-t border-gray-200">
-                                <c:forEach var="book" items="${booklist}">
+                                <c:forEach var="category" items="${categoryList}">
                                     <li>
-                                        <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <span class="ml-3"><c:out value="${book.category_name}"/></span>
+                                        <a href="home?action=category&id=<c:out value="${category.id}"/>" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <span class="ml-3"><c:out value="${category.category_name}"/></span>
                                         </a>
                                     </li>
                                 </c:forEach>
@@ -139,7 +147,7 @@
             <div class="w-full h-full m-8">
                 <div class="flex p-2">
                     <!--product list section-->
-                    <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <div class="max-w-2xl mx-4 py-2 px-2 sm:px-6 lg:max-w-7xl lg:px-8">
                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">New Arrivals</h3>
 
                         <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -158,8 +166,9 @@
                                                     <c:out value="${book.name}"/>
                                                 </a>
                                             </h3>
-                                            <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category_name}" /></p>                                                    
-
+                                            <a href="home?action=category&id=<c:out value="${book.category}"/>">
+                                                <p class="mt-1 text-sm font-bold text-purple-600 hover:text-purple-800"><c:out value="${book.category_name}" /></p>                                                    
+                                            </a>
                                         </div>
                                         <c:if test="${book.discounted_price != ''}">
                                             <div class="overflow-hidden  w-1/3 items-end">
@@ -195,11 +204,11 @@
 
 
                 <!--hero section-->
-                <div class="ml-10 mr-10 relative overflow-hidden bg-no-repeat bg-cover rounded" style="background-position: 50%;
+                <div class="ml-10 mr-10 mb-4 mt-6 relative overflow-hidden bg-no-repeat bg-cover rounded" style="background-position: 50%;
                      background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1290&q=80'); height: 350px;">
                     <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
                          style="background-color: rgba(0, 0, 0, 0.3)">
-                        <div class="flex justify-center items-center h-full">
+                        <div class="flex justify-center items-center h-full overflow-auto">
                             <div class="text-center text-white px-6 md:px-12">
                                 <h1 class="text-5xl font-bold mt-0 mb-6">We have more than 100 books to choose from</h1>
                                 <h3 class="text-3xl font-bold mb-8">All the books you need right at one place</h3>
@@ -219,7 +228,7 @@
 
                 <div class="flex p-2">
                     <!--product list section-->
-                    <div class="max-w-2xl mx-4 py-2 px-2 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <div class="max-w-2xl mx-4 py-2 px-2 sm:px-6 lg:max-w-7xl lg:px-8">
                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">Best sellers</h3>
 
                         <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

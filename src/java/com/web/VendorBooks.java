@@ -17,7 +17,6 @@ import com.model.Category;
 import com.model.Language;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -98,6 +97,7 @@ public class VendorBooks extends HttpServlet {
         request.setAttribute("bookCover", bookCover);
         request.setAttribute("bookType", bookType);
         request.setAttribute("action", "update");
+        request.setAttribute("page", "Update book");
         dispatcher.forward(request, response);
     }
 
@@ -122,6 +122,7 @@ public class VendorBooks extends HttpServlet {
                     List<Books> books = bookDAO.selectBookByVendorID(id);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-book-list.jsp");
                     request.setAttribute("books", books);
+                    request.setAttribute("page", "My Books");
                     dispatcher.forward(request, response);
                 } else {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("home");
@@ -155,24 +156,19 @@ public class VendorBooks extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if ((int) session.getAttribute("user_type") == 2) {
-                System.out.println("start");
-                System.out.println(request.getParameter("id"));
                 int id = Integer.parseInt(request.getParameter("id"));
-                System.out.println("id passed");
                 String bookname = request.getParameter("bookname");
                 long isbn = Long.parseLong(request.getParameter("isbn"));
-                System.out.println("isbn passed");
                 int price = Integer.parseInt(request.getParameter("price"));
-                System.out.println("price passed");
                 Integer discounted_price;
-                if (request.getParameter("discounted_price") == null) {
+                String temp = request.getParameter("discounted_price");
+                if (temp.equals("")) {
                     discounted_price = null;
-                } else if (Integer.parseInt(request.getParameter("discounted_price")) == 0) {
+                } else if (Integer.parseInt(temp) == 0) {
                     discounted_price = null;
                 } else {
-                    discounted_price = Integer.parseInt(request.getParameter("discounted_price"));
+                    discounted_price = Integer.parseInt(temp);
                 }
-                System.out.println("discount passed");
                 int category = Integer.parseInt(request.getParameter("category"));
                 int cover_type = Integer.parseInt(request.getParameter("cover_type"));
                 int language = Integer.parseInt(request.getParameter("language"));
@@ -190,7 +186,6 @@ public class VendorBooks extends HttpServlet {
                     String fileName = bookname + "-vendor" + vendor_id + ".png";
                     //String contextPath = request.getContextPath();
                     String contextPath = new File("").getAbsolutePath();
-                    System.out.println("Context Path: " + contextPath);
                     String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
                     File fileSaveDir = new File(imageFolderPath);
                     fileSaveDir.mkdir();
