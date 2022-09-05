@@ -73,12 +73,13 @@ public class ValidateSignup extends HttpServlet {
         String store_name = null;
         long phone_number = 0;
         String imageSavePath = null;
+        String profile_pic_name = null;
         try {
             String message;
             if (!email.equals("") && !_password1.equals("") && !_password2.equals("")) {
                 if (checkemail.emailValidity(email)) {
                     if (_password1.equals(_password2)) {
-                        Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, encrypt.encryptPassword(_password1), user_type);
+                        Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, profile_pic_name, encrypt.encryptPassword(_password1), user_type);
                         userDAO.insertUser(newuser);
                         response.sendRedirect("login");
                     } else {

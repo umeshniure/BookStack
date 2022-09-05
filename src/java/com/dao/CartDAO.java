@@ -20,6 +20,24 @@ public class CartDAO {
     private static final String UPDATE_CART = "update cart set user_id = ?,book_id = ?, quantity = ?, created_date = ? where id = ?;";
     private static final String DELETE_CART_ITEM = "delete from cart where id = ?;";
 
+    private static final String CART_COUNT = "SELECT count(*) FROM cart";
+
+    public int countCart() {
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CART_COUNT);
+            ResultSet rs = preparedStatement.executeQuery();
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     public List<Cart> selectAllCart() {
         List<Cart> allCart = new ArrayList<>();
         try {

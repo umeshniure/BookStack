@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,8 +52,8 @@
                             <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-2xl">$11,257</p>
-                            <p>Sales</p>
+                            <p class="text-2xl">${noOfUsers}</p>
+                            <p>Users</p>
                         </div>
                     </div>
                     <div class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
@@ -59,8 +61,8 @@
                             <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-2xl">$75,257</p>
-                            <p>Balances</p>
+                            <p class="text-2xl">${totalCarts}</p>
+                            <p>Total cart</p>
                         </div>
                     </div>
                 </div>
@@ -349,33 +351,38 @@
                             <table class="w-full">
                                 <thead>
                                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3">Client</th>
-                                        <th class="px-4 py-3">Amount</th>
+                                        <th class="px-4 py-3">ID</th>
+                                        <th class="px-4 py-3">Vendor</th>
+                                        <th class="px-4 py-3">Phone</th>
+                                        <th class="px-4 py-3">Email</th>
                                         <th class="px-4 py-3">Status</th>
-                                        <th class="px-4 py-3">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                    <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3">
-                                            <div class="flex items-center text-sm">
-                                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                    <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
-                                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                    <c:forEach var="vendor" items="${vendors}">
+                                        <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                            <td class="px-4 py-3 text-sm"><c:out value='${vendor.id}'/></td>
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center text-sm">
+                                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                                        <img class="object-cover w-full h-full rounded-full" src="images/vendor_profiles/<c:out value='${vendor.profile_pic_name}'/>" alt="" loading="lazy" />
+                                                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-semibold"><c:out value='${vendor.store_name}'/></p>
+                                                        <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer</p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <p class="font-semibold">Hans Burger</p>
-                                                    <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">$855.85</td>
-                                        <td class="px-4 py-3 text-xs">
-                                            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"> Approved </span>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">15-01-2021</td>
-                                    </tr>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm"><c:out value='${vendor.phone_number}'/></td>
+                                            <td class="px-4 py-3 text-sm"><c:out value='${vendor.email}'/></td>
+                                            <td class="px-4 py-3 text-xs">
+                                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"> Approved </span>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3 text-sm">1</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -395,6 +402,7 @@
                                         <td class="px-4 py-3 text-sm">23-03-2021</td>
                                     </tr>
                                     <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3 text-sm">1</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -414,6 +422,7 @@
                                         <td class="px-4 py-3 text-sm">09-02-2021</td>
                                     </tr>
                                     <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3 text-sm">1</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -433,6 +442,7 @@
                                         <td class="px-4 py-3 text-sm">17-04-2021</td>
                                     </tr>
                                     <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3 text-sm">1</td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">

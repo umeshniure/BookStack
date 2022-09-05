@@ -5,12 +5,14 @@ public class Users {
     protected int id, user_type;
     protected long phone_number;
     protected String firstname, lastname, email, store_name;
-    protected String profile_pic, password;
+    protected String profile_pic;
+    protected String profile_pic_name;
+    protected String password;
 
     public Users() {
     }
 
-    public Users(String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String password, int user_type) {
+    public Users(String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String profile_pic_name, String password, int user_type) {
         super();
         this.firstname = firstname;
         this.lastname = lastname;
@@ -18,11 +20,12 @@ public class Users {
         this.phone_number = phone_number;
         this.email = email;
         this.profile_pic = profile_pic;
+        this.profile_pic_name = profile_pic_name;
         this.password = password;
         this.user_type = user_type;
     }
 
-    public Users(int id, String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String password, int user_type) {
+    public Users(int id, String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String profile_pic_name, String password, int user_type) {
         super();
         this.id = id;
         this.firstname = firstname;
@@ -31,6 +34,7 @@ public class Users {
         this.phone_number = phone_number;
         this.email = email;
         this.profile_pic = profile_pic;
+        this.profile_pic_name = profile_pic_name;
         this.password = password;
         this.user_type = user_type;
     }
@@ -105,5 +109,19 @@ public class Users {
 
     public void setUser_type(int user_type) {
         this.user_type = user_type;
+    }
+
+    /**
+     * @return the profile_pic_name
+     */
+    public String getProfile_pic_name() {
+        return profile_pic_name;
+    }
+
+    /**
+     * @param profile_pic_name the profile_pic_name to set
+     */
+    public void setProfile_pic_name(String profile_pic_name) {
+        this.profile_pic_name = profile_pic_name;
     }
 }

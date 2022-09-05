@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.2/dist/flowbite.min.css"/>
-        <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="css/allcss.css"></link>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
 </html>

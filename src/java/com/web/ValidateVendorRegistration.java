@@ -91,12 +91,13 @@ public class ValidateVendorRegistration extends HttpServlet {
                                 try {
                                     pic_part = request.getPart("profile_pic");
                                     System.out.println("Pic Part: " + pic_part);
-                                    String fileName = extractFileName(pic_part);
+                                    //String fileName = extractFileName(pic_part);
+                                    String fileName = store_name + "-profile_pic.png";
                                     String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles" + File.separator + fileName;
                                     File fileSaveDir = new File(imageSavePath);
                                     pic_part.write(imageSavePath + File.separator);
 
-                                    Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, encrypt.encryptPassword(_password1), user_type);
+                                    Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, fileName, encrypt.encryptPassword(_password1), user_type);
                                     vendorsDAO.insertUser(newVendor);
                                     response.sendRedirect("vendor_registration.jsp");
                                 } catch (Exception e) {

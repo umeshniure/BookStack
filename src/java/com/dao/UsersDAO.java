@@ -6,22 +6,41 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import com.model.Users;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsersDAO {
 
     private static final String INSERT_VENDOR_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select * from users where id = ?";
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from users where email = ? and password = ?";
-    private static final String SELECT_ALL_USERS = "select * from vendors";
+    private static final String SELECT_ALL_VENDOR = "select * from users where user_type = 2";
     private static final String DELETE_USERS_SQL = "delete from vendors where id = ?;";
     private static final String UPDATE_USERS_SQL = "update vendors set name = ?,email= ?, semester =? where id = ?;";
 
     private static final String VENDOR_COUNT = "SELECT count(*) FROM users WHERE user_type=2";
+    private static final String USER_COUNT = "SELECT count(*) FROM users WHERE user_type=1";
 
     public int countVendors() {
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(VENDOR_COUNT);
+            ResultSet rs = preparedStatement.executeQuery();
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public int countUsers() {
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(USER_COUNT);
             ResultSet rs = preparedStatement.executeQuery();
             int count = 0;
             if (rs.next()) {
@@ -53,7 +72,7 @@ public class UsersDAO {
     }
 
     public Users selectUser(int id) {
-        Users vendor = new Users();
+        Users user = new Users();
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);
@@ -68,7 +87,34 @@ public class UsersDAO {
                 String password = rs.getString("password");
                 int user_type = rs.getInt("user_type");
                 String profile_pic = rs.getString("profile_pic");
-                vendor = new Users(firstname, lastname, store_name, phone_number, email, profile_pic, password, user_type);
+                String profile_pic_name = rs.getString("profile_pic_name");
+                user = new Users(firstname, lastname, store_name, phone_number, email, profile_pic, profile_pic_name, password, user_type);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+
+    public List<Users> selectVendors() {
+        List<Users> vendor = new ArrayList<>();
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_VENDOR);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String store_name = rs.getString("store_name");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                long phone_number = rs.getLong("phone_number");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                int user_type = rs.getInt("user_type");
+                String profile_pic = rs.getString("profile_pic");
+                String profile_pic_name = rs.getString("profile_pic_name");
+                vendor.add(new Users(id, firstname, lastname, store_name, phone_number, email, profile_pic, profile_pic_name, password, user_type));
             }
 
         } catch (Exception e) {
@@ -94,7 +140,8 @@ public class UsersDAO {
                 long phone_number = rs.getLong("phone_number");
                 int user_type = rs.getInt("user_type");
                 String profile_pic = rs.getString("profile_pic");
-                user = new Users(id, firstname, lastname, store_name, phone_number, email, profile_pic, password, user_type);
+                String profile_pic_name = rs.getString("profile_pic_name");
+                user = new Users(id, firstname, lastname, store_name, phone_number, email, profile_pic, profile_pic_name, password, user_type);
             }
 
         } catch (Exception e) {
