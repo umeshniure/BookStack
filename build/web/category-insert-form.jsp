@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="allscripts.jsp"/>
-        <title>Update category</title>
+        <title>category</title>
     </head>
     <body>
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
@@ -27,11 +27,15 @@
 
 
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 gap-4 text-black dark:text-white">
-
-                    <!--<form method="post" action="adminDatabase">-->
                     <div class="mt-5 md:col-span-2 md:mt-0">
+                        <c:if test='${action == "update"}'>
+                            <label class="block text-xl font-medium text-gray-700">Update Category</label>
+                        </c:if>
+                        <c:if test='${action == "insert"}'>
+                            <label class="block text-xl font-medium text-gray-700">Add new category</label>
+                        </c:if>
                         <form action="adminDatabase" method="POST">
-                            <div class="overflow-hidden shadow sm:rounded-md">
+                            <div class="overflow-hidden shadow sm:rounded-md w-auto">
                                 <div class="bg-white px-4 py-5 sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class="col-span-6 sm:col-span-4">
@@ -41,10 +45,10 @@
                                                 <input type="number" name="id" value="${category.id}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm select-none cursor-not-allowed" disabled>
                                             </c:if>
                                             <c:if test='${action == "update"}'>
-                                                <input type="hidden" name="action" value="update">
+                                                <input type="hidden" name="action" value="updateCategory">
                                             </c:if>
                                             <c:if test='${action == "insert"}'>
-                                                <input type="hidden" name="action" value="insert">
+                                                <input type="hidden" name="action" value="insertCategory">
                                             </c:if>
                                         </div>
                                         <div class="col-span-6 sm:col-span-4">
@@ -65,6 +69,8 @@
                         </form>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </body>

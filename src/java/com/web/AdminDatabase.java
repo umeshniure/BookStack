@@ -12,6 +12,7 @@ import com.dao.CategoryDAO;
 import com.dao.LanguageDAO;
 import com.dao.UsersDAO;
 import com.model.Category;
+import com.model.Language;
 import com.model.Users;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -61,11 +62,20 @@ public class AdminDatabase extends HttpServlet {
                 case ("insertCategoryForm"):
                     showCategoryInsertForm(request, response);
                     break;
-                case ("updateForm"):
+                case ("categoryUpdateForm"):
                     showCategoryUpdateForm(request, response);
                     break;
-                case ("remove"):
+                case ("removeCategory"):
                     deleteCategory(request, response);
+                    break;
+                case ("insertLanguageForm"):
+                    showLanguageInsertForm(request, response);
+                    break;
+                case ("updateLanguageForm"):
+                    showLanguageUpdateForm(request, response);
+                    break;
+                case ("removeLanguage"):
+                    deleteLanguage(request, response);
                     break;
                 default:
                     showDatabase(request, response);
@@ -93,10 +103,37 @@ public class AdminDatabase extends HttpServlet {
         rd.forward(request, response);
     }
 
+    public void showLanguageUpdateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Language language = languageDAO.selectLanguage(id);
+        RequestDispatcher rd = request.getRequestDispatcher("language-insert-form.jsp");
+        request.setAttribute("language", language);
+        request.setAttribute("action", "update");
+        rd.forward(request, response);
+    }
+
+    public void showLanguageInsertForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("language-insert-form.jsp");
+        request.setAttribute("action", "insert");
+        rd.forward(request, response);
+    }
+
     public void deleteCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (categoryDAO.deleteCategory(id)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
+    public void deleteLanguage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (languageDAO.deleteLanguage(id)) {
             response.sendRedirect("adminDatabase");
         } else {
             response.sendRedirect("adminDatabase");
@@ -110,8 +147,10 @@ public class AdminDatabase extends HttpServlet {
             if (session.getAttribute("id") != null) {
                 if ((int) session.getAttribute("user_type") == 3) {
                     List<Category> categories = categoryDAO.selectAllCategory();
+                    List<Language> languages = languageDAO.selectAllLanguage();
                     RequestDispatcher rd = request.getRequestDispatcher("admin-database-page.jsp");
                     request.setAttribute("categories", categories);
+                    request.setAttribute("languages", languages);
                     rd.forward(request, response);
                 } else {
                     RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
@@ -143,15 +182,18 @@ public class AdminDatabase extends HttpServlet {
         }
         try {
             switch (action) {
-                case ("insert"):
+                case ("insertCategory"):
                     InsertCategory(request, response);
                     break;
-                case ("update"):
+                case ("updateCategory"):
                     updateCategory(request, response);
                     break;
-//                default:
-//                    showDatabase(request, response);
-//                    break;
+                case ("insertLanguage"):
+                    insertLanguage(request, response);
+                    break;
+                case ("updateLanguage"):
+                    updateLanguage(request, response);
+                    break;
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
@@ -175,15 +217,31 @@ public class AdminDatabase extends HttpServlet {
         String category_name = request.getParameter("category");
         Category category = new Category(id, category_name);
         if (categoryDAO.updateCategory(category)) {
-            RequestDispatcher rd = request.getRequestDispatcher("admin-database-page.jsp");
-            String successMessage = "one category successfully updated";
-            request.setAttribute("successMessage", successMessage);
-            rd.forward(request, response);
+            response.sendRedirect("adminDatabase");
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("admin-database-page.jsp");
-            String errorMessage = "Sorry, couldnot update category.";
-            request.setAttribute("errorMessage", errorMessage);
-            rd.forward(request, response);
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
+    public void insertLanguage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String language_name = request.getParameter("language");
+        Language language = new Language(language_name);
+        languageDAO.insertLanguage(language);
+        response.sendRedirect("adminDatabase");
+    }
+
+    public void updateLanguage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println(request.getParameter("language"));
+        System.out.println(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        String language_name = request.getParameter("language");
+        Language language = new Language(id, language_name);
+        if (languageDAO.updateLanguage(language)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
         }
     }
 
