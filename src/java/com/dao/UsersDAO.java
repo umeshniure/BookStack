@@ -15,8 +15,8 @@ public class UsersDAO {
     private static final String SELECT_USER_BY_ID = "select * from users where id = ?";
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from users where email = ? and password = ?";
     private static final String SELECT_ALL_VENDOR = "select * from users where user_type = 2";
-    private static final String DELETE_USERS_SQL = "delete from vendors where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update vendors set name = ?,email= ?, semester =? where id = ?;";
+    private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
+    private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, semester =? where id = ?;";
 
     private static final String VENDOR_COUNT = "SELECT count(*) FROM users WHERE user_type=2";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE user_type=1";

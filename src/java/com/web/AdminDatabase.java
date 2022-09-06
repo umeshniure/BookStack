@@ -4,16 +4,8 @@
  */
 package com.web;
 
-import com.dao.BookCoverDAO;
-import com.dao.BookDAO;
-import com.dao.BookTypeDAO;
-import com.dao.CartDAO;
-import com.dao.CategoryDAO;
-import com.dao.LanguageDAO;
-import com.dao.UsersDAO;
-import com.model.Category;
-import com.model.Language;
-import com.model.Users;
+import com.dao.*;
+import com.model.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -38,6 +30,7 @@ public class AdminDatabase extends HttpServlet {
     private BookCoverDAO bookCoverDAO;
     private BookTypeDAO bookTypeDAO;
     private UsersDAO userDAO;
+    private UserTypeDAO userTypeDAO;
     private CartDAO cartDAO;
 
     public void init() {
@@ -47,6 +40,7 @@ public class AdminDatabase extends HttpServlet {
         bookCoverDAO = new BookCoverDAO();
         bookTypeDAO = new BookTypeDAO();
         userDAO = new UsersDAO();
+        userTypeDAO = new UserTypeDAO();
         cartDAO = new CartDAO();
     }
 
@@ -77,6 +71,33 @@ public class AdminDatabase extends HttpServlet {
                 case ("removeLanguage"):
                     deleteLanguage(request, response);
                     break;
+                case ("insertBookCoverForm"):
+                    showBookCoverInsertForm(request, response);
+                    break;
+                case ("updateBookCoverForm"):
+                    showBookCoverUpdateForm(request, response);
+                    break;
+                case ("removeBookCover"):
+                    deleteBookCover(request, response);
+                    break;
+                case ("insertUserTypeForm"):
+                    showUserTypeInsertForm(request, response);
+                    break;
+                case ("userTypeUpdateForm"):
+                    showUserTypeUpdateForm(request, response);
+                    break;
+                case ("removeUserType"):
+                    deleteUserType(request, response);
+                    break;
+                case ("insertBookTypeForm"):
+                    showBookTypeInsertForm(request, response);
+                    break;
+                case ("bookTypeUpdateForm"):
+                    showBookTypeUpdateForm(request, response);
+                    break;
+                case ("removeBookType"):
+                    deleteBookType(request, response);
+                    break;
                 default:
                     showDatabase(request, response);
                     break;
@@ -103,6 +124,16 @@ public class AdminDatabase extends HttpServlet {
         rd.forward(request, response);
     }
 
+    public void deleteCategory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (categoryDAO.deleteCategory(id)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
     public void showLanguageUpdateForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -120,20 +151,91 @@ public class AdminDatabase extends HttpServlet {
         rd.forward(request, response);
     }
 
-    public void deleteCategory(HttpServletRequest request, HttpServletResponse response)
+    public void deleteLanguage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        if (categoryDAO.deleteCategory(id)) {
+        if (languageDAO.deleteLanguage(id)) {
             response.sendRedirect("adminDatabase");
         } else {
             response.sendRedirect("adminDatabase");
         }
     }
 
-    public void deleteLanguage(HttpServletRequest request, HttpServletResponse response)
+    public void showBookCoverInsertForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("bookcover-insert-form.jsp");
+        request.setAttribute("action", "insert");
+        rd.forward(request, response);
+    }
+
+    public void showBookCoverUpdateForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        if (languageDAO.deleteLanguage(id)) {
+        BookCover bookCover = bookCoverDAO.selectBookCover(id);
+        RequestDispatcher rd = request.getRequestDispatcher("bookcover-insert-form.jsp");
+        request.setAttribute("bookCover", bookCover);
+        request.setAttribute("action", "update");
+        rd.forward(request, response);
+    }
+
+    public void deleteBookCover(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (bookCoverDAO.deleteBookCoverType(id)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
+    public void showUserTypeInsertForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("usertype-insert-form.jsp");
+        request.setAttribute("action", "insert");
+        rd.forward(request, response);
+    }
+
+    public void showUserTypeUpdateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        UserType userType = userTypeDAO.selectUserType(id);
+        RequestDispatcher rd = request.getRequestDispatcher("usertype-insert-form.jsp");
+        request.setAttribute("userType", userType);
+        request.setAttribute("action", "update");
+        rd.forward(request, response);
+    }
+
+    public void deleteUserType(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (userTypeDAO.deleteUserType(id)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
+    public void showBookTypeInsertForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("booktype-insert-form.jsp");
+        request.setAttribute("action", "insert");
+        rd.forward(request, response);
+    }
+
+    public void showBookTypeUpdateForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        BookType bookType = bookTypeDAO.selectBookType(id);
+        RequestDispatcher rd = request.getRequestDispatcher("booktype-insert-form.jsp");
+        request.setAttribute("bookType", bookType);
+        request.setAttribute("action", "update");
+        rd.forward(request, response);
+    }
+
+    public void deleteBookType(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (bookTypeDAO.deleteBookType(id)) {
             response.sendRedirect("adminDatabase");
         } else {
             response.sendRedirect("adminDatabase");
@@ -148,9 +250,15 @@ public class AdminDatabase extends HttpServlet {
                 if ((int) session.getAttribute("user_type") == 3) {
                     List<Category> categories = categoryDAO.selectAllCategory();
                     List<Language> languages = languageDAO.selectAllLanguage();
+                    List<BookCover> bookcover = bookCoverDAO.selectAllCoverType();
+                    List<BookType> bookType = bookTypeDAO.selectAllBookType();
+                    List<UserType> userType = userTypeDAO.selectAllUserType();
                     RequestDispatcher rd = request.getRequestDispatcher("admin-database-page.jsp");
                     request.setAttribute("categories", categories);
                     request.setAttribute("languages", languages);
+                    request.setAttribute("bookcover", bookcover);
+                    request.setAttribute("bookType", bookType);
+                    request.setAttribute("userType", userType);
                     rd.forward(request, response);
                 } else {
                     RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
@@ -194,6 +302,24 @@ public class AdminDatabase extends HttpServlet {
                 case ("updateLanguage"):
                     updateLanguage(request, response);
                     break;
+                case ("insertBookCoverType"):
+                    insertBookCover(request, response);
+                    break;
+                case ("updateBookCoverType"):
+                    updateBookCover(request, response);
+                    break;
+                case ("insertUserType"):
+                    insertUserType(request, response);
+                    break;
+                case ("updateUserType"):
+                    updateUserType(request, response);
+                    break;
+                case ("insertBookType"):
+                    insertBookType(request, response);
+                    break;
+                case ("updateBookType"):
+                    updateBookType(request, response);
+                    break;
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
@@ -210,9 +336,6 @@ public class AdminDatabase extends HttpServlet {
 
     public void updateCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("post update method entered.");
-        System.out.println(request.getParameter("category"));
-        System.out.println(request.getParameter("id"));
         int id = Integer.parseInt(request.getParameter("id"));
         String category_name = request.getParameter("category");
         Category category = new Category(id, category_name);
@@ -233,8 +356,6 @@ public class AdminDatabase extends HttpServlet {
 
     public void updateLanguage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println(request.getParameter("language"));
-        System.out.println(request.getParameter("id"));
         int id = Integer.parseInt(request.getParameter("id"));
         String language_name = request.getParameter("language");
         Language language = new Language(id, language_name);
@@ -245,11 +366,66 @@ public class AdminDatabase extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    public void insertBookCover(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String cover_type = request.getParameter("bookCover");
+        BookCover cover = new BookCover(cover_type);
+        bookCoverDAO.insertBookCoverType(cover);
+        response.sendRedirect("adminDatabase");
+    }
+
+    public void updateBookCover(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String bookCover = request.getParameter("bookCover");
+        BookCover cover = new BookCover(id, bookCover);
+        if (bookCoverDAO.updateBookCoverType(cover)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
+    public void insertUserType(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String user_type = request.getParameter("userType");
+        UserType userType = new UserType(user_type);
+        userTypeDAO.insertUserType(userType);
+        response.sendRedirect("adminDatabase");
+    }
+
+    public void updateUserType(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String user_type = request.getParameter("userType");
+        UserType userType = new UserType(id, user_type);
+        if (userTypeDAO.updateUserType(userType)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
+    public void insertBookType(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String book_type = request.getParameter("bookType");
+        BookType bookType = new BookType(book_type);
+        bookTypeDAO.insertBookType(bookType);
+        response.sendRedirect("adminDatabase");
+    }
+
+    public void updateBookType(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String book_type = request.getParameter("bookType");
+        BookType bookType = new BookType(id, book_type);
+        if (bookTypeDAO.updateBookType(bookType)) {
+            response.sendRedirect("adminDatabase");
+        } else {
+            response.sendRedirect("adminDatabase");
+        }
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";

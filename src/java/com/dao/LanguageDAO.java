@@ -15,7 +15,7 @@ public class LanguageDAO {
     private static final String INSERT_LANGUAGE = "INSERT INTO language (language_name) VALUES (?);";
     private static final String SELECT_ALL_LANGUAGE = "select * from language";
     private static final String SELECT_LANGUAGE_BY_ID = "select * from language where id = ?";
-    private static final String UPDATE_LANGUAGE = "UPDATE language SET langage_name=? where id = ?";
+    private static final String UPDATE_LANGUAGE = "UPDATE language SET language_name=? where id = ?";
     private static final String DELETE_LANGUAGE = "DELETE FROM language where id = ?;";
 
     public void insertLanguage(Language language) throws SQLException {
