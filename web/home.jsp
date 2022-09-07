@@ -49,54 +49,96 @@
         </c:if>
 
         <!--carousal section-->
-        <div id="carouselExampleIndicators" class="carousel slide relative mr-6 ml-6 rounded" data-bs-ride="carousel">
-            <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+        <!--        <div id="carouselExampleIndicators" class="carousel slide relative mr-6 ml-6 rounded" data-bs-ride="carousel">
+                    <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner relative w-full rounded">
+                        <div class="carousel-item active bg-black rounded">
+                            <div class="flex relative text-center rounded">
+                                <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Welcome to Lightning deals</h1>
+                                <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
+                                     src="https://dealsoftheday.net/wp-content/uploads/2021/09/0001-8193923584_20210919_175608_0000-1.png"
+                                     alt="Banner" width="1920" height="288" />
+                            </div>
+                        </div>
+                        <div class="carousel-item bg-black rounded">
+                            <div class="flex relative text-center rounded">
+                                <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Your only book hub</h1>
+                                <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
+                                     src="https://cdn.pixabay.com/photo/2020/04/26/01/34/books-5093228_960_720.png"
+                                     alt="Banner" width="1920" height="288" />
+                            </div>
+                        </div>
+                        <div class="carousel-item bg-black rounded">
+                            <div class="flex relative text-center rounded">
+                                <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Unbelievable discount on bundles</h1>
+                                <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
+                                     src="https://waukeepubliclibrary.org/sites/default/files/BookBundles.png"
+                                     alt="Banner" width="1920" height="288" />
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+                        type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                        class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+                        type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>-->
+
+
+        <div id="default-carousel" class="relative" data-carousel="static">
+            <!-- Carousel wrapper -->
+            <div class="relative h-56 overflow-hidden rounded-lg md:h-96 bg-gray-900">
+                <!-- Item 1 -->
+                <div class="flex text-center duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-0 z-20" data-carousel-item="">
+                    <img src="https://dealsoftheday.net/wp-content/uploads/2021/09/0001-8193923584_20210919_175608_0000-1.png" class="w-full h-auto absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <h1 class="mb-7 text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-end z-10 content-center absolute text-center w-full md:text-4xl">Welcome to Lightning deals</h1>
+                </div>
+                <!-- Item 2 -->
+                <div class="flex duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-full z-10 content-center" data-carousel-item="">
+                    <img src="https://cdn.pixabay.com/photo/2020/04/26/01/34/books-5093228_960_720.png" class="w-full h-auto absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <h1 class="mb-7 text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-end z-10 content-center absolute text-center w-full md:text-4xl">Your only book hub</h1>
+                </div>
+                <!-- Item 3 -->
+                <div class="flex duration-700 ease-in-out absolute inset-0 transition-all transform -translate-x-full z-10" data-carousel-item="">
+                    <img src="https://waukeepubliclibrary.org/sites/default/files/BookBundles.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <h1 class="mb-7 text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-end z-10 content-center absolute text-center w-full md:text-4xl">Unbelievable discount on bundles</h1>
+                </div>
             </div>
-            <div class="carousel-inner relative w-full rounded">
-                <div class="carousel-item active bg-black rounded">
-                    <div class="flex relative text-center rounded">
-                        <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Welcome to Lightning deals</h1>
-                        <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
-                             src="https://dealsoftheday.net/wp-content/uploads/2021/09/0001-8193923584_20210919_175608_0000-1.png"
-                             alt="Banner" width="1920" height="288" />
-                    </div>
-                </div>
-                <div class="carousel-item bg-black rounded">
-                    <div class="flex relative text-center rounded">
-                        <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Your only book hub</h1>
-                        <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
-                             src="https://cdn.pixabay.com/photo/2020/04/26/01/34/books-5093228_960_720.png"
-                             alt="Banner" width="1920" height="288" />
-                    </div>
-                </div>
-                <div class="carousel-item bg-black rounded">
-                    <div class="flex relative text-center rounded">
-                        <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Unbelievable discount on bundles</h1>
-                        <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
-                             src="https://waukeepubliclibrary.org/sites/default/files/BookBundles.png"
-                             alt="Banner" width="1920" height="288" />
-                    </div>
-                </div>
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+                <button type="button" class="w-3 h-3 rounded-full bg-white dark:bg-gray-800" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
             </div>
-            <button
-                class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-                type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+            <!-- Slider controls -->
+            <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev="">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60">
+                    <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke:currentColor;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    <span class="sr-only">Previous</span>
+                </span>
             </button>
-            <button
-                class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-                type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+            <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next="">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60">
+                    <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke:currentColor;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span class="sr-only">Next</span>
+                </span>
             </button>
         </div>
+
         <!--carausal section end-->
 
 
@@ -287,14 +329,10 @@
         </div>
 
 
-
-
-
-
-
-
     </body>
+
     <!--footer section-->
     <jsp:include page="footer.html"/>
     <!--footer section ends-->
+
 </html>
