@@ -9,10 +9,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
-        <script src="https://cdn.tailwindcss.com"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
+        <jsp:include page="allscripts.jsp"/>
         <title>Checkout</title>
     </head>
+
+    <!--navigation section-->
+    <jsp:include page="navigation-bar.jsp"/>
+    <!--navigation section ends--> 
+
     <body><!-- component -->
         <div class="ml-6 mr-6">
             <div class="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
@@ -28,14 +33,85 @@
                             <p class="text-sm leading-none">Back</p>
                         </button>
                         <p class="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800 dark:text-gray-50">Checkout</p>
-                        <p class="text-base leading-normal sm:leading-4 text-gray-600 dark:text-white">Home > Electronics > Headphones > Cart > Checkout</p>
+                        <p class="text-base leading-normal sm:leading-4 text-gray-600 dark:text-white">Home > Cart > Checkout</p>
                     </div>
 
 
 
                     <div class="flex flex-col xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
-                        <div class="xl:w-3/5 flex flex-col sm:flex-row xl:flex-col justify-center items-center bg-gray-100 dark:bg-gray-800 py-7 sm:py-0 xl:py-10 px-10 xl:w-full">
-                            <c:forEach var="cartItem" items="${cartItemList}">
+                        <div class="xl:w-2/5 flex flex-col sm:flex-row xl:flex-col justify-start items-start bg-white dark:bg-gray-800 py-7 sm:py-0 xl:py-0 px-10">
+
+                            <div class="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+                                <div class="px-0 border-b-2">
+                                    <div class="flex flex-wrap items-center px-4 py-2">
+                                        <div class="relative w-full max-w-full flex-grow flex-1">
+                                            <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Order summary</h3>
+                                        </div>
+                                    </div>
+                                    <div class="block w-full overflow-x-auto border-b-2 rounded">
+                                        <table class="items-start w-full bg-transparent border-collapse">
+                                            <thead>
+                                                <tr>
+                                                    <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Book</th>
+                                                    <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Quantity</th>
+                                                    <th class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach var="cartItem" items="${cartItemList}">
+                                                    <tr class="text-gray-700 dark:text-gray-100">
+                                                        <th class="border-t-0 px-4 content-start border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                            <div class="flex rounded"> <!-- product -->
+                                                                <div class="rounded">
+                                                                    <img class="h-10 rounded" src="images/book_cover_photos/<c:out value="${cartItem.vendor_id}"/>/<c:out value="${cartItem.cover_photo_name}"/>" alt="<c:out value="${cartItem.book_name}"/>">                                                  
+                                                                </div>
+                                                                <div class="flex flex-col ml-4 flex-grow">
+                                                                    <span class="font-bold text-auto"><c:out value="${cartItem.book_name}"/></span> 
+                                                                    <span class="text-gray-600 text-xs font-light">By: <c:out value="${cartItem.book_author}"/></span>                                                 
+                                                                </div>
+                                                            </div>
+
+                                                            <%--<c:out value="${cartItem.book_name}"/>--%>
+                                                        </th>
+                                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${cartItem.quantity}</td>
+                                                        <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${cartItem.price * cartItem.quantity}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="m-5">
+                                        <table class="items-start w-full bg-transparent border-collapse">
+
+                                            <tbody>
+                                                <tr class="text-gray-700 dark:text-gray-100 justify-end">
+                                                    <th class="border-t-0 px-4 border-l-0 border-r-0 text-xs whitespace-nowrap p-4">SubTotal</th>
+                                                    <th class="border-t-0 px-4 border-l-0 border-r-0 text-xs whitespace-nowrap p-4">NPR. 1000</th>
+                                                </tr>
+                                                <tr class="text-gray-700 dark:text-gray-100">
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">Shiping</th>
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">NPR. 0.0</th>
+                                                </tr>
+                                                <tr class="text-gray-700 dark:text-gray-100  border-b-2">
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">Taxes</th>
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">NPR. 0.0</th>
+                                                </tr>
+                                                <tr class="text-gray-700 dark:text-gray-100">
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-base">Total</th>
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-base">NPR. 1000</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <button class="flex justify-center w-auto mt-6 mb-6 ml-5 mr-5 p-3 font-medium text-white uppercase bg-purple-600 rounded-full shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
+                                    Confirm order
+                                </button>
+                            </div>
+
+
+                            <%--<c:forEach var="cartItem" items="${cartItemList}">
                                 <div class="flex w-2/5"> <!-- product -->
                                     <div class="w-15">
                                         <c:forEach var="book" items="${book}">
@@ -54,10 +130,10 @@
                                         <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-700 text-gray-500 text-xs">Remove</a>
                                     </div>
                                 </div>
-                            </c:forEach>
+                            </c:forEach>--%>
                         </div>
 
-                        <div class="p-8 bg-gray-100 dark:bg-gray-800 flex flex-col lg:w-full xl:w-5/5">
+                        <div class="p-8 bg-gray-100 dark:bg-gray-800 flex flex-col lg:w-full xl:w-3/5">
                             <button class="border border-transparent hover:border-gray-300 bg-gray-900 dark:bg-white dark:hover:bg-gray-900 dark:hover:border-gray-900 dark:text-gray-900 dark:hover:text-white hover:bg-white text-white hover:text-gray-900 flex flex-row justify-center items-center space-x-2 py-4 rounded w-full">
                                 <div>
                                     <svg class="fill-current" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,4 +207,9 @@
             </div>
         </div>
     </body>
+
+    <!--navigation section-->
+    <jsp:include page="footer.html"/>
+    <!--navigation section ends--> 
+
 </html>

@@ -45,7 +45,6 @@ public class Checkout extends HttpServlet {
     public void showCheckoutPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        System.out.println("session is: " + session);
         if (session != null) {
             System.out.println("session user id: " + session.getAttribute("id"));
             if (session.getAttribute("id") == null) {
@@ -54,9 +53,9 @@ public class Checkout extends HttpServlet {
                 request.setAttribute("errorMessage", errorMessage);
                 dispatcher.forward(request, response);
             } else {
-                System.out.println("here");
                 int user_id = (int) session.getAttribute("id");
                 List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
+                System.out.println(cartItemList);
                 List<Books> book = bookDAO.selectAllBooks();
                 Users user = userDAO.selectUser(user_id);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");

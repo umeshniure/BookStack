@@ -99,7 +99,7 @@
                 </div>-->
 
 
-        <div id="default-carousel" class="relative" data-carousel="static">
+        <div id="default-carousel" class="relative mr-6 ml-6" data-carousel="slide">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96 bg-gray-900">
                 <!-- Item 1 -->
