@@ -17,7 +17,8 @@ public class BookDAO {
     private static final String UPDATE_BOOK_SQL = "UPDATE books set isbn=?, name=?, author=?, publication=?, price=?, discounted_price=?,\n"
             + "                published_year=?, category=?, cover_type=?, language=?, type=?, description=?, cover_photo=?, cover_photo_name=?, vendor_id=? where id=?;";
 //    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
-    private static final String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
+    private static final String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id "
+            + "INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
     private static final String SELECT_BOOK_BY_VENDOR_ID = "select * from books INNER JOIN categories ON books.category = categories.id where books.vendor_id = ?";
     private static final String SELECT_BOOK_BY_CATEGORY = "select * from books INNER JOIN categories ON books.category = categories.id where category = ?";
     private static final String SELECT_BOOK_BY_AUTHOR = "select * from books INNER JOIN categories ON books.category = categories.id where author = ?";
@@ -26,7 +27,6 @@ public class BookDAO {
     private static final String SELECT_BOOK_BY_BOOKTYPE = "select * from books INNER JOIN categories ON books.category = categories.id where type = ?";
     //SELECT table1.*, table2.first_name FROM table1 LEFT JOIN table2
     private static final String DELETE_BOOK_SQL = "delete from books where id = ?;";
-
     private static final String BOOK_COUNT = "SELECT count(*) FROM books";
 
     public int countBooks() {
@@ -43,6 +43,49 @@ public class BookDAO {
             System.out.println(e);
         }
         return 0;
+    }
+
+    public List<Books> selectBooksBySearchQuery(String searchQuery) {
+        List<Books> booklist = new ArrayList<>();
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from books INNER JOIN categories ON books.category = categories.id "
+                    + "WHERE CONTAINS(name,'" + searchQuery + "') OR CONTAINS(isbn,'" + searchQuery + "') OR CONTAINS(author,'" + searchQuery + "') "
+                    + "OR CONTAINS(category_name,'" + searchQuery + "') OR CONTAINS(description,'" + searchQuery + "');");
+            // select * from books INNER JOIN categories ON books.category = categories.id WHERE CONTAINS(name,'') OR CONTAINS(isbn,'') OR CONTAINS(author,'') OR CONTAINS(category_name,'') OR CONTAINS(description,'');
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                long isbn = rs.getLong("isbn");
+                String author = rs.getString("author");
+                int price = rs.getInt("price");
+                String publication = rs.getString("publication");
+                int category = rs.getInt("category");
+                String category_name = rs.getString("category_name");
+                int cover_type = rs.getInt("cover_type");
+                int language = rs.getInt("language");
+                int type = rs.getInt("type");
+                String description = rs.getString("description");
+                String cover_photo = rs.getString("cover_photo");
+                String cover_photo_name = rs.getString("cover_photo_name");
+                int discounted_price = rs.getInt("discounted_price");
+                int published_year = rs.getInt("published_year");
+                int vendor_id = rs.getInt("vendor_id");
+
+                String language_name = "";
+                String book_type = "";
+                String cover = "";
+                String vendor = "";
+                booklist.add(new Books(id, isbn, name, author, publication, price, discounted_price,
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return booklist;
     }
 
     public List<Books> selectAllBooks() {

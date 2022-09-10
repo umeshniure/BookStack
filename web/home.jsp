@@ -109,7 +109,7 @@
                 </div>
                 <!-- Item 2 -->
                 <div class="flex duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-full z-10 content-center" data-carousel-item="">
-                    <img src="https://cdn.pixabay.com/photo/2020/04/26/01/34/books-5093228_960_720.png" class="w-full h-auto absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="w-full h-auto absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                     <h1 class="mb-7 text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-end z-10 content-center absolute text-center w-full md:text-4xl">Your only book hub</h1>
                 </div>
                 <!-- Item 3 -->
@@ -188,16 +188,31 @@
 
             <div class="w-full h-full m-8">
                 <div class="flex p-2">
+
+
                     <!--product list section-->
                     <div class="max-w-2xl mx-4 py-2 px-2 sm:px-6 lg:max-w-7xl lg:px-8">
+                        <form method="POST" action="search" class="flex items-center mb-4">   
+                            <label for="voice-search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <input name="search" type="text" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title/Author/ISBN" required>
+                                <button type="button" class="flex absolute inset-y-0 right-0 items-center pr-3">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+                            <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-purple-600 rounded-lg border border-purple-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search</button>
+                        </form>
                         <h3 class="text-2xl font-bold tracking-tight text-gray-900">New Arrivals</h3>
 
                         <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                             <c:forEach var="book" items="${booklist}">
                                 <div class="group relative mr-3 hover:scale-105 ease-in duration-200">
                                     <a href="<c:out value='home?action=book-detail&id=${book.id}'/>">
-                                        <div class="flex w-full min-h-64 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
-                                            <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">
+                                        <div class="flex w-full min-h-64 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
+                                            <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-auto lg:h-full rounded">
                                         </div>
                                     </a>
                                     <div class="mt-4 flex justify-between">
@@ -277,8 +292,8 @@
                             <c:forEach var="book" items="${booklist}">
                                 <div class="group relative mr-3 hover:scale-105 ease-in duration-200">
                                     <a href="<c:out value='home?action=book-detail&id=${book.id}'/>">
-                                        <div class="flex w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
-                                            <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">
+                                        <div class="flex w-full min-h-80 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
+                                            <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="<c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:h-full rounded">
                                         </div>
                                     </a>
                                     <div class="mt-4 flex justify-between">
@@ -289,8 +304,9 @@
                                                     <c:out value="${book.name}"/>
                                                 </a>
                                             </h3>
-                                            <p class="mt-1 text-sm text-gray-500"><c:out value="${book.category_name}" /></p>                                                    
-
+                                            <a href="home?action=category&id=<c:out value="${book.category}"/>">
+                                                <p class="mt-1 text-sm font-bold text-purple-600 hover:text-purple-800"><c:out value="${book.category_name}" /></p>                                                    
+                                            </a>
                                         </div>
                                         <c:if test="${book.discounted_price != ''}">
                                             <div class="overflow-hidden  w-1/3 items-end">

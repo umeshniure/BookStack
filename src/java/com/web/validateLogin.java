@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "validateLogin", urlPatterns = {"/login"})
 public class validateLogin extends HttpServlet {
 
-    private Encrypt encrypt;
+    private Encrypt encrypt; 
     private CheckEmail checkemail;
     private UsersDAO userDAO;
 

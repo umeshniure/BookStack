@@ -119,7 +119,7 @@ public class Home extends HttpServlet {
         int id = Integer.parseInt(vendorID);
         List<Books> bookList = bookDAO.selectBookByVendorID(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("all-books.jsp");
-        request.setAttribute("name", "Vendor");
+        request.setAttribute("name", "Seller");
         request.setAttribute("booklist", bookList);
         dispatcher.forward(request, response);
     }
