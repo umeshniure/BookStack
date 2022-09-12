@@ -19,6 +19,7 @@ public class CartDAO {
     private static final String SELECT_CART_BY_BOOK_AND_USER_ID = "select * from cart where user_id = ? and book_id = ?";
     private static final String UPDATE_CART = "update cart set user_id = ?,book_id = ?, quantity = ?, created_date = ? where id = ?;";
     private static final String DELETE_CART_ITEM = "delete from cart where id = ?;";
+    private static final String DELETE_CART_ITEM_BY_USER_ID = "delete from cart where user_id = ?;";
 
     private static final String CART_COUNT = "SELECT count(*) FROM cart";
 
@@ -187,6 +188,19 @@ public class CartDAO {
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CART_ITEM);
+            preparedStatement.setInt(1, id);
+            deleted = preparedStatement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return deleted;
+    }
+
+    public boolean deleteCartByUserId(int id) {
+        boolean deleted = false;
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CART_ITEM_BY_USER_ID);
             preparedStatement.setInt(1, id);
             deleted = preparedStatement.executeUpdate() > 0;
         } catch (Exception e) {

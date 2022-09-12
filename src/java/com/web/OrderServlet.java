@@ -5,10 +5,7 @@
 package com.web;
 
 import com.dao.*;
-import com.model.BookOrder;
-import com.model.Books;
-import com.model.Cart;
-import com.model.Users;
+import com.model.*;
 import com.secure.RandomAlphanumericString;
 import java.io.IOException;
 import java.sql.Date;
@@ -32,6 +29,7 @@ public class OrderServlet extends HttpServlet {
     private BookDAO bookDAO;
     private UsersDAO userDAO;
     private OrderDAO orderDao;
+    private OrderItemsDAO orderItemsDAO;
     private RandomAlphanumericString randomString;
 
     public void init() {
@@ -39,6 +37,7 @@ public class OrderServlet extends HttpServlet {
         bookDAO = new BookDAO();
         userDAO = new UsersDAO();
         orderDao = new OrderDAO();
+        orderItemsDAO = new OrderItemsDAO();
         randomString = new RandomAlphanumericString();
     }
 
@@ -67,12 +66,7 @@ public class OrderServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            if (session.getAttribute("id") == null) {
-                String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
-            } else {
+            if (session.getAttribute("id") != null) {
                 int user_id = (int) session.getAttribute("id");
                 List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
                 System.out.println(cartItemList);
@@ -82,6 +76,11 @@ public class OrderServlet extends HttpServlet {
                 request.setAttribute("cartItemList", cartItemList);
                 request.setAttribute("book", book);
                 request.setAttribute("user", user);
+                dispatcher.forward(request, response);
+            } else {
+                String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
                 dispatcher.forward(request, response);
             }
         } else {
@@ -126,8 +125,16 @@ public class OrderServlet extends HttpServlet {
         orderDao.insertOrder(order);
         List<Cart> cartList = cartDAO.selectCartByUserId(user_id);
         for (Cart cart : cartList) {
-
+            int book_id = cart.getBook_id();
+            int quantity = cart.getQuantity();
+            String order_id = id;
+            double total_price = order_subtotal_amount;
+            double tax_amount = 0;
+            double shipping_amount = 0;
+            OrderItems orderItem = new OrderItems(book_id, quantity, order_id, total_price, tax_amount, shipping_amount);
+            orderItemsDAO.insertOrderItems(orderItem);
         }
+        cartDAO.deleteCartByUserId(user_id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home");
         request.setAttribute("successMessage", "congratulations! Your order has been successfully placed.");
         dispatcher.forward(request, response);
@@ -139,7 +146,9 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
+
                 insertOrder(request, response);
+
             } else {
                 String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");

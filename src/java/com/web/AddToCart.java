@@ -104,11 +104,6 @@ public class AddToCart extends HttpServlet {
         Cart cartItem = cartDAO.selectCart(id);
         if (cartItem.getUser_id() == user_id) {
             if (cartDAO.deleteCartById(id)) {
-//                System.out.println("one Cart item Successfully Deleted.");
-//                String SuccessMessage = "One cart item has been successfully deleted.";
-//                RequestDispatcher dispatcher = request.getRequestDispatcher("cart");
-//                request.setAttribute("SuccessMessage", SuccessMessage);
-//                dispatcher.forward(request, response);
                 response.sendRedirect("cart");
             } else {
                 System.out.println("Couldnot delete cart item.");
@@ -118,30 +113,6 @@ public class AddToCart extends HttpServlet {
         }
     }
 
-//    public void updateCartItem(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        int user_id = (int) request.getSession(false).getAttribute("id");
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        int quantity = Integer.parseInt(request.getParameter("quantity"));
-//        int book_id = Integer.parseInt(request.getParameter("book_id"));
-//        Cart cartItem = cartDAO.selectCart(id);
-//        System.out.println(cartItem.getUser_id());
-//        if (cartItem.getUser_id() == user_id) {
-//            Cart updateCartItem = new Cart(id, user_id, book_id, quantity, cartItem.getCreated_date());
-//            if (cartDAO.updateCart(updateCartItem)) {
-////                System.out.println("one Cart item Successfully updated.");
-////                String SuccessMessage = "One cart item has been successfully deleted.";
-////                RequestDispatcher dispatcher = request.getRequestDispatcher("cart");
-////                request.setAttribute("SuccessMessage", SuccessMessage);
-////                dispatcher.forward(request, response);
-//                response.sendRedirect("cart");
-//            } else {
-//                System.out.println("Couldnot update cart item.");
-//            }
-//        } else {
-//            System.out.println("user " + user_id + " - tried to update others cart.");
-//        }
-//    }
     public void addToCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -164,7 +135,6 @@ public class AddToCart extends HttpServlet {
                     } else {
                         System.out.println("Failed to update cart!");
                     }
-
                 } else {
                     Cart newCart = new Cart(user_id, book_id, quantity, created_date);
                     cartDAO.insertIntoCart(newCart);
