@@ -31,21 +31,21 @@ public class Search extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String searchQuery = request.getParameter("search");
         System.out.println("you searched for : " + searchQuery);
         List<Books> booklist = BookDAO.selectBooksBySearchQuery(searchQuery);
         System.out.println("BOok list is: " + booklist);
         RequestDispatcher rd = request.getRequestDispatcher("all-books.jsp");
         request.setAttribute("name", "Search ");
+        request.setAttribute("searchedQuery", searchQuery);
         request.setAttribute("booklist", booklist);
         rd.forward(request, response);
-//        response.sendRedirect("home");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 
     @Override

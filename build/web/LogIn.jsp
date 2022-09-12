@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="allscripts.jsp"/>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="180318505646-2lvpct5e8m50rs5htitavjr408l65lqs.apps.googleusercontent.com">
         <title>Login Page</title>
     </head>
     <body>
@@ -64,13 +65,11 @@
                                             </div>
                                             <div class="mb-4">
                                                 <input
-                                                    type="password"
-                                                    name="password"
+                                                    type="password" name="password"
                                                     class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="exampleFormControlInput1"
-                                                    placeholder="Password"
-                                                    />
+                                                    id="exampleFormControlInput1" placeholder="Password"/>
                                             </div>
+                                            <input  type="hidden" name="loginType" value="normalLogin"/>
 
                                             <c:if test="${not empty message}">
                                                 <div class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
@@ -100,11 +99,7 @@
                                                     >
                                                     Log in
                                                 </button>
-                                                <a class="text-gray-500" href="forgotPassword">Forgot password?</a>
-                                            </div>
-
-                                            <div class="g-signin2" data-onsuccess="onSignIn">
-
+                                                <a class="text-gray-500 hover:text-purple-600" href="forgotPassword">Forgot password?</a>
                                             </div>
 
 
@@ -122,6 +117,52 @@
                                                 </a>
                                             </div>
                                         </form>
+
+<!--                                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                        <img id="myImg"><br>
+                                        <p id="name"></p>
+                                        <div id="status"></div>
+
+                                                                                <script>
+                                                                                    function onSignIn(googleUser) {
+                                                                                        var profile = googleUser.getBasicProfile();
+                                                                                        console.log('ID: ' + profile.getId());
+                                                                                        console.log('Name: ' + profile.getName());
+                                                                                        console.log('Image URL: ' + profile.getImageUrl());
+                                                                                        console.log('Email: ' + profile.getEmail());
+                                                                                        console.log('id_token: ' + googleUser.getAuthResponse().id_token);
+                                        
+                                                                                        //do not post above info to the server because that is not safe.
+                                                                                        //just send the id_token
+                                        
+                                                                                        var redirectUrl = 'login';
+                                                                                        //using jquery to post data dynamically
+                                                                                        var form = $('<form action="' + redirectUrl + '" method="post">' +
+                                                                                                '<input type="text" name="id_token" value="' +
+                                                                                                googleUser.getAuthResponse().id_token + '" />' +
+                                                                                                '</form>');
+                                                                                        $('body').append(form);
+                                                                                        form.submit();
+                                                                                    }
+                                        
+                                                                                </script>
+                                        <script type="text/javascript">
+                                            function onSignIn(googleUser) {
+                                            // window.location.href='success.jsp';
+                                            var profile = googleUser.getBasicProfile();
+                                            var imagurl = profile.getImageUrl();
+                                            var name = profile.getName();
+                                            var email = profile.getEmail();
+                                            document.getElementById("myImg").src = imagurl;
+                                            document.getElementById("name").innerHTML = name;
+                                            document.getElementById("myP").style.visibility = "hidden";
+                                            document.getElementById("status").innerHTML = 'Welcome ' + name + '!<a href=success.jsp?                  
+                                                    email = '+email+' & name = '+name+' > Continue with Google login < /a></p >
+                                            }
+                                        </script>-->
+
+
+
                                     </div>
                                 </div>
                                 <div

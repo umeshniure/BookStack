@@ -49,9 +49,12 @@ public class BookDAO {
         List<Books> booklist = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
+//            PreparedStatement preparedStatement = connection.prepareStatement("select * from books INNER JOIN categories ON books.category = categories.id "
+//                    + "WHERE CONTAINS(name,'" + searchQuery + "') OR CONTAINS(isbn,'" + searchQuery + "') OR CONTAINS(author,'" + searchQuery + "') "
+//                    + "OR CONTAINS(category_name,'" + searchQuery + "') OR CONTAINS(description,'" + searchQuery + "');");
             PreparedStatement preparedStatement = connection.prepareStatement("select * from books INNER JOIN categories ON books.category = categories.id "
-                    + "WHERE CONTAINS(name,'" + searchQuery + "') OR CONTAINS(isbn,'" + searchQuery + "') OR CONTAINS(author,'" + searchQuery + "') "
-                    + "OR CONTAINS(category_name,'" + searchQuery + "') OR CONTAINS(description,'" + searchQuery + "');");
+                    + "WHERE name LIKE '" + searchQuery + "' OR isbn LIKE '" + searchQuery + "' OR author LIKE '" + searchQuery + "' "
+                    + "OR category_name LIKE '" + searchQuery + "' OR description LIKE '" + searchQuery + "';");
             // select * from books INNER JOIN categories ON books.category = categories.id WHERE CONTAINS(name,'') OR CONTAINS(isbn,'') OR CONTAINS(author,'') OR CONTAINS(category_name,'') OR CONTAINS(description,'');
             
             ResultSet rs = preparedStatement.executeQuery();

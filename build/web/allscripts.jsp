@@ -13,5 +13,6 @@
         <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
         <link rel="stylesheet" href="css/allcss.css"></link>
         <script src="https://cdn.tailwindcss.com"></script>
+        <!--<script type="text/javascript" src="js/search.js"></script>-->
     </head>
 </html>

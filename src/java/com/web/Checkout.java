@@ -46,7 +46,6 @@ public class Checkout extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            System.out.println("session user id: " + session.getAttribute("id"));
             if (session.getAttribute("id") == null) {
                 String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");

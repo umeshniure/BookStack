@@ -25,7 +25,7 @@
             </div>
         </c:if>
         <c:if test="${sessionScope.id != null}">
-
+            
             <div class="flex md:order-2 space-x-5 items-center">
                 <a href="cart"><div class="flex -space-x-2 overflow-hidden hover:text-purple-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">

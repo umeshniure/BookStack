@@ -169,7 +169,7 @@
                 <!-- Product info -->
                 <div class="max-w-2xl mx-auto pt-10 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
                     <div class="lg:col-span-2 lg:pr-8">
-                        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:tracking-tight sm:text-3xl">Description</h1>
+                        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:tracking-tight sm:text-3xl">Synopsis</h1>
                     </div>  
 
                     <!--add to cart portion here-->
@@ -180,7 +180,7 @@
                             <h3 class="sr-only">Synopsis</h3>
 
                             <div class="space-y-6">
-                                <p class="text-base text-gray-900"> <c:out value='${book.description}'/> </p>
+                                <p class="text-base text-gray-900 text-justify"> <c:out value='${book.description}'/> </p>
                             </div>
                         </div>
                     </div>

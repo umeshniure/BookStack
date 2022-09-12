@@ -109,7 +109,7 @@
                             <span>Total cost</span>
                             <span>NPR. <c:out value="${total_price}"/></span>
                         </div>
-                        <a href="checkout"> <button class="bg-purple-500 font-semibold hover:bg-purple-600 py-3 text-sm text-white uppercase w-full rounded">Checkout</button> </a>
+                        <a href="order"> <button class="bg-purple-500 font-semibold hover:bg-purple-600 py-3 text-sm text-white uppercase w-full rounded">Checkout</button> </a>
                     </div>
                 </div>
 

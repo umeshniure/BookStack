@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "validateLogin", urlPatterns = {"/login"})
 public class validateLogin extends HttpServlet {
 
-    private Encrypt encrypt; 
+    private Encrypt encrypt;
     private CheckEmail checkemail;
     private UsersDAO userDAO;
 
@@ -54,6 +54,38 @@ public class validateLogin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String loginType = request.getParameter("loginType");
+        if (loginType.equals("normalLogin")) {
+            normalLogin(request, response);
+        } else {
+//            loginWithGoogle(request, response);
+        }
+    }
+
+//    public void loginWithGoogle(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        response.setContentType("text/html");
+//
+//        try {
+//            String idToken = request.getParameter("id_token");
+//            GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+//            String name = (String) payLoad.get("name");
+//            String email = payLoad.getEmail();
+//            System.out.println("User name: " + name);
+//            System.out.println("User email: " + email);
+//
+//            HttpSession session = request.getSession(true);
+//            session.setAttribute("userName", name);
+//            request.getServletContext()
+//                    .getRequestDispatcher("/welcome-page.jsp").forward(request, response);
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public void normalLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String _email = request.getParameter("email");
         String _password = request.getParameter("password");
@@ -98,11 +130,6 @@ public class validateLogin extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
