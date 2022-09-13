@@ -56,7 +56,7 @@ public class BookDAO {
                     + "WHERE name LIKE '" + searchQuery + "' OR isbn LIKE '" + searchQuery + "' OR author LIKE '" + searchQuery + "' "
                     + "OR category_name LIKE '" + searchQuery + "' OR description LIKE '" + searchQuery + "';");
             // select * from books INNER JOIN categories ON books.category = categories.id WHERE CONTAINS(name,'') OR CONTAINS(isbn,'') OR CONTAINS(author,'') OR CONTAINS(category_name,'') OR CONTAINS(description,'');
-            
+
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");

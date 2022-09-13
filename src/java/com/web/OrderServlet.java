@@ -136,7 +136,7 @@ public class OrderServlet extends HttpServlet {
         }
         cartDAO.deleteCartByUserId(user_id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-        request.setAttribute("successMessage", "congratulations! Your order has been successfully placed.");
+        request.setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
         dispatcher.forward(request, response);
     }
 
