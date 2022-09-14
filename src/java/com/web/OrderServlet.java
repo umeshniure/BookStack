@@ -47,7 +47,9 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
+
                 showCheckoutPage(request, response);
+
             } else {
                 String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");

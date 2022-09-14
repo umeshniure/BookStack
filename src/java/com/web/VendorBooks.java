@@ -59,24 +59,45 @@ public class VendorBooks extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-                case ("updateform"):
-                    showBookUpdateForm(request, response);
-                    break;
-                case ("delete"):
-                    deleteBook(request, response);
-                    break;
-                default:
-                    vendorBookList(request, response);
-                    break;
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+                if ((int) session.getAttribute("user_type") == 2) {
+
+                    String action = request.getParameter("action");
+                    if (action == null) {
+                        action = "";
+                    }
+                    try {
+                        switch (action) {
+                            case ("updateform"):
+                                showBookUpdateForm(request, response);
+                                break;
+                            case ("delete"):
+                                deleteBook(request, response);
+                                break;
+                            default:
+                                vendorBookList(request, response);
+                                break;
+                        }
+                    } catch (Exception ex) {
+                        throw new ServletException(ex);
+                    }
+
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                    request.setAttribute("errorMessage", "Sorry! you are not authorised to access this page.");
+                    dispatcher.forward(request, response);
+                }
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+                request.setAttribute("errorMessage", "Sorry! you are not authorised. Please login to access this page.");
+                dispatcher.forward(request, response);
             }
-        } catch (Exception ex) {
-            throw new ServletException(ex);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+            request.setAttribute("errorMessage", "Sorry! you are not logged in yet. Please login to access this page.");
+            dispatcher.forward(request, response);
         }
 
     }
@@ -115,109 +136,99 @@ public class VendorBooks extends HttpServlet {
     public void vendorBookList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            if (session.getAttribute("id") != null) {
-                if ((int) session.getAttribute("user_type") == 2) {
-                    int id = (int) session.getAttribute("id");
-                    List<Books> books = bookDAO.selectBookByVendorID(id);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-book-list.jsp");
-                    request.setAttribute("books", books);
-                    request.setAttribute("page", "My Books");
-                    dispatcher.forward(request, response);
-                } else {
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                    request.setAttribute("errorMessage", "Sorry! you are not authorised to access this page.");
-                    dispatcher.forward(request, response);
-                }
-            } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                request.setAttribute("errorMessage", "Sorry! you are not authorised. Please login to access this page.");
-                dispatcher.forward(request, response);
-            }
-        } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-            request.setAttribute("errorMessage", "Sorry! you are not logged in yet. Please login to access this page.");
-            dispatcher.forward(request, response);
-        }
+        int id = (int) session.getAttribute("id");
+        List<Books> books = bookDAO.selectBookByVendorID(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-book-list.jsp");
+        request.setAttribute("books", books);
+        request.setAttribute("page", "My Books");
+        dispatcher.forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            updateBook(request, response);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void updateBook(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, SQLException, ServletException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            if ((int) session.getAttribute("user_type") == 2) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                String bookname = request.getParameter("bookname");
-                long isbn = Long.parseLong(request.getParameter("isbn"));
-                int price = Integer.parseInt(request.getParameter("price"));
-                Integer discounted_price;
-                String temp = request.getParameter("discounted_price");
-                if (temp.equals("")) {
-                    discounted_price = null;
-                } else if (Integer.parseInt(temp) == 0) {
-                    discounted_price = null;
-                } else {
-                    discounted_price = Integer.parseInt(temp);
-                }
-                int category = Integer.parseInt(request.getParameter("category"));
-                int cover_type = Integer.parseInt(request.getParameter("cover_type"));
-                int language = Integer.parseInt(request.getParameter("language"));
-                int book_type = Integer.parseInt(request.getParameter("book_type"));
-                String publication = request.getParameter("publication");
-                int published_year = Integer.parseInt(request.getParameter("published_year"));
-                String description = request.getParameter("description");
-                String authorname = request.getParameter("authorname");
-                int vendor_id = (int) session.getAttribute("id");
 
-                try {
-                    Part pic_part;
-                    pic_part = request.getPart("cover_photo");
-                    //String fileName = validateVendor.extractFileName(pic_part);
-                    String fileName = bookname + "-vendor" + vendor_id + ".png";
-                    //String contextPath = request.getContextPath();
-                    String contextPath = new File("").getAbsolutePath();
-                    String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
-                    File fileSaveDir = new File(imageFolderPath);
-                    fileSaveDir.mkdir();
-                    String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
-                    System.out.println("image save path: " + imageSavePath);
-                    pic_part.write(imageSavePath + File.separator);
-                    Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
-                            published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
-                    bookDAO.updateBook(newBook);
-                    response.sendRedirect("vendorbook");
-                } catch (IOException | ServletException e) {
-                    System.out.println(e);
+            if (session.getAttribute("id") != null) {
+                if ((int) session.getAttribute("user_type") == 2) {
+
+                    try {
+                        updateBook(request, response);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
+                } else {
+                    String errorMessage = "Sorry, You are not allowed to update book. ";
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
+                    request.setAttribute("errorMessage", errorMessage);
+                    dispatcher.forward(request, response);
                 }
             } else {
-                String errorMessage = "Sorry, You are not allowed to update book. ";
+                String errorMessage = "Sorry, You are not allowed to update book because you are not logged in yet.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
                 request.setAttribute("errorMessage", errorMessage);
                 dispatcher.forward(request, response);
             }
         } else {
-            String errorMessage = "Sorry, You are not allowed to update book. ";
+            String errorMessage = "Sorry, You are not allowed to update book because you are not logged in yet.";
             RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    public void updateBook(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, SQLException, ServletException {
+        HttpSession session = request.getSession(false);
+        int id = Integer.parseInt(request.getParameter("id"));
+        String bookname = request.getParameter("bookname");
+        long isbn = Long.parseLong(request.getParameter("isbn"));
+        int price = Integer.parseInt(request.getParameter("price"));
+        Integer discounted_price;
+        String temp = request.getParameter("discounted_price");
+        if (temp.equals("")) {
+            discounted_price = null;
+        } else if (Integer.parseInt(temp) == 0) {
+            discounted_price = null;
+        } else {
+            discounted_price = Integer.parseInt(temp);
+        }
+        int category = Integer.parseInt(request.getParameter("category"));
+        int cover_type = Integer.parseInt(request.getParameter("cover_type"));
+        int language = Integer.parseInt(request.getParameter("language"));
+        int book_type = Integer.parseInt(request.getParameter("book_type"));
+        String publication = request.getParameter("publication");
+        int published_year = Integer.parseInt(request.getParameter("published_year"));
+        String description = request.getParameter("description");
+        String authorname = request.getParameter("authorname");
+        int vendor_id = (int) session.getAttribute("id");
+
+        try {
+            Part pic_part;
+            pic_part = request.getPart("cover_photo");
+            //String fileName = validateVendor.extractFileName(pic_part);
+            String fileName = bookname + "-vendor" + vendor_id + ".png";
+            //String contextPath = request.getContextPath();
+            String contextPath = new File("").getAbsolutePath();
+            String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
+            File fileSaveDir = new File(imageFolderPath);
+            fileSaveDir.mkdir();
+            String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
+            System.out.println("image save path: " + imageSavePath);
+            pic_part.write(imageSavePath + File.separator);
+            Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
+                    published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
+            bookDAO.updateBook(newBook);
+            response.sendRedirect("vendorbook");
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
+        }
+
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";

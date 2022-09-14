@@ -51,13 +51,11 @@ public class ValidateVendorRegistration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             insertVendor(request, response);
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
-
     }
 
     public void passValue(HttpServletRequest request, HttpServletResponse response, String store_name, long phone_number,

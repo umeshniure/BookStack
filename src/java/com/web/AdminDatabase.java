@@ -47,63 +47,87 @@ public class AdminDatabase extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-                case ("insertCategoryForm"):
-                    showCategoryInsertForm(request, response);
-                    break;
-                case ("categoryUpdateForm"):
-                    showCategoryUpdateForm(request, response);
-                    break;
-                case ("removeCategory"):
-                    deleteCategory(request, response);
-                    break;
-                case ("insertLanguageForm"):
-                    showLanguageInsertForm(request, response);
-                    break;
-                case ("updateLanguageForm"):
-                    showLanguageUpdateForm(request, response);
-                    break;
-                case ("removeLanguage"):
-                    deleteLanguage(request, response);
-                    break;
-                case ("insertBookCoverForm"):
-                    showBookCoverInsertForm(request, response);
-                    break;
-                case ("updateBookCoverForm"):
-                    showBookCoverUpdateForm(request, response);
-                    break;
-                case ("removeBookCover"):
-                    deleteBookCover(request, response);
-                    break;
-                case ("insertUserTypeForm"):
-                    showUserTypeInsertForm(request, response);
-                    break;
-                case ("userTypeUpdateForm"):
-                    showUserTypeUpdateForm(request, response);
-                    break;
-                case ("removeUserType"):
-                    deleteUserType(request, response);
-                    break;
-                case ("insertBookTypeForm"):
-                    showBookTypeInsertForm(request, response);
-                    break;
-                case ("bookTypeUpdateForm"):
-                    showBookTypeUpdateForm(request, response);
-                    break;
-                case ("removeBookType"):
-                    deleteBookType(request, response);
-                    break;
-                default:
-                    showDatabase(request, response);
-                    break;
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+                if ((int) session.getAttribute("user_type") == 3) {
+
+                    String action = request.getParameter("action");
+                    if (action == null) {
+                        action = "";
+                    }
+                    try {
+                        switch (action) {
+                            case ("insertCategoryForm"):
+                                showCategoryInsertForm(request, response);
+                                break;
+                            case ("categoryUpdateForm"):
+                                showCategoryUpdateForm(request, response);
+                                break;
+                            case ("removeCategory"):
+                                deleteCategory(request, response);
+                                break;
+                            case ("insertLanguageForm"):
+                                showLanguageInsertForm(request, response);
+                                break;
+                            case ("updateLanguageForm"):
+                                showLanguageUpdateForm(request, response);
+                                break;
+                            case ("removeLanguage"):
+                                deleteLanguage(request, response);
+                                break;
+                            case ("insertBookCoverForm"):
+                                showBookCoverInsertForm(request, response);
+                                break;
+                            case ("updateBookCoverForm"):
+                                showBookCoverUpdateForm(request, response);
+                                break;
+                            case ("removeBookCover"):
+                                deleteBookCover(request, response);
+                                break;
+                            case ("insertUserTypeForm"):
+                                showUserTypeInsertForm(request, response);
+                                break;
+                            case ("userTypeUpdateForm"):
+                                showUserTypeUpdateForm(request, response);
+                                break;
+                            case ("removeUserType"):
+                                deleteUserType(request, response);
+                                break;
+                            case ("insertBookTypeForm"):
+                                showBookTypeInsertForm(request, response);
+                                break;
+                            case ("bookTypeUpdateForm"):
+                                showBookTypeUpdateForm(request, response);
+                                break;
+                            case ("removeBookType"):
+                                deleteBookType(request, response);
+                                break;
+                            default:
+                                showDatabase(request, response);
+                                break;
+                        }
+                    } catch (Exception ex) {
+                        throw new ServletException(ex);
+                    }
+
+                } else {
+                    RequestDispatcher rd = request.getRequestDispatcher("login");
+                    String errorMessage = "Sorry, you are not authorised to access this page.";
+                    request.setAttribute("errorMessage", errorMessage);
+                    rd.forward(request, response);
+                }
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("login");
+                String errorMessage = "You are not logged in. please log in with admin account to access this page.";
+                request.setAttribute("errorMessage", errorMessage);
+                rd.forward(request, response);
             }
-        } catch (Exception ex) {
-            throw new ServletException(ex);
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("login");
+            String errorMessage = "You are not logged in. please log in with admin account to access this page.";
+            request.setAttribute("errorMessage", errorMessage);
+            rd.forward(request, response);
         }
     }
 
@@ -244,85 +268,89 @@ public class AdminDatabase extends HttpServlet {
 
     public void showDatabase(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            if (session.getAttribute("id") != null) {
-                if ((int) session.getAttribute("user_type") == 3) {
-                    List<Category> categories = categoryDAO.selectAllCategory();
-                    List<Language> languages = languageDAO.selectAllLanguage();
-                    List<BookCover> bookcover = bookCoverDAO.selectAllCoverType();
-                    List<BookType> bookType = bookTypeDAO.selectAllBookType();
-                    List<UserType> userType = userTypeDAO.selectAllUserType();
-                    RequestDispatcher rd = request.getRequestDispatcher("admin-database-page.jsp");
-                    request.setAttribute("categories", categories);
-                    request.setAttribute("languages", languages);
-                    request.setAttribute("bookcover", bookcover);
-                    request.setAttribute("bookType", bookType);
-                    request.setAttribute("userType", userType);
-                    rd.forward(request, response);
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
-                    String errorMessage = "Sorry, you are not authorised to access this page.";
-                    request.setAttribute("errorMessage", errorMessage);
-                    rd.forward(request, response);
-                }
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
-                String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-                request.setAttribute("errorMessage", errorMessage);
-                rd.forward(request, response);
-            }
-        } else {
-            RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
-            String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-            request.setAttribute("errorMessage", errorMessage);
-            rd.forward(request, response);
-        }
+
+        List<Category> categories = categoryDAO.selectAllCategory();
+        List<Language> languages = languageDAO.selectAllLanguage();
+        List<BookCover> bookcover = bookCoverDAO.selectAllCoverType();
+        List<BookType> bookType = bookTypeDAO.selectAllBookType();
+        List<UserType> userType = userTypeDAO.selectAllUserType();
+        RequestDispatcher rd = request.getRequestDispatcher("admin-database-page.jsp");
+        request.setAttribute("categories", categories);
+        request.setAttribute("languages", languages);
+        request.setAttribute("bookcover", bookcover);
+        request.setAttribute("bookType", bookType);
+        request.setAttribute("userType", userType);
+        rd.forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        System.out.println(action);
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-                case ("insertCategory"):
-                    InsertCategory(request, response);
-                    break;
-                case ("updateCategory"):
-                    updateCategory(request, response);
-                    break;
-                case ("insertLanguage"):
-                    insertLanguage(request, response);
-                    break;
-                case ("updateLanguage"):
-                    updateLanguage(request, response);
-                    break;
-                case ("insertBookCoverType"):
-                    insertBookCover(request, response);
-                    break;
-                case ("updateBookCoverType"):
-                    updateBookCover(request, response);
-                    break;
-                case ("insertUserType"):
-                    insertUserType(request, response);
-                    break;
-                case ("updateUserType"):
-                    updateUserType(request, response);
-                    break;
-                case ("insertBookType"):
-                    insertBookType(request, response);
-                    break;
-                case ("updateBookType"):
-                    updateBookType(request, response);
-                    break;
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+                if ((int) session.getAttribute("user_type") == 3) {
+
+                    String action = request.getParameter("action");
+                    System.out.println(action);
+                    if (action == null) {
+                        action = "";
+                    }
+                    try {
+                        switch (action) {
+                            case ("insertCategory"):
+                                InsertCategory(request, response);
+                                break;
+                            case ("updateCategory"):
+                                updateCategory(request, response);
+                                break;
+                            case ("insertLanguage"):
+                                insertLanguage(request, response);
+                                break;
+                            case ("updateLanguage"):
+                                updateLanguage(request, response);
+                                break;
+                            case ("insertBookCoverType"):
+                                insertBookCover(request, response);
+                                break;
+                            case ("updateBookCoverType"):
+                                updateBookCover(request, response);
+                                break;
+                            case ("insertUserType"):
+                                insertUserType(request, response);
+                                break;
+                            case ("updateUserType"):
+                                updateUserType(request, response);
+                                break;
+                            case ("insertBookType"):
+                                insertBookType(request, response);
+                                break;
+                            case ("updateBookType"):
+                                updateBookType(request, response);
+                                break;
+                        }
+                    } catch (Exception ex) {
+                        throw new ServletException(ex);
+                    }
+
+                } else {
+                    RequestDispatcher rd = request.getRequestDispatcher("login");
+                    String errorMessage = "Sorry, you are not authorised to access this page.";
+                    request.setAttribute("errorMessage", errorMessage);
+                    rd.forward(request, response);
+                }
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("login");
+                String errorMessage = "You are not logged in. please log in with admin account to access this page.";
+                request.setAttribute("errorMessage", errorMessage);
+                rd.forward(request, response);
             }
-        } catch (Exception ex) {
-            throw new ServletException(ex);
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("login");
+            String errorMessage = "You are not logged in. please log in with admin account to access this page.";
+            request.setAttribute("errorMessage", errorMessage);
+            rd.forward(request, response);
         }
     }
 

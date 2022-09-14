@@ -35,27 +35,39 @@ public class AddToCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-                case ("updateCartQuantity"):
-                    updateCartQuantity(request, response);
-                    break;
-                case ("remove"):
-                    deleteCartItem(request, response);
-                    break;
-                case ("update"):
-                    updateCartQuantity(request, response);
-                    break;
-                default:
-                    showCart(request, response);
-                    break;
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+                String action = request.getParameter("action");
+                if (action == null) {
+                    action = "";
+                }
+                try {
+                    switch (action) {
+                        case ("updateCartQuantity"):
+                            updateCartQuantity(request, response);
+                            break;
+                        case ("remove"):
+                            deleteCartItem(request, response);
+                            break;
+                        default:
+                            showCart(request, response);
+                            break;
+                    }
+                } catch (IOException | ServletException ex) {
+                    throw new ServletException(ex);
+                }
+            } else {
+                String errorMessage = "Sorrry! you should log in first to access the page.";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
             }
-        } catch (Exception ex) {
-            throw new ServletException(ex);
+        } else {
+            String errorMessage = "Sorrry! you should log in first to access the page";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", errorMessage);
+            dispatcher.forward(request, response);
         }
     }
 
@@ -85,6 +97,10 @@ public class AddToCart extends HttpServlet {
                     System.out.println("one Cart item Successfully updated.");
                     response.sendRedirect("cart");
                 } else {
+                    String errorMessage = "Sorry, couldnot update cart item.";
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                    request.setAttribute("errorMessage", errorMessage);
+                    dispatcher.forward(request, response);
                     System.out.println("Couldnot update cart item.");
                 }
             } else {
@@ -93,6 +109,10 @@ public class AddToCart extends HttpServlet {
                 response.sendRedirect("cart");
             }
         } else {
+            String errorMessage = "user " + user_id + " - tried to update others cart.";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", errorMessage);
+            dispatcher.forward(request, response);
             System.out.println("user " + user_id + " - tried to update others cart.");
         }
     }
@@ -109,41 +129,78 @@ public class AddToCart extends HttpServlet {
                 System.out.println("Couldnot delete cart item.");
             }
         } else {
+            String errorMessage = "user " + user_id + " - tried to delete others cart.";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", errorMessage);
+            dispatcher.forward(request, response);
             System.out.println("user " + user_id + " - tried to delete others cart.");
         }
     }
 
+    public void showCart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int user_id = (int) request.getSession(false).getAttribute("id");
+        List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("add-to-cart.jsp");
+        request.setAttribute("cartItemList", cartItemList);
+        dispatcher.forward(request, response);
+    }
+
     public void addToCart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int user_id = (int) request.getSession(false).getAttribute("id");
+        int book_id = Integer.parseInt(request.getParameter("book_id"));
+        int quantity = 1;
+        Date created_date = new Date(System.currentTimeMillis());
+        Cart cartItem = cartDAO.selectCartByBookAndUserId(book_id, user_id);
+        if (cartItem.getBook_id() == book_id && cartItem.getUser_id() == user_id) {
+            quantity = cartItem.getQuantity() + 1;
+            Cart updateCart = new Cart(cartItem.getId(), user_id, book_id, quantity, cartItem.getCreated_date());
+            if (cartDAO.updateCart(updateCart)) {
+                System.out.println("Quantity successfully updated!");
+                String successMessage = "Hurray! Successfully updated one item in the cart.";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("successMessage", successMessage);
+                dispatcher.forward(request, response);
+            } else {
+                String errorMessage = "Failed to update cart!";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
+                System.out.println("Failed to update cart!");
+            }
+        } else {
+            Cart newCart = new Cart(user_id, book_id, quantity, created_date);
+            cartDAO.insertIntoCart(newCart);
+            System.out.println("Successfully inserted into cart.");
+            String successMessage = "Hurray! Successfully added one item to the cart.";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("successMessage", successMessage);
+            dispatcher.forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-                int user_id = (int) session.getAttribute("id");
-                int book_id = Integer.parseInt(request.getParameter("book_id"));
-                int quantity = 1;
-                Date created_date = new Date(System.currentTimeMillis());
-                Cart cartItem = cartDAO.selectCartByBookAndUserId(book_id, user_id);
-                if (cartItem.getBook_id() == book_id && cartItem.getUser_id() == user_id) {
-                    quantity = cartItem.getQuantity() + 1;
-                    Cart updateCart = new Cart(cartItem.getId(), user_id, book_id, quantity, cartItem.getCreated_date());
-                    if (cartDAO.updateCart(updateCart)) {
-                        System.out.println("Quantity successfully updated!");
-                        String successMessage = "Hurray! Successfully updated one item in the cart.";
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                        request.setAttribute("successMessage", successMessage);
-                        dispatcher.forward(request, response);
-                    } else {
-                        System.out.println("Failed to update cart!");
-                    }
-                } else {
-                    Cart newCart = new Cart(user_id, book_id, quantity, created_date);
-                    cartDAO.insertIntoCart(newCart);
-                    System.out.println("Successfully inserted into cart.");
-                    String successMessage = "Hurray! Successfully added one item to the cart.";
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                    request.setAttribute("successMessage", successMessage);
-                    dispatcher.forward(request, response);
+
+                String action = request.getParameter("action");
+                if (action == null) {
+                    action = "";
                 }
+                try {
+                    switch (action) {
+                        case ("add-to-cart"):
+                            addToCart(request, response);
+                            break;
+                    }
+                } catch (Exception ex) {
+                    throw new ServletException(ex);
+                }
+
             } else {
                 String errorMessage = "Sorrry! you should log in first to add items to the cart.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");
@@ -158,54 +215,6 @@ public class AddToCart extends HttpServlet {
         }
     }
 
-    public void showCart(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            if (session.getAttribute("id") == null) {
-                String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
-            } else {
-                int user_id = (int) session.getAttribute("id");
-                List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("add-to-cart.jsp");
-                request.setAttribute("cartItemList", cartItemList);
-                dispatcher.forward(request, response);
-
-            }
-        } else {
-            String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-                case ("add-to-cart"):
-                    addToCart(request, response);
-                    break;
-            }
-        } catch (Exception ex) {
-            throw new ServletException(ex);
-        }
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

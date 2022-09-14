@@ -39,7 +39,24 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+
+                showCheckoutPage(request, response);
+
+            } else {
+                String errorMessage = "Sorrry! you should log in first to access the page";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
+            }
+        } else {
+            String errorMessage = "Sorrry! you should log in first to access the page";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", errorMessage);
+            dispatcher.forward(request, response);
+        }
     }
 
     public void showCheckoutPage(HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +91,24 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        showCheckoutPage(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+
+                showCheckoutPage(request, response);
+
+            } else {
+                String errorMessage = "Sorrry! you should log in first to access the page";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", errorMessage);
+                dispatcher.forward(request, response);
+            }
+        } else {
+            String errorMessage = "Sorrry! you should log in first to access the page";
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", errorMessage);
+            dispatcher.forward(request, response);
+        }
     }
 
     /**

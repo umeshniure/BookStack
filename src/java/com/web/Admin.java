@@ -50,47 +50,27 @@ public class Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        try {
-            switch (action) {
-//                case ("updateform"):
-//                    showDatabase(request, response);
-//                    break;
-//                case ("delete"):
-//                    deleteBook(request, response);
-//                    break;
-                default:
-                    showAdminDashboard(request, response);
-                    break;
-            }
-        } catch (IOException | ServletException ex) {
-            throw new ServletException(ex);
-        }
-    }
-
-    public void showAdminDashboard(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
                 if ((int) session.getAttribute("user_type") == 3) {
-                    int noOfBooks = bookDAO.countBooks();
-                    int noOfVendors = userDAO.countVendors();
-                    int noOfUsers = userDAO.countUsers();
-                    int totalCarts = cartDAO.countCart();
-                    List<Users> vendors = userDAO.selectVendors();
-                    RequestDispatcher rd = request.getRequestDispatcher("admin-dashboard.jsp");
-                    request.setAttribute("noOfBooks", noOfBooks);
-                    request.setAttribute("noOfVendors", noOfVendors);
-                    request.setAttribute("noOfUsers", noOfUsers);
-                    request.setAttribute("totalCarts", totalCarts);
-                    request.setAttribute("vendors", vendors);
-                    rd.forward(request, response);
+
+                    String action = request.getParameter("action");
+                    if (action == null) {
+                        action = "";
+                    }
+                    try {
+                        switch (action) {
+                            default:
+                                showAdminDashboard(request, response);
+                                break;
+                        }
+                    } catch (IOException | ServletException ex) {
+                        throw new ServletException(ex);
+                    }
+
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("home");
                     String errorMessage = "Sorry, you are not authorised to access this page.";
                     request.setAttribute("errorMessage", errorMessage);
                     rd.forward(request, response);
@@ -107,6 +87,23 @@ public class Admin extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             rd.forward(request, response);
         }
+    }
+
+    public void showAdminDashboard(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int noOfBooks = bookDAO.countBooks();
+        int noOfVendors = userDAO.countVendors();
+        int noOfUsers = userDAO.countUsers();
+        int totalCarts = cartDAO.countCart();
+        List<Users> vendors = userDAO.selectVendors();
+        RequestDispatcher rd = request.getRequestDispatcher("admin-dashboard.jsp");
+        request.setAttribute("noOfBooks", noOfBooks);
+        request.setAttribute("noOfVendors", noOfVendors);
+        request.setAttribute("noOfUsers", noOfUsers);
+        request.setAttribute("totalCarts", totalCarts);
+        request.setAttribute("vendors", vendors);
+        rd.forward(request, response);
+
     }
 
     @Override
