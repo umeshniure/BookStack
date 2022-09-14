@@ -130,7 +130,7 @@ public class BookDAO {
         return booklist;
     }
 
-    public void insertBook(Books newBook) {
+    public boolean insertBook(Books newBook) {
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(INSERT_BOOK_SQL);
@@ -153,13 +153,16 @@ public class BookDAO {
                 ps.setInt(6, newBook.getDiscounted_price());
             }
             ps.setInt(7, newBook.getPublished_year());
-            ps.executeUpdate();
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
+        return false;
     }
 
-    public void updateBook(Books newBook) {
+    public boolean updateBook(Books newBook) {
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(UPDATE_BOOK_SQL);
@@ -183,10 +186,13 @@ public class BookDAO {
             ps.setString(14, newBook.getCover_photo_name());
             ps.setInt(15, newBook.getVendor_id());
             ps.setInt(16, newBook.getId());
-            ps.executeUpdate();
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return false;
     }
 
     public Books selectBook(int id) {

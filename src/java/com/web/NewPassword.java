@@ -47,11 +47,11 @@ public class NewPassword extends HttpServlet {
 
                     int rowCount = pst.executeUpdate();
                     if (rowCount > 0) {
-                        request.setAttribute("status", "resetSuccess");
-                        dispatcher = request.getRequestDispatcher("LogIn.jsp");
+                        request.setAttribute("successMessage", "Your password is successfully reset. Please login with your new password.");
+                        dispatcher = request.getRequestDispatcher("login");
                     } else {
-                        request.setAttribute("status", "resetFailed");
-                        dispatcher = request.getRequestDispatcher("login.jsp");
+                        request.setAttribute("errorMessage", "Sorry! your password couldnot be reset at the moment.");
+                        dispatcher = request.getRequestDispatcher("login");
                     }
                     dispatcher.forward(request, response);
                 } catch (Exception e) {

@@ -215,7 +215,7 @@
                                                         <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                                         <p class="text-xs text-gray-500 dark:text-gray-400">(to be displayed to the users)</p>
                                                     </div>
-                                                    <input value="<c:out value="${book.cover_photo}"/>" name="cover_photo" id="dropzone-file" type="file" class="hidden" />
+                                                    <input name="cover_photo" id="dropzone-file" type="file" class="hidden" />
                                                 </label>
                                             </div>
                                         </div>

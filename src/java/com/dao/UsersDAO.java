@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UsersDAO {
 
-    private static final String INSERT_VENDOR_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT_USER_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select * from users where id = ?";
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from users where email = ? and password = ?";
     private static final String SELECT_ALL_VENDOR = "select * from users where user_type = 2";
@@ -56,7 +56,7 @@ public class UsersDAO {
     public void insertUser(Users newUser) throws SQLException {
         try {
             Connection connection = Config.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VENDOR_SQL);
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL);
             preparedStatement.setString(1, newUser.getFirstname());
             preparedStatement.setString(2, newUser.getLastname());
             preparedStatement.setString(3, newUser.getStore_name());

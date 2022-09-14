@@ -167,7 +167,11 @@ public class UploadBook extends HttpServlet {
             Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,
                     published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
             System.out.println("book constructor called");
-            bookDAO.insertBook(newBook);
+            if (bookDAO.insertBook(newBook)) {
+                request.getSession(false).setAttribute("successMessage", "Hurray! one book is successfully added.");
+            } else {
+                request.getSession(false).setAttribute("errorMessage", "Sorry, the book couldnot be added at the moment.");
+            }
             response.sendRedirect("UploadBook");
         } catch (Exception e) {
             System.out.println(e);
@@ -180,4 +184,3 @@ public class UploadBook extends HttpServlet {
     }// </editor-fold>
 
 }
-

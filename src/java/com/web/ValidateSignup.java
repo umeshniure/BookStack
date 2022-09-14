@@ -81,7 +81,9 @@ public class ValidateSignup extends HttpServlet {
                     if (_password1.equals(_password2)) {
                         Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, profile_pic_name, encrypt.encryptPassword(_password1), user_type);
                         userDAO.insertUser(newuser);
-                        response.sendRedirect("login");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+                        request.setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
+                        dispatcher.forward(request, response);
                     } else {
                         message = "The passwords didnot match!";
                         passValue(request, response, first_name, last_name, email, message);

@@ -127,8 +127,10 @@ public class VendorBooks extends HttpServlet {
         System.out.println("delete book method called");
         int id = Integer.parseInt(request.getParameter("id"));
         if (bookDAO.deleteBookById(id)) {
+            request.getSession(false).setAttribute("successMessage", "One book is successfully removed.");
             response.sendRedirect("vendorbook");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the book couldnot be deleted.");
             response.sendRedirect("vendorbook");
         }
     }
@@ -205,23 +207,31 @@ public class VendorBooks extends HttpServlet {
         String description = request.getParameter("description");
         String authorname = request.getParameter("authorname");
         int vendor_id = (int) session.getAttribute("id");
-
+        Books book = bookDAO.selectBook(id);
         try {
-            Part pic_part;
-            pic_part = request.getPart("cover_photo");
-            //String fileName = validateVendor.extractFileName(pic_part);
-            String fileName = bookname + "-vendor" + vendor_id + ".png";
-            //String contextPath = request.getContextPath();
-            String contextPath = new File("").getAbsolutePath();
-            String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
-            File fileSaveDir = new File(imageFolderPath);
-            fileSaveDir.mkdir();
-            String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
-            System.out.println("image save path: " + imageSavePath);
-            pic_part.write(imageSavePath + File.separator);
+            Part pic_part = request.getPart("cover_photo");
+            String imageSavePath, fileName;
+            if (pic_part.getSize() <= 0) {
+                imageSavePath = book.getCover_photo();
+                fileName = book.getCover_photo_name();
+            } else {
+                //String fileName = validateVendor.extractFileName(pic_part);
+                fileName = bookname + "-vendor" + vendor_id + ".png";
+                //String contextPath = request.getContextPath();
+                String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
+                File fileSaveDir = new File(imageFolderPath);
+                fileSaveDir.mkdir();
+                imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
+                System.out.println("image save path: " + imageSavePath);
+                pic_part.write(imageSavePath + File.separator);
+            }
             Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
                     published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
-            bookDAO.updateBook(newBook);
+            if (bookDAO.updateBook(newBook)){
+                request.getSession(false).setAttribute("successMessage", "One book is successfully updated.");
+            } else {
+                request.getSession(false).setAttribute("errorMessage", "Sorry, the book couldnot be edited");
+            }
             response.sendRedirect("vendorbook");
         } catch (IOException | ServletException e) {
             System.out.println(e);

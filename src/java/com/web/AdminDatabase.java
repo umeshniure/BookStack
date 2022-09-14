@@ -152,8 +152,11 @@ public class AdminDatabase extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (categoryDAO.deleteCategory(id)) {
+            request.getSession(false).setAttribute("successMessage", "One category is successfully deleted.");
             response.sendRedirect("adminDatabase");
+
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the category couldnot be deleted.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -179,8 +182,10 @@ public class AdminDatabase extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (languageDAO.deleteLanguage(id)) {
+            request.getSession(false).setAttribute("successMessage", "One language is successfully deleted.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the language couldnot deleted.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -206,8 +211,10 @@ public class AdminDatabase extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (bookCoverDAO.deleteBookCoverType(id)) {
+            request.getSession(false).setAttribute("successMessage", "One book cover is successfully deleted.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the book cover couldnot be deleted.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -233,8 +240,10 @@ public class AdminDatabase extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (userTypeDAO.deleteUserType(id)) {
+            request.getSession(false).setAttribute("successMessage", "One User type is successfully deleted.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the user type couldnot be deleted.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -260,8 +269,10 @@ public class AdminDatabase extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         if (bookTypeDAO.deleteBookType(id)) {
+            request.getSession(false).setAttribute("successMessage", "One book type is successfully deleted.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the book type couldnot be deleted.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -359,6 +370,7 @@ public class AdminDatabase extends HttpServlet {
         String category_name = request.getParameter("category");
         Category category = new Category(category_name);
         categoryDAO.insertCategory(category);
+        request.getSession(false).setAttribute("successMessage", "One category is successfully added.");
         response.sendRedirect("adminDatabase");
     }
 
@@ -368,8 +380,10 @@ public class AdminDatabase extends HttpServlet {
         String category_name = request.getParameter("category");
         Category category = new Category(id, category_name);
         if (categoryDAO.updateCategory(category)) {
+            request.getSession(false).setAttribute("successMessage", "One category is successfully updated.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the category couldnot be updated.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -379,6 +393,7 @@ public class AdminDatabase extends HttpServlet {
         String language_name = request.getParameter("language");
         Language language = new Language(language_name);
         languageDAO.insertLanguage(language);
+        request.getSession(false).setAttribute("successMessage", "One language is successfully added.");
         response.sendRedirect("adminDatabase");
     }
 
@@ -388,8 +403,10 @@ public class AdminDatabase extends HttpServlet {
         String language_name = request.getParameter("language");
         Language language = new Language(id, language_name);
         if (languageDAO.updateLanguage(language)) {
+            request.getSession(false).setAttribute("successMessage", "One language is successfully updated.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the language couldnot be updated.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -399,6 +416,7 @@ public class AdminDatabase extends HttpServlet {
         String cover_type = request.getParameter("bookCover");
         BookCover cover = new BookCover(cover_type);
         bookCoverDAO.insertBookCoverType(cover);
+        request.getSession(false).setAttribute("successMessage", "One book cover is successfully added.");
         response.sendRedirect("adminDatabase");
     }
 
@@ -408,8 +426,10 @@ public class AdminDatabase extends HttpServlet {
         String bookCover = request.getParameter("bookCover");
         BookCover cover = new BookCover(id, bookCover);
         if (bookCoverDAO.updateBookCoverType(cover)) {
+            request.getSession(false).setAttribute("successMessage", "One book cover is successfully updated.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the book cover couldnot be updated.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -419,6 +439,7 @@ public class AdminDatabase extends HttpServlet {
         String user_type = request.getParameter("userType");
         UserType userType = new UserType(user_type);
         userTypeDAO.insertUserType(userType);
+        request.getSession(false).setAttribute("successMessage", "One user type is successfully added.");
         response.sendRedirect("adminDatabase");
     }
 
@@ -428,8 +449,10 @@ public class AdminDatabase extends HttpServlet {
         String user_type = request.getParameter("userType");
         UserType userType = new UserType(id, user_type);
         if (userTypeDAO.updateUserType(userType)) {
+            request.getSession(false).setAttribute("successMessage", "One user type is successfully updated.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the user type couldnot be updated.");
             response.sendRedirect("adminDatabase");
         }
     }
@@ -439,6 +462,7 @@ public class AdminDatabase extends HttpServlet {
         String book_type = request.getParameter("bookType");
         BookType bookType = new BookType(book_type);
         bookTypeDAO.insertBookType(bookType);
+        request.getSession(false).setAttribute("successMessage", "One book type is successfully added.");
         response.sendRedirect("adminDatabase");
     }
 
@@ -448,8 +472,10 @@ public class AdminDatabase extends HttpServlet {
         String book_type = request.getParameter("bookType");
         BookType bookType = new BookType(id, book_type);
         if (bookTypeDAO.updateBookType(bookType)) {
+            request.getSession(false).setAttribute("successMessage", "One book type is successfully updated.");
             response.sendRedirect("adminDatabase");
         } else {
+            request.getSession(false).setAttribute("errorMessage", "Sorry, the book type couldnot be updated.");
             response.sendRedirect("adminDatabase");
         }
     }

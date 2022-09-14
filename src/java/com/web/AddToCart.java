@@ -95,21 +95,19 @@ public class AddToCart extends HttpServlet {
                 Cart updateCartItem = new Cart(id, user_id, book_id, quantity, cartItem.getCreated_date());
                 if (cartDAO.updateCart(updateCartItem)) {
                     System.out.println("one Cart item Successfully updated.");
+                    request.getSession(false).setAttribute("successMessage", "one Cart item is successfully updated.");
                     response.sendRedirect("cart");
                 } else {
-                    String errorMessage = "Sorry, couldnot update cart item.";
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                    request.setAttribute("errorMessage", errorMessage);
-                    dispatcher.forward(request, response);
-                    System.out.println("Couldnot update cart item.");
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, couldnot update cart item.");
+                    response.sendRedirect("cart");
                 }
             } else {
                 cartDAO.deleteCartById(id);
-                System.out.println("one Cart item Successfully deleted.");
+                request.getSession(false).setAttribute("successMessage", "one Cart item Successfully deleted.");
                 response.sendRedirect("cart");
             }
         } else {
-            String errorMessage = "user " + user_id + " - tried to update others cart.";
+            String errorMessage = "Sorry, you cannot change others cart.";
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
@@ -124,12 +122,15 @@ public class AddToCart extends HttpServlet {
         Cart cartItem = cartDAO.selectCart(id);
         if (cartItem.getUser_id() == user_id) {
             if (cartDAO.deleteCartById(id)) {
+                request.getSession(false).setAttribute("successMessage", "One cart item is successfully deleted.");
                 response.sendRedirect("cart");
             } else {
                 System.out.println("Couldnot delete cart item.");
+                request.getSession(false).setAttribute("errorMessage", "Sorry, couldnot delete cart item.");
+                response.sendRedirect("cart");
             }
         } else {
-            String errorMessage = "user " + user_id + " - tried to delete others cart.";
+            String errorMessage = "Sorry! you cannot delete others cart.";
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
