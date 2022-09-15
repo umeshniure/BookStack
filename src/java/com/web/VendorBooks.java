@@ -4,17 +4,8 @@
  */
 package com.web;
 
-import com.dao.BookCoverDAO;
-import com.dao.BookDAO;
-import com.dao.BookTypeDAO;
-import com.dao.CategoryDAO;
-import com.dao.LanguageDAO;
-import com.dao.UsersDAO;
-import com.model.BookCover;
-import com.model.BookType;
-import com.model.Books;
-import com.model.Category;
-import com.model.Language;
+import com.dao.*;
+import com.model.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -127,6 +118,7 @@ public class VendorBooks extends HttpServlet {
         System.out.println("delete book method called");
         int id = Integer.parseInt(request.getParameter("id"));
         if (bookDAO.deleteBookById(id)) {
+            
             response.sendRedirect("vendorbook");
         } else {
             response.sendRedirect("vendorbook");
@@ -142,7 +134,6 @@ public class VendorBooks extends HttpServlet {
         request.setAttribute("books", books);
         request.setAttribute("page", "My Books");
         dispatcher.forward(request, response);
-
     }
 
     @Override
@@ -226,7 +217,6 @@ public class VendorBooks extends HttpServlet {
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }
-
     }
 
     @Override

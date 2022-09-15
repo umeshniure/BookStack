@@ -3,26 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/UploadBook.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/admin-dashboard-aside.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookCoverDAO.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/VendorBooks.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor_registration.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/navigation-bar.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/admin-dashboard-navbar.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/admin-database-page.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/language-insert-form.jsp</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/BookDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/allscripts.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/booktype-insert-form.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/bookcover-insert-form.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/UsersDAO.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/CategoryDAO.java</file>
+            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/model/OrderItems.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/SignUp.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/dao/CartDAO.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/vendor-book-upload.jsp</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/AdminDatabase.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/Admin.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/model/Users.java</file>
-            <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/admin-dashboard.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/web/home.jsp</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/Home.java</file>
             <file>file:/C:/Users/Umesh/OneDrive/Documents/NetBeansProjects/BookStack/src/java/com/web/AddToCart.java</file>
