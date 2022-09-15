@@ -32,7 +32,7 @@
 
                     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8 w-full">
                         <c:forEach var="book" items="${books}">
-                            <div class="group relative hover:scale-105 ease-in duration-200">
+                            <div class="group hover:scale-105 ease-in duration-200">
                                 <a href="<c:out value='vendorbook?action=updateform&id=${book.id}'/>">
                                     <div class="flex w-full min-h-80 bg-gray-200 rounded-md overflow-hidden lg:h-80 lg:aspect-none justify-center">
                                         <img src="images/book_cover_photos/<c:out value="${book.vendor_id}"/>/<c:out value="${book.cover_photo_name}"/>" alt="<c:out value="${book.name}"/>" title="Click to edit - <c:out value='${book.name}'/>" class="w-auto h-full object-center object-cover lg:w-full lg:h-full rounded">

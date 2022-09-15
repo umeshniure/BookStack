@@ -94,8 +94,7 @@ public class AddToCart extends HttpServlet {
             if (quantity >= 1) {
                 Cart updateCartItem = new Cart(id, user_id, book_id, quantity, cartItem.getCreated_date());
                 if (cartDAO.updateCart(updateCartItem)) {
-                    System.out.println("one Cart item Successfully updated.");
-                    request.getSession(false).setAttribute("successMessage", "one Cart item is successfully updated.");
+                    request.getSession(false).setAttribute("successMessage", "One cart item is successfully updated.");
                     response.sendRedirect("cart");
                 } else {
                     request.getSession(false).setAttribute("errorMessage", "Sorry, couldnot update cart item.");
@@ -125,7 +124,6 @@ public class AddToCart extends HttpServlet {
                 request.getSession(false).setAttribute("successMessage", "One cart item is successfully deleted.");
                 response.sendRedirect("cart");
             } else {
-                System.out.println("Couldnot delete cart item.");
                 request.getSession(false).setAttribute("errorMessage", "Sorry, couldnot delete cart item.");
                 response.sendRedirect("cart");
             }
@@ -158,7 +156,6 @@ public class AddToCart extends HttpServlet {
             quantity = cartItem.getQuantity() + 1;
             Cart updateCart = new Cart(cartItem.getId(), user_id, book_id, quantity, cartItem.getCreated_date());
             if (cartDAO.updateCart(updateCart)) {
-                System.out.println("Quantity successfully updated!");
                 String successMessage = "Hurray! Successfully updated one item in the cart.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");
                 request.setAttribute("successMessage", successMessage);
@@ -168,12 +165,10 @@ public class AddToCart extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");
                 request.setAttribute("errorMessage", errorMessage);
                 dispatcher.forward(request, response);
-                System.out.println("Failed to update cart!");
             }
         } else {
             Cart newCart = new Cart(user_id, book_id, quantity, created_date);
             cartDAO.insertIntoCart(newCart);
-            System.out.println("Successfully inserted into cart.");
             String successMessage = "Hurray! Successfully added one item to the cart.";
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
             request.setAttribute("successMessage", successMessage);

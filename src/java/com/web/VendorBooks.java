@@ -117,12 +117,15 @@ public class VendorBooks extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("delete book method called");
         int id = Integer.parseInt(request.getParameter("id"));
+        Books book = bookDAO.selectBook(id);
+        String book_cover = book.getCover_photo();
+        String book_cover_name = book.getCover_photo_name();
         if (bookDAO.deleteBookById(id)) {
-<<<<<<< HEAD
+            File file = new File("images/book_cover_photos" + book.getVendor() + "/" + book_cover_name);
+            if (file.delete()) {
+                System.out.println("cover is also removed.");
+            }
             request.getSession(false).setAttribute("successMessage", "One book is successfully removed.");
-=======
-            
->>>>>>> frontend
             response.sendRedirect("vendorbook");
         } else {
             request.getSession(false).setAttribute("errorMessage", "Sorry, the book couldnot be deleted.");
@@ -221,7 +224,7 @@ public class VendorBooks extends HttpServlet {
             }
             Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
                     published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
-            if (bookDAO.updateBook(newBook)){
+            if (bookDAO.updateBook(newBook)) {
                 request.getSession(false).setAttribute("successMessage", "One book is successfully updated.");
             } else {
                 request.getSession(false).setAttribute("errorMessage", "Sorry, the book couldnot be edited");

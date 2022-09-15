@@ -42,6 +42,7 @@ public class validateLogin extends HttpServlet {
         rd.forward(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String message = "";
@@ -84,7 +85,6 @@ public class validateLogin extends HttpServlet {
 //            throw new RuntimeException(e);
 //        }
 //    }
-
     public void normalLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String _email = request.getParameter("email");
@@ -100,16 +100,22 @@ public class validateLogin extends HttpServlet {
                         session.setAttribute("user_type", user.getUser_type());
                         switch (user.getUser_type()) {
                             case 1:
-                                response.sendRedirect("home");
+                                RequestDispatcher rd = request.getRequestDispatcher("home");
+                                request.setAttribute("successMessage", "Welcome to BookStack! you are successfully logged in.");
+                                rd.forward(request, response);
                                 break;
                             case 2:
+                                request.getSession(false).setAttribute("successMessage", "Welcome vendor! you are successfully logged in.");
                                 response.sendRedirect("vendor-dashboard.jsp");
                                 break;
                             case 3:
+                                request.getSession(false).setAttribute("successMessage", "You are successfully logged in.");
                                 response.sendRedirect("admin");
                                 break;
                             default:
-                                response.sendRedirect("home");
+                                RequestDispatcher rd2 = request.getRequestDispatcher("home");
+                                request.setAttribute("successMessage", "Welcome to BookStack! you are successfully logged in.");
+                                rd2.forward(request, response);
                                 break;
                         }
                     } else {
@@ -125,7 +131,7 @@ public class validateLogin extends HttpServlet {
                 passvalue(request, response, _email, message);
             }
 
-        } catch (Exception e) {
+        } catch (IOException | ServletException e) {
             System.out.println(e);
         }
     }

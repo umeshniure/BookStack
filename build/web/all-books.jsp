@@ -39,9 +39,12 @@
                     <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-purple-600 rounded-lg border border-purple-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search</button>
                 </form>
                 <!--search section ends-->
-                <h3 class="text-2xl font-bold tracking-tight text-gray-900"><c:out value="${name}"/></h3>
 
+                <h3 class="text-2xl font-bold tracking-tight text-gray-900"><c:out value="${name}"/></h3>
                 <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8 w-full">
+                    <c:if test="${booklist != null && booklist.isEmpty()}">
+                        <h3 class="text-xl font-normal tracking-tight text-gray-900 justify-self-center">Sorry! no books found.</h3>
+                    </c:if>
                     <c:forEach var="book" items="${booklist}">
                         <div class="group relative hover:scale-105 ease-in duration-200">
                             <a href="<c:out value='home?action=book-detail&id=${book.id}'/>">

@@ -31,10 +31,22 @@ public class Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        session.invalidate();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-        request.setAttribute("successMessage", "Successfully logged out.");
-        dispatcher.forward(request, response);
+        if (session != null) {
+            if (session.getAttribute("id") != null) {
+                session.invalidate();
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("successMessage", "Successfully logged out.");
+                dispatcher.forward(request, response);
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                request.setAttribute("errorMessage", "You are not logged in yet to be logged out.");
+                dispatcher.forward(request, response);
+            }
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            request.setAttribute("errorMessage", "You are not logged in yet to be logged out.");
+            dispatcher.forward(request, response);
+        }
     }
 
     @Override
