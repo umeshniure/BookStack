@@ -114,8 +114,6 @@
 
                         <div class="sm:p-8 sm:pt-0 md:p-3 md:pt-0 dark:bg-gray-800 flex flex-col lg:w-full xl:w-3/5">
 
-
-                            <!-- component -->
                             <div>
                                 <div class="bg-white rounded-lg shadow">
                                     <div class="flex">
@@ -134,31 +132,31 @@
                                     <form action="order" method="post">
                                         <div class="px-5 pb-5 mt-4">
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Street name</span>
-                                            <input name="street"  placeholder="Street name" class="mb-8 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
+                                            <input name="street"  placeholder="Street name" class=" mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Apartment, Suite</span>
-                                            <input name="apartment" placeholder="Apartment, Suite" class="mb-8 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
+                                            <input name="apartment" placeholder="Apartment, Suite" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                                             <div class="flex">
                                                 <div class="flex-grow w-2/4 pr-2">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Province / State</span>
-                                                    <input name="province"  placeholder="Province / State" class="mb-8 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    <input name="province"  placeholder="Province / State" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                                                 </div>
                                                 <div class="flex-grow w-2/4">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">City</span>
-                                                    <input name="city" placeholder="City" class="mb-8 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    <input name="city" placeholder="City" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                                                 </div>
                                             </div>
                                             <div class="flex">
                                                 <div class="flex-grow w-2/4 pr-2">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Postal Code</span>
-                                                    <input name="postcode" placeholder="Post Code" class="mb-8 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    <input name="postcode" placeholder="Post Code" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                                                 </div>
                                                 <div class="flex-grow w-2/4">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Country</span>
-                                                    <input name="country" placeholder="Country" value="Nepal" readonly class="mb-8 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    <input name="country" placeholder="Country" value="Nepal" readonly class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                                                 </div>
                                             </div>
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Any Special Instructions?</span>
-                                            <textarea name="specialInstruction" placeholder="Please tell us anything you would like us to be cautious/informed of (Optional)..." class="h-40 text-black placeholder-gray-600 w-full px-4 py-2.5 text-base   transition duration-500 ease-in-out transform border-transparent rounded bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>  
+                                            <textarea name="specialInstruction" placeholder="Please tell us anything you would like us to be cautious/informed of (Optional)..." class="h-40 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>  
                                             <input type="hidden" name="order_subtotal" value="${total_price}">
                                             <input type="hidden" name="order_total" value="${total_price}">
                                         </div>

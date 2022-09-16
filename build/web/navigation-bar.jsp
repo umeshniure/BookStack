@@ -63,7 +63,7 @@
                                                         </span>
                                                     </p>
                                                     <div class="my-5 px-6">
-                                                        <a href="#" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">Edit Profile</span></a>
+                                                        <a href="userProfile" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">Edit Profile</span></a>
                                                     </div>
                                                     <div class="flex justify-between items-center my-5 px-6">
                                                         <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>
