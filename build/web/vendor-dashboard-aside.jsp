@@ -3,7 +3,7 @@
     Created on : Aug 28, 2022, 2:01:30 PM
     Author     : Umesh
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <aside class="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-white transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
     <div>
         <div class="-mx-6 px-6 py-4 flex justify-center ">
@@ -13,14 +13,16 @@
         </div>
 
         <div class="mt-8 text-center">
-            <img src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
-                <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">Cynthia J. Watts</h5>
-                <span class="hidden text-gray-400 lg:block">Admin</span>
+            <a href="updateProfile" title="Edit profile">
+                <img src="images/vendor_profiles/${vendor.profile_pic_name}" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
+            </a>
+            <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">${vendor.store_name}</h5>
+            <span class="hidden text-gray-400 lg:block">Seller</span>
         </div>
 
         <ul class="space-y-2 tracking-wide mt-8">
             <li>
-                <a href="vendor-dashboard.jsp" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600">
+                <a href="vendorDashboard" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl text-gray-600">
                     <!--<a href="vendor-dashboard.jsp" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl text-white bg-gradient-to-r from-sky-600 to-cyan-400">-->
                     <svg class="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
                         <path d="M6 8a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8ZM6 15a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-1Z" class="fill-current text-cyan-400 dark:fill-slate-600"></path>

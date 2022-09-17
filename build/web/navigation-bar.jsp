@@ -33,101 +33,123 @@
                         </svg>
                     </div></a>
                 <div class="flex -space-x-2 overflow-hidden">
-                    <c:if test="${user.profile_pic_name == null}">
-                        <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="">
-                        </c:if>
-                        <c:if test="${user.profile_pic_name != null}">
-                            <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="images/user_profiles/${user.profile_pic_name}" alt="">
+                    <div class="flex justify-center">
+                        <c:if test="${user.profile_pic_name == null}">
+                            <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="">
                             </c:if>
+                            <c:if test="${user.profile_pic_name != null}">
+                                <c:if test="${sessionScope.user_type == 1}">
+                                    <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full overflow-hidden ring-2 ring-white" src="images/user_profiles/${user.profile_pic_name}" alt="">
+                                    </c:if>
+                                    <c:if test="${sessionScope.user_type == 2}">
+                                        <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full overflow-hidden ring-2 ring-white" src="images/vendor_profiles/${user.profile_pic_name}" alt="">
+                                        </c:if>
+                                    </c:if>
+                                    </div>
 
-                            <!--profile cards-->
-                            <div data-popover id="popover-user-profile" role="tooltip" class="inline-block absolute invisible z-40 w-96 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
+                                    <!--profile cards-->
+                                    <div data-popover id="popover-user-profile" role="tooltip" class="inline-block absolute invisible z-40 w-96 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
 
-                                <div class="bg-white shadow rounded-lg">
-                                    <div class="flex justify-center">
-                                        <c:if test="${user.profile_pic_name == null}">
-                                            <img src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
-                                            </c:if>
-                                            <c:if test="${user.profile_pic_name != null}">
-                                                <img src="images/user_profiles/${user.profile_pic_name}" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
-                                                </c:if>
-                                                </div>
+                                        <div class="bg-white shadow rounded-lg">
+                                            <div class="flex justify-center">
+                                                <c:if test="${user.profile_pic_name == null}">
+                                                    <img src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                                                    </c:if>
+                                                    <c:if test="${user.profile_pic_name != null}">
+                                                        <c:if test="${sessionScope.user_type == 1}">
+                                                            <img src="images/user_profiles/${user.profile_pic_name}" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                                                            </c:if>
+                                                            <c:if test="${sessionScope.user_type == 2}">
+                                                                <img src="images/vendor_profiles/${user.profile_pic_name}" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                                                                </c:if>
+                                                            </c:if>
+                                                            </div>
 
-                                                <div class="mt-16">
-                                                    <h1 class="font-bold text-center text-3xl text-gray-900">${user.firstname} ${user.lastname}</h1>
-                                                    <p class="text-center text-sm text-gray-400 font-medium">${user.email}</p>
-                                                    <p class="text-center text-sm text-gray-400 font-medium">${user.phone_number}</p>
-                                                    <p>
-                                                        <span>
+                                                            <div class="mt-16">
+                                                                <h1 class="font-bold text-center text-3xl text-gray-900">${user.firstname} ${user.lastname}</h1>
+                                                                <h1 class="font-bold text-center text-2xl text-gray-900">${user.store_name}</h1>
+                                                                <p class="text-center text-sm text-gray-400 font-medium">${user.email}</p>
+                                                                <p class="text-center text-sm text-gray-400 font-medium">${user.phone_number}</p>
+                                                                <p>
+                                                                    <span>
 
-                                                        </span>
-                                                    </p>
-                                                    <div class="my-5 px-6">
-                                                        <a href="updateProfile" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">Edit Profile</span></a>
-                                                    </div>
-                                                    <div class="flex justify-between items-center my-5 px-6">
-                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>
-                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Order history</a>
-                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My wishlist</a>
-                                                        <!--<a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Email</a>-->
-                                                    </div>
+                                                                    </span>
+                                                                </p>
+                                                                <c:if test="${sessionScope.user_type == 1}">
+                                                                    <div class="my-5 px-6">
+                                                                        <a href="updateProfile" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">Edit Profile</span></a>
+                                                                    </div>
+                                                                </c:if>
+                                                                <c:if test="${sessionScope.user_type == 2}">
+                                                                    <div class="my-5 px-6">
+                                                                        <a href="vendorDashboard" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
+                                                                    </div>
+                                                                </c:if>
+                                                                <c:if test="${sessionScope.user_type == 1}">
+                                                                    <div class="flex justify-between items-center my-5 px-6">
+                                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>
+                                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Order history</a>
+                                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My wishlist</a>
+                                                                        <!--<a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Email</a>-->
+                                                                    </div>
 
-                                                    <div class="w-full">
-                                                        <h3 class="font-medium text-gray-900 text-left px-6">Shipping information</h3>
-                                                        <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
-                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
-                                                                    Updated his status
-                                                                    <span class="text-gray-500 text-xs">24 min ago</span>
-                                                            </a>
+                                                                    <div class="w-full">
+                                                                        <h3 class="font-medium text-gray-900 text-left px-6">Shipping information</h3>
+                                                                        <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+                                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+                                                                                    Updated his status
+                                                                                    <span class="text-gray-500 text-xs">24 min ago</span>
+                                                                            </a>
 
-                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
-                                                                    Added new profile picture
-                                                                    <span class="text-gray-500 text-xs">42 min ago</span>
-                                                            </a>
+                                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+                                                                                    Added new profile picture
+                                                                                    <span class="text-gray-500 text-xs">42 min ago</span>
+                                                                            </a>
 
-                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
-                                                                    Posted new article in <span class="font-bold">#Web Dev</span>
-                                                                    <span class="text-gray-500 text-xs">49 min ago</span>
-                                                            </a>
+                                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+                                                                                    Posted new article in <span class="font-bold">#Web Dev</span>
+                                                                                    <span class="text-gray-500 text-xs">49 min ago</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                                <div class="my-5 px-6">
+                                                                    <a href="logout" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">LogOut</span></a>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div data-popper-arrow></div>
+                                                            </div>
+                                                            <!--profile card ends-->
+
+                                                            </div>
+                                                            <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
+                                                                <span class="sr-only">Open main menu</span>
+                                                                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill=""><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                                                            </button>
+                                                            </div>
+                                                        </c:if>
+                                                        <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+                                                            <ul class="flex flex-col p-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-auto md:font-medium md:bg-white">
+                                                                <li>
+                                                                    <a href="home" class="block py-2 pr-4 pl-3 text-gray-200 bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="vendor_registration" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Sell on bookstack</a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
-                                                    </div>
-                                                    <div class="my-5 px-6">
-                                                        <a href="logout" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">LogOut</span></a>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                <div data-popper-arrow></div>
-                                                </div>
-                                                <!--profile card ends-->
-
-                                                </div>
-                                                <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-                                                    <span class="sr-only">Open main menu</span>
-                                                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill=""><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                                                </button>
-                                                </div>
-                                            </c:if>
-                                            <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-                                                <ul class="flex flex-col p-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-auto md:font-medium md:bg-white">
-                                                    <li>
-                                                        <a href="home" class="block py-2 pr-4 pl-3 text-gray-200 bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Home</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="vendor_registration" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Sell on bookstack</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            </div>
-                                            </nav>
+                                                        </div>
+                                                        </nav>
