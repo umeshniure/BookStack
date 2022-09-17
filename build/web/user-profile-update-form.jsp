@@ -19,13 +19,15 @@
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends--> 
 
-        <c:if test="${errorMessage != null}">
+        <!--message section-->
+        <c:if test="${sessionScope.errorMessage != null}">
             <div id="toast-warning" class="flex absolute top-3 z-20 right-3 items-center p-4 w-full max-w-lg text-white bg-red-400 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
                 <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-600 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
                     <svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                     <span class="sr-only">Warning icon</span>
                 </div>
-                <div class="ml-3 text-sm font-normal w-auto"><c:out value="${errorMessage}"/></div>
+                <div class="ml-3 text-sm font-normal w-auto"><c:out value="${sessionScope.errorMessage}"/></div>
+                <% request.getSession(false).removeAttribute("errorMessage");%>
                 <button type="button" class="ml-auto -mx-1.5 -my-1.5 text-gray-800 hover:text-red-500 rounded-lg p-1.5 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close" title="Dismiss">
                     <span class="sr-only">Close</span>
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -33,19 +35,21 @@
             </div>
         </c:if>
 
-        <c:if test="${successMessage != null}">
+        <c:if test="${sessionScope.successMessage != null}">
             <div id="toast-success" class="flex absolute top-3 z-20 right-3 items-center p-4 mb-4 w-full max-w-lg text-white bg-green-400 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
                 <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                     <span class="sr-only">Check icon</span>
                 </div>
-                <div class="ml-3 text-sm font-normal"><c:out value="${successMessage}"/></div>
+                <div class="ml-3 text-sm font-normal"><c:out value="${sessionScope.successMessage}"/></div>
+                <% request.getSession(false).removeAttribute("successMessage");%>
                 <button type="button" class="ml-auto -mx-1.5 -my-1.5 text-gray-800 hover:text-red-500 rounded-lg p-1.5 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close" title="Dismiss">
                     <span class="sr-only">Close</span>
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
         </c:if> 
+        <!--message section ends-->
 
         <div class="flex p-2 justify-around w-full">
             <div class="max-w-2xl mx-5 py-2 px-2 sm:px-6 md:px-10 md:mx-5 lg:mx-12 lg:px-28 xl:mx-32 xl:px-28 lg:max-w-7xl">
@@ -68,7 +72,7 @@
                         </div>
                     </div>
                     <div class="mt-5 md:col-span-2 md:mt-0">
-                        <form action="#" method="POST">
+                        <form action="updateProfile" method="POST" enctype='multipart/form-data'>
                             <div class="shadow sm:overflow-hidden sm:rounded-md">
                                 <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
@@ -86,7 +90,7 @@
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="last-name" class="block text-sm font-medium text-gray-700">Phone number</label>
-                                            <input type="tel" maxlength="10" name="phone" id="phone-number" value="${user.phone_number}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                            <input type="tel" maxlength="10" name="phone_number" id="phone-number" value="${user.phone_number}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         </div>
                                     </div>
                                     <div>
@@ -99,7 +103,7 @@
                                                 <div class="flex text-sm text-gray-600">
                                                     <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
                                                         <span>Upload a file</span>
-                                                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                                        <input id="file-upload" name="profile_pic" type="file" class="sr-only">
                                                     </label>
                                                     <p class="pl-1">or drag and drop</p>
                                                 </div>

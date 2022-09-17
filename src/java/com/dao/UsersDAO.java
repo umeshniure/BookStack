@@ -11,12 +11,12 @@ import java.util.List;
 
 public class UsersDAO {
 
-    private static final String INSERT_USER_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT_USER_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, profile_pic_name, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select * from users where id = ?";
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from users where email = ? and password = ?";
     private static final String SELECT_ALL_VENDOR = "select * from users where user_type = 2";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, semester =? where id = ?;";
+    private static final String UPDATE_USERS_SQL = "update users set firstname=?, lastname=?, store_name=?, phone_number=?, email=?, profile_pic=?, profile_pic_name=? where id = ?;";
 
     private static final String VENDOR_COUNT = "SELECT count(*) FROM users WHERE user_type=2";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE user_type=1";
@@ -63,12 +63,33 @@ public class UsersDAO {
             preparedStatement.setString(4, newUser.getEmail());
             preparedStatement.setLong(5, newUser.getPhone_number());
             preparedStatement.setString(6, newUser.getProfile_pic());
-            preparedStatement.setString(7, newUser.getPassword());
-            preparedStatement.setInt(8, newUser.getUser_type());
+            preparedStatement.setString(7, newUser.getProfile_pic_name());
+            preparedStatement.setString(8, newUser.getPassword());
+            preparedStatement.setInt(9, newUser.getUser_type());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    public boolean updateUser(Users user) {
+        boolean updated = false;
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_SQL);
+            preparedStatement.setString(1, user.getFirstname());
+            preparedStatement.setString(2, user.getLastname());
+            preparedStatement.setString(3, user.getStore_name());
+            preparedStatement.setLong(4, user.getPhone_number());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getProfile_pic());
+            preparedStatement.setString(7, user.getProfile_pic_name());
+            preparedStatement.setInt(8, user.getId());
+            updated = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return updated;
     }
 
     public Users selectUser(int id) {

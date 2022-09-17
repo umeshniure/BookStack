@@ -63,7 +63,7 @@
                                                         </span>
                                                     </p>
                                                     <div class="my-5 px-6">
-                                                        <a href="userProfile" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">Edit Profile</span></a>
+                                                        <a href="updateProfile" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">Edit Profile</span></a>
                                                     </div>
                                                     <div class="flex justify-between items-center my-5 px-6">
                                                         <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>
@@ -99,39 +99,6 @@
                                                     </div>
                                                 </div>
                                                 </div>
-
-                                                <!--                            <div class="p-3">
-                                                                                <div class="flex justify-between items-center mb-2">
-                                                                                    <a href="#">
-                                                                                        <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="user profile">
-                                                                                    </a>
-                                                                                    <div>
-                                                                                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
-                                                                                    <a href="#">${user.firstname}</a>
-                                                                                </p>
-                                                                                <p class="mb-3 text-sm font-normal">
-                                                                                    <a href="#" class="hover:underline">${user.email}</a>
-                                                                                </p>
-                                                                                <p class="mb-4 text-sm font-light">Open-source contributor. Building <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">flowbite.com</a>.</p>
-                                                                                <ul class="flex text-sm font-light">
-                                                                                    <li class="mr-2">
-                                                                                        <a href="#" class="hover:underline">
-                                                                                            <span class="font-semibold text-gray-900 dark:text-white">799</span>
-                                                                                            <spa>Following</span>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#" class="hover:underline">
-                                                                                            <span class="font-semibold text-gray-900 dark:text-white">3,758</span>
-                                                                                            <span>Followers</span>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                                <a href="logout"><button type="button" class="w-full bg-purple-600 rounded text-white inline-block">Log out</button> </a>
-                                                                            </div>-->
                                                 <div data-popper-arrow></div>
                                                 </div>
                                                 <!--profile card ends-->

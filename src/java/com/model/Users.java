@@ -39,6 +39,18 @@ public class Users {
         this.user_type = user_type;
     }
 
+    public Users(int id, String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String profile_pic_name) {
+        super();
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.store_name = store_name;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.profile_pic = profile_pic;
+        this.profile_pic_name = profile_pic_name;
+    }
+
     public int getId() {
         return id;
     }
