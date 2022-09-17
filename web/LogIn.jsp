@@ -65,6 +65,7 @@
                                                 />
                                             <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">We are The Bookstack Team</h4>
                                         </div>
+
                                         <form action="login" method="post">
                                             <p class="mb-4">Please login to your account</p>
                                             <div class="mb-4">
@@ -77,11 +78,16 @@
                                                     value="${email}"
                                                     />
                                             </div>
-                                            <div class="mb-4">
-                                                <input
-                                                    type="password" name="password"
-                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="exampleFormControlInput1" placeholder="Password"/>
+                                            <div class=" relative mb-4">
+                                                <div class="absolute inset-y-0 right-0 flex items-center px-1">
+                                                    <input class="hidden js-password-toggle" id="toggle" type="checkbox"/>
+                                                    <label class="rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label" for="toggle">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    </label>
+                                                </div>
+                                                <input type="password" name="password"
+                                                       class="js-password appearance-none form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                       id="password" autocomplete="off" placeholder="Password"/>
                                             </div>
                                             <input  type="hidden" name="loginType" value="normalLogin"/>
 
@@ -96,21 +102,9 @@
                                             </c:if>
 
                                             <div class="text-center pt-1 mb-12 pb-1">
-                                                <button
-                                                    class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
-                                                    type="submit"
-                                                    data-mdb-ripple="true"
-                                                    data-mdb-ripple-color="light"
-                                                    style="
-                                                    background: linear-gradient(
-                                                    to right,
-                                                    #C2DBFE,
-                                                    #bf66bf,
-                                                    #b44cb4,
-                                                    #950095
-                                                    );
-                                                    "
-                                                    >
+                                                <button class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                                                        type="submit" data-mdb-ripple="true" data-mdb-ripple-color="light"
+                                                        style=" background: linear-gradient(to right, #C2DBFE, #bf66bf, #b44cb4, #950095);">
                                                     Log in
                                                 </button>
                                                 <a class="text-gray-500 hover:text-purple-600" href="forgotPassword">Forgot password?</a>
@@ -119,11 +113,6 @@
 
                                             <div class="flex items-center justify-between pb-6">
                                                 <p class="mb-0 mr-2">Don't have an account?</p>
-                                                <!--<button type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                                                    data-mdb-ripple="true"
-                                                    data-mdb-ripple-color="light">
-                                                    Register
-                                                </button> -->
                                                 <a href ="signup" type="button" class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                                                    data-mdb-ripple="true"
                                                    data-mdb-ripple-color="light">
@@ -132,59 +121,10 @@
                                             </div>
                                         </form>
 
-                                        <!--                                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                                                                                <img id="myImg"><br>
-                                                                                <p id="name"></p>
-                                                                                <div id="status"></div>
-                                        
-                                                                                                                        <script>
-                                                                                                                            function onSignIn(googleUser) {
-                                                                                                                                var profile = googleUser.getBasicProfile();
-                                                                                                                                console.log('ID: ' + profile.getId());
-                                                                                                                                console.log('Name: ' + profile.getName());
-                                                                                                                                console.log('Image URL: ' + profile.getImageUrl());
-                                                                                                                                console.log('Email: ' + profile.getEmail());
-                                                                                                                                console.log('id_token: ' + googleUser.getAuthResponse().id_token);
-                                                                                
-                                                                                                                                //do not post above info to the server because that is not safe.
-                                                                                                                                //just send the id_token
-                                                                                
-                                                                                                                                var redirectUrl = 'login';
-                                                                                                                                //using jquery to post data dynamically
-                                                                                                                                var form = $('<form action="' + redirectUrl + '" method="post">' +
-                                                                                                                                        '<input type="text" name="id_token" value="' +
-                                                                                                                                        googleUser.getAuthResponse().id_token + '" />' +
-                                                                                                                                        '</form>');
-                                                                                                                                $('body').append(form);
-                                                                                                                                form.submit();
-                                                                                                                            }
-                                                                                
-                                                                                                                        </script>
-                                                                                <script type="text/javascript">
-                                                                                    function onSignIn(googleUser) {
-                                                                                    // window.location.href='success.jsp';
-                                                                                    var profile = googleUser.getBasicProfile();
-                                                                                    var imagurl = profile.getImageUrl();
-                                                                                    var name = profile.getName();
-                                                                                    var email = profile.getEmail();
-                                                                                    document.getElementById("myImg").src = imagurl;
-                                                                                    document.getElementById("name").innerHTML = name;
-                                                                                    document.getElementById("myP").style.visibility = "hidden";
-                                                                                    document.getElementById("status").innerHTML = 'Welcome ' + name + '!<a href=success.jsp?                  
-                                                                                            email = '+email+' & name = '+name+' > Continue with Google login < /a></p >
-                                                                                    }
-                                                                                </script>-->
-
-
-
                                     </div>
                                 </div>
-                                <div
-                                    class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
-                                    style="
-                                    background: linear-gradient(to right, #C2DBFE, #bf66bf, #b44cb4, #950095);
-                                    "
-                                    >
+                                <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
+                                     style=" background: linear-gradient(to right, #C2DBFE, #bf66bf, #b44cb4, #950095);">
                                     <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                                         <h4 class="text-xl font-semibold mb-6">We are more than just a company</h4>
                                         <p class="text-sm">
@@ -207,6 +147,25 @@
         <!--footer section ends-->
 
     </body>
+
+    <script>
+        const passwordToggle = document.querySelector(".js-password-toggle");
+
+        passwordToggle.addEventListener("click", function () {
+            const password = document.querySelector(".js-password"),
+                    passwordLabel = document.querySelector(".js-password-label");
+
+            if (password.type === "password") {
+                password.type = "text";
+                passwordLabel.innerHTML = '<i class="fa fa-eye-slash" aria-hidden="true"></i>';
+            } else {
+                password.type = "password";
+                passwordLabel.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i>';
+            }
+
+        });
+    </script>
+
 </html>
 
 
