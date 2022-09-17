@@ -13,10 +13,13 @@ public class UsersDAO {
 
     private static final String INSERT_USER_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, profile_pic_name, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select * from users where id = ?";
-    private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select * from users where email = ? and password = ?";
+    private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select id, user_type from users where email = ? and password = ?";
     private static final String SELECT_ALL_VENDOR = "select * from users where user_type = 2";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set firstname=?, lastname=?, store_name=?, phone_number=?, email=?, profile_pic=?, profile_pic_name=? where id = ?;";
+
+    private static final String SELECT_USER_BY_PASSWORD_SQL = "SELECT id FROM users WHERE password=? AND id=?";
+    private static final String CHANGE_USER_PASSWORD_SQL = "update users set password=? WHERE id=?";
 
     private static final String VENDOR_COUNT = "SELECT count(*) FROM users WHERE user_type=2";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE user_type=1";
@@ -92,6 +95,20 @@ public class UsersDAO {
         return updated;
     }
 
+    public boolean changePassword(String password, int id) {
+        boolean changed = false;
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER_PASSWORD_SQL);
+            preparedStatement.setString(1, password);
+            preparedStatement.setInt(2, id);
+            changed = preparedStatement.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return changed;
+    }
+
     public Users selectUser(int id) {
         Users user = new Users();
         try {
@@ -145,7 +162,7 @@ public class UsersDAO {
     }
 
     public Users selectUserByEmailAndPassword(String email, String password) {
-        Users user = new Users();
+        Users user;
         user = null;
         try {
             Connection connection = Config.getConnection();
@@ -155,19 +172,28 @@ public class UsersDAO {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("id");
-                String store_name = rs.getString("store_name");
-                String firstname = rs.getString("firstname");
-                String lastname = rs.getString("lastname");
-                long phone_number = rs.getLong("phone_number");
                 int user_type = rs.getInt("user_type");
-                String profile_pic = rs.getString("profile_pic");
-                String profile_pic_name = rs.getString("profile_pic_name");
-                user = new Users(id, firstname, lastname, store_name, phone_number, email, profile_pic, profile_pic_name, password, user_type);
+                user = new Users(id, user_type);
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
         return user;
+    }
+
+    public boolean selectUserByPassword(String password, int id) {
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_PASSWORD_SQL);
+            preparedStatement.setString(1, password);
+            preparedStatement.setInt(2, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }
