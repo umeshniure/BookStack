@@ -83,17 +83,17 @@
                                 <div class="flex flex-col justify-between ml-4 flex-grow">
                                     <span class="font-bold text-auto"><c:out value="${cartItem.book_name}"/></span> 
                                     <span class="text-gray-600 text-xs">By: <c:out value="${cartItem.book_author}"/></span>                                                 
-                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" class="font-semibold hover:text-red-800 text-red-500 text-xs inline">Remove</a>
+                                    <a href="cart?action=remove&id=<c:out value="${cartItem.id}"/>" title="Delete ${cartItem.book_name} from cart?" class="font-semibold hover:text-red-800 text-red-500 text-xs inline">Remove</a>
                                 </div>
                             </div>
                             <div class="flex justify-center w-1/5">
-                                <a href="cart?action=updateCartQuantity&id=<c:out value="${cartItem.id}"/>&type=subtract" class="flex justify-center"> <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                <a href="cart?action=updateCartQuantity&id=<c:out value="${cartItem.id}"/>&type=subtract" title="Decrease quantity by 1" class="flex justify-center"> <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
                                     <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                                     </svg> 
                                 </a>
                                 <input name="quantity" class="mx-2 border text-center w-12 rounded" type="text" value="<c:out value="${cartItem.quantity}"/>" disabled>
 
-                                <a href="cart?action=updateCartQuantity&id=<c:out value="${cartItem.id}"/>&type=add" class="flex justify-center"><svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                <a href="cart?action=updateCartQuantity&id=<c:out value="${cartItem.id}"/>&type=add" title="Increase quantity by 1" class="flex justify-center"><svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
                                     <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                                     </svg>
                                 </a>
@@ -144,7 +144,13 @@
                             <span>Total cost</span>
                             <span>NPR. <c:out value="${total_price}"/></span>
                         </div>
-                        <a href="order"> <button class="bg-purple-500 font-semibold hover:bg-purple-600 py-3 text-sm text-white uppercase w-full rounded">Checkout</button> </a>
+
+                        <c:if test="${cartItemList.size() > 0}">
+                            <a href="order"> <button class="bg-purple-500 font-semibold hover:bg-purple-600 py-3 text-sm text-white uppercase w-full rounded">Checkout</button> </a>
+                        </c:if>
+                        <c:if test="${cartItemList.size() == 0}">
+                            <button class="bg-gray-300 font-semibold py-3 text-sm text-gray-100 uppercase w-full rounded cursor-not-allowed" disabled>Checkout</button>
+                        </c:if>
                     </div>
                 </div>
 

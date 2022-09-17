@@ -22,11 +22,29 @@ public class CartDAO {
     private static final String DELETE_CART_ITEM_BY_USER_ID = "delete from cart where user_id = ?;";
 
     private static final String CART_COUNT = "SELECT count(*) FROM cart";
+    private static final String USER_CART_COUNT = "SELECT count(*) FROM cart where user_id=?";
 
     public int countCart() {
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CART_COUNT);
+            ResultSet rs = preparedStatement.executeQuery();
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
+    public int userCartCount(int id) {
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(USER_CART_COUNT);
+            preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             int count = 0;
             if (rs.next()) {

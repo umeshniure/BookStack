@@ -43,7 +43,16 @@ public class Checkout extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("id") != null) {
 
-                showCheckoutPage(request, response);
+                int userCartCount = cartDAO.userCartCount((int) session.getAttribute("id"));
+                System.out.println("cart count is: " + userCartCount);
+                if (userCartCount > 0) {
+                    showCheckoutPage(request, response);
+                } else {
+                    String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+                    request.setAttribute("errorMessage", errorMessage);
+                    dispatcher.forward(request, response);
+                }
 
             } else {
                 String errorMessage = "Sorrry! you should log in first to access the page";
