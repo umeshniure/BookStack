@@ -14,7 +14,7 @@ public class OrderDAO {
     private static final String INSERT_ORDER_SQL = "INSERT INTO book_order (id, user_id, transaction_id, shipping_postcode, order_date, order_status, transaction_satus,\n"
             + "special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,\n"
             + "shipping_city, shipping_country, order_subtotal_amount, order_total_amount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    private static final String SELECT_ALL_ORDER = "select * from book_order INNER JOIN order_status ON book_order.order_status = order_status.order_status INNER JOIN transaction_status ON book_order.transaction_status = transaction_status.transaction_status";
+    private static final String SELECT_ALL_ORDER = "select * from book_order INNER JOIN users on book_order.user_id = users.id INNER JOIN order_status ON book_order.order_status = order_status.id INNER JOIN transaction_status ON book_order.transaction_status = transaction_status.id";
     private static final String SELECT_ORDER_BY_ID = "select * from book_order INNER JOIN order_status ON book_order.order_status = order_status.order_status INNER JOIN transaction_status ON book_order.transaction_status = transaction_status.transaction_status where id=?";
 
     public void insertOrder(BookOrder newOrder) {
@@ -62,8 +62,8 @@ public class OrderDAO {
                 Date order_date = rs.getDate("order_date");
                 int order_status = rs.getInt("order_status");
                 String order_status_name = rs.getString("order_status.order_status");
-                int transaction_satus = rs.getInt("transaction_satus");
-                String transaction_satus_name = rs.getString("transaction_statu.transaction_status");
+                int transaction_satus = rs.getInt("transaction_status");
+                String transaction_satus_name = rs.getString("transaction_status.transaction_status");
                 String special_instruction = rs.getString("special_instruction");
                 String payment_method = rs.getString("payment_method");
                 String shipping_method = rs.getString("shipping_method");
@@ -74,9 +74,10 @@ public class OrderDAO {
                 String shipping_country = rs.getString("shipping_country");
                 double order_subtotal_amount = rs.getDouble("order_subtotal_amount");
                 double order_total_amount = rs.getDouble("order_total_amount");
+                String username = rs.getString("users.firstname")+ "  " + rs.getString("users.lastname");
                 orderList.add(new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, order_status_name, transaction_satus, transaction_satus_name,
                         special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
-                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount));
+                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount, username));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -110,9 +111,10 @@ public class OrderDAO {
                 String shipping_country = rs.getString("shipping_country");
                 double order_subtotal_amount = rs.getDouble("order_subtotal_amount");
                 double order_total_amount = rs.getDouble("order_total_amount");
+                String username = "";
                 order = (new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, order_status_name, transaction_satus, transaction_satus_name,
                         special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
-                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount));
+                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount ,username));
             }
         } catch (Exception e) {
             System.out.println(e);

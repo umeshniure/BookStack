@@ -21,6 +21,7 @@ public class BookOrder {
     private String shipping_province;
     private String shipping_city;
     private String shipping_country;
+    private String username;
     private Double order_subtotal_amount;
     private Double order_total_amount;
 
@@ -75,7 +76,7 @@ public class BookOrder {
     //constructor for joined transaction ststs and order ststus table
     public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, String order_status_name, int transaction_satus, String transaction_satus_name,
             String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
-            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amoun) {
+            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username) {
         super();
         this.id = id;
         this.user_id = user_id;
@@ -95,7 +96,8 @@ public class BookOrder {
         this.shipping_country = shipping_country;
         this.shipping_city = shipping_city;
         this.order_subtotal_amount = order_subtotal_amount;
-        this.order_total_amount = order_total_amoun;
+        this.order_total_amount = order_total_amount;
+        this.username = username;
     }
 
     /**
@@ -362,6 +364,20 @@ public class BookOrder {
      */
     public void setTransaction_satus_name(String transaction_satus_name) {
         this.transaction_satus_name = transaction_satus_name;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

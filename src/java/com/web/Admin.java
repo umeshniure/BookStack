@@ -10,7 +10,9 @@ import com.dao.BookTypeDAO;
 import com.dao.CartDAO;
 import com.dao.CategoryDAO;
 import com.dao.LanguageDAO;
+import com.dao.OrderDAO;
 import com.dao.UsersDAO;
+import com.model.BookOrder;
 import com.model.Users;
 import java.io.IOException;
 import java.util.List;
@@ -36,6 +38,7 @@ public class Admin extends HttpServlet {
     private BookTypeDAO bookTypeDAO;
     private UsersDAO userDAO;
     private CartDAO cartDAO;
+    private OrderDAO orderDAO;
 
     public void init() {
         bookDAO = new BookDAO();
@@ -45,6 +48,7 @@ public class Admin extends HttpServlet {
         bookTypeDAO = new BookTypeDAO();
         userDAO = new UsersDAO();
         cartDAO = new CartDAO();
+        orderDAO = new OrderDAO();
     }
 
     @Override
@@ -96,12 +100,15 @@ public class Admin extends HttpServlet {
         int noOfUsers = userDAO.countUsers();
         int totalCarts = cartDAO.countCart();
         List<Users> vendors = userDAO.selectVendors();
+        List<BookOrder> orders = orderDAO.selectAllOrder();
+        System.out.println("ord4rs are: " + orders);
         RequestDispatcher rd = request.getRequestDispatcher("admin-dashboard.jsp");
         request.setAttribute("noOfBooks", noOfBooks);
         request.setAttribute("noOfVendors", noOfVendors);
         request.setAttribute("noOfUsers", noOfUsers);
         request.setAttribute("totalCarts", totalCarts);
         request.setAttribute("vendors", vendors);
+        request.setAttribute("orders", orders);
         rd.forward(request, response);
 
     }

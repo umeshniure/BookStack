@@ -26,7 +26,7 @@
                 <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                     <!-- Col -->
                     <div class="w-full h-auto hidden lg:block lg:w-1/2 bg-cover rounded-lg"
-                         style="background-size:contain; background-repeat: no-repeat; background-image: url('https://cdn-icons-png.flaticon.com/512/1000/1000948.png?w=740&t=st=1663437178~exp=1663437778~hmac=69dd5180a71aff1c3f46af290c4e5663b1d4730b36fdf9fc91e6f5ec25544df1')">
+                         style="background-size:contain; background-repeat: no-repeat; background-image: url('https://img.freepik.com/free-vector/personal-data-protection-concept-with-3d-computer-shielf-with-fingerprint-human-character-isometric_1284-63719.jpg?w=740&t=st=1663511922~exp=1663512522~hmac=521a40db6ceedb15fbd5ac849696e00dd9f3c09fba6c6e5f12dfb5f73a8a307b')">
                     </div>
                     <!-- Col -->
                     <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg border shadow-lg">
