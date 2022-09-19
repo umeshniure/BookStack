@@ -102,62 +102,6 @@
                                             </tr>
                                         </c:forEach>
 
-                                        <tr class="text-gray-700 dark:text-gray-100">
-                                            <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">Twitter</th>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">3,380</td>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">40%</span>
-                                                    <div class="relative w-full">
-                                                        <div class="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
-                                                            <div style="width: 40%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="text-gray-700 dark:text-gray-100">
-                                            <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">Instagram</th>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">4,105</td>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">45%</span>
-                                                    <div class="relative w-full">
-                                                        <div class="overflow-hidden h-2 text-xs flex rounded bg-pink-200">
-                                                            <div style="width: 45%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="text-gray-700 dark:text-gray-100">
-                                            <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">Google</th>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">4,985</td>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">60%</span>
-                                                    <div class="relative w-full">
-                                                        <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                                                            <div style="width: 60%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="text-gray-700 dark:text-gray-100">
-                                            <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">Linkedin</th>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">2,250</td>
-                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">30%</span>
-                                                    <div class="relative w-full">
-                                                        <div class="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
-                                                            <div style="width: 30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-700"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

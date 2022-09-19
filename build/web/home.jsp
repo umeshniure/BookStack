@@ -10,9 +10,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html" charset=UTF-8">
         <jsp:include page="allscripts.jsp"/>
         <title>Bookstack: Home</title>
+        <!--<link rel = "icon" href="favicon.ico" type = "image/x-icon">-->
     </head>
     <body>
 
