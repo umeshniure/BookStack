@@ -16,6 +16,13 @@ public class OrderDAO {
             + "shipping_city, shipping_country, order_subtotal_amount, order_total_amount) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     private static final String SELECT_ALL_ORDER = "select * from book_order INNER JOIN users on book_order.user_id = users.id INNER JOIN order_status ON book_order.order_status = order_status.id INNER JOIN transaction_status ON book_order.transaction_status = transaction_status.id";
     private static final String SELECT_ORDER_BY_ID = "select * from book_order INNER JOIN order_status ON book_order.order_status = order_status.order_status INNER JOIN transaction_status ON book_order.transaction_status = transaction_status.transaction_status where id=?";
+    private static final String SELECT_ORDER_BY_VENDOR_ID = "select * from order_items "
+            + "INNER JOIN book_order ON book_order.id = order_items.order_id "
+            + "INNER JOIN order_status ON book_order.order_status = order_status.order_status "
+            + "INNER JOIN transaction_status ON book_order.transaction_status = transaction_status.transaction_status "
+            + "INNER JOIN users on book_order.user_id = users.id "
+            + "INNER JOIN books ON books.id = order_items.book_id "
+            + "where books.vendor_id=?";
 
     public void insertOrder(BookOrder newOrder) {
         try {
@@ -74,7 +81,7 @@ public class OrderDAO {
                 String shipping_country = rs.getString("shipping_country");
                 double order_subtotal_amount = rs.getDouble("order_subtotal_amount");
                 double order_total_amount = rs.getDouble("order_total_amount");
-                String username = rs.getString("users.firstname")+ "  " + rs.getString("users.lastname");
+                String username = rs.getString("users.firstname") + "  " + rs.getString("users.lastname");
                 orderList.add(new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, order_status_name, transaction_satus, transaction_satus_name,
                         special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
                         shipping_city, shipping_country, order_subtotal_amount, order_total_amount, username));
@@ -99,8 +106,8 @@ public class OrderDAO {
                 Date order_date = rs.getDate("order_date");
                 int order_status = rs.getInt("order_status");
                 String order_status_name = rs.getString("order_status.order_status");
-                int transaction_satus = rs.getInt("transaction_satus");
-                String transaction_satus_name = rs.getString("transaction_statu.transaction_status");
+                int transaction_satus = rs.getInt("transaction_status");
+                String transaction_satus_name = rs.getString("transaction_status.transaction_status");
                 String special_instruction = rs.getString("special_instruction");
                 String payment_method = rs.getString("payment_method");
                 String shipping_method = rs.getString("shipping_method");
@@ -114,7 +121,45 @@ public class OrderDAO {
                 String username = "";
                 order = (new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, order_status_name, transaction_satus, transaction_satus_name,
                         special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
-                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount ,username));
+                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount, username));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return order;
+    }
+
+    public BookOrder selectOrderByVendorId(int vendorId) {
+        BookOrder order = new BookOrder();
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SELECT_ORDER_BY_VENDOR_ID);
+            ps.setInt(1, vendorId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("order_id");
+                int user_id = rs.getInt("user_id");
+                String transaction_id = rs.getString("transaction_id");
+                Integer shipping_postcode = rs.getInt("shipping_postcode");
+                Date order_date = rs.getDate("order_date");
+                int order_status = rs.getInt("order_status");
+                String order_status_name = rs.getString("order_status.order_status");
+                int transaction_satus = rs.getInt("transaction_status");
+                String transaction_satus_name = rs.getString("transaction_status.transaction_status");
+                String special_instruction = rs.getString("special_instruction");
+                String payment_method = rs.getString("payment_method");
+                String shipping_method = rs.getString("shipping_method");
+                String shipping_street = rs.getString("shipping_street");
+                String shipping_apartment = rs.getString("shipping_apartment");
+                String shipping_province = rs.getString("shipping_province");
+                String shipping_city = rs.getString("shipping_city");
+                String shipping_country = rs.getString("shipping_country");
+                double order_subtotal_amount = rs.getDouble("order_subtotal_amount");
+                double order_total_amount = rs.getDouble("order_total_amount");
+                String username = rs.getString("users.firstname") + "  " + rs.getString("users.lastname");
+                order = (new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, order_status_name, transaction_satus, transaction_satus_name,
+                        special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
+                        shipping_city, shipping_country, order_subtotal_amount, order_total_amount, username));
             }
         } catch (Exception e) {
             System.out.println(e);

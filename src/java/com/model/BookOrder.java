@@ -73,7 +73,7 @@ public class BookOrder {
         this.order_total_amount = order_total_amoun;
     }
 
-    //constructor for joined transaction ststs and order ststus table
+    //constructor for joined transaction status and order status table
     public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, String order_status_name, int transaction_satus, String transaction_satus_name,
             String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
             String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username) {

@@ -4,8 +4,8 @@
  */
 package com.web;
 
-import com.dao.UsersDAO;
-import com.model.Users;
+import com.dao.*;
+import com.model.*;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,9 +23,11 @@ import javax.servlet.http.HttpSession;
 public class VendorDashboard extends HttpServlet {
 
     UsersDAO userDAO;
+    OrderDAO orderDAO;
 
     public void init() {
         userDAO = new UsersDAO();
+        orderDAO = new OrderDAO();
     }
 
     @Override
@@ -35,12 +37,18 @@ public class VendorDashboard extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("id") != null) {
                 if ((int) session.getAttribute("user_type") == 2) {
-                    int id = (int) session.getAttribute("id");
-                    Users vendor = userDAO.selectUser(id);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-dashboard.jsp");
-                    request.setAttribute("vendor", vendor);
-                    dispatcher.forward(request, response);
-
+                    String action = request.getParameter("action");
+                    if (action == null) {
+                        action = "";
+                    }
+                    switch (action) {
+                        case ("orders"):
+                            ShowVendorOrderPage(request, response);
+                            break;
+                        default:
+                            showDashboard(request, response);
+                            break;
+                    }
                 } else {
                     String errorMessage = "Sorry, You are not allowed to update book. ";
                     RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
@@ -59,6 +67,30 @@ public class VendorDashboard extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
         }
+    }
+
+    protected void ShowVendorOrderPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        int id = (int) session.getAttribute("id");
+        Users vendor = userDAO.selectUser(id);
+        BookOrder orders = orderDAO.selectOrderByVendorId(id);
+        System.out.println("Orders are as follows: " + orders);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-order-page.jsp");
+        request.setAttribute("vendor", vendor);
+        request.setAttribute("orders", orders);
+        request.setAttribute("page", "Orders");
+        dispatcher.forward(request, response);
+    }
+
+    protected void showDashboard(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        int id = (int) session.getAttribute("id");
+        Users vendor = userDAO.selectUser(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-dashboard.jsp");
+        request.setAttribute("vendor", vendor);
+        dispatcher.forward(request, response);
     }
 
     @Override
