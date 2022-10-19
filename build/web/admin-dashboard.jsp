@@ -189,7 +189,7 @@
                 </div>
 
                 <!-- Task Summaries -->
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 gap-4 text-black dark:text-white">
+<!--                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 gap-4 text-black dark:text-white">
                     <div class="md:col-span-2 xl:col-span-3">
                         <h3 class="text-lg font-semibold">Task summaries of recent sprints</h3>
                     </div>
@@ -282,7 +282,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <!-- ./Task Summaries -->
 
                 <!-- Client Table -->

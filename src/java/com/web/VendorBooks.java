@@ -115,15 +115,17 @@ public class VendorBooks extends HttpServlet {
 
     public void deleteBook(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("delete book method called");
         int id = Integer.parseInt(request.getParameter("id"));
         Books book = bookDAO.selectBook(id);
         String book_cover = book.getCover_photo();
         String book_cover_name = book.getCover_photo_name();
         if (bookDAO.deleteBookById(id)) {
-            File file = new File("images/book_cover_photos" + book.getVendor() + "/" + book_cover_name);
+//            File file = new File("../images/book_cover_photos" + book.getVendor_id() + "/" + book_cover_name);
+            File file = new File(book_cover);
             if (file.delete()) {
                 System.out.println("cover is also removed.");
+            } else {
+                System.out.println("Book cover couldnot be deleted.");
             }
             request.getSession(false).setAttribute("successMessage", "One book is successfully removed.");
             response.sendRedirect("vendorbook");
