@@ -4,6 +4,8 @@
     Author     : Umesh
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,33 +32,39 @@
                         <table class="w-full">
                             <thead>
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3">ORDER ID</th>
-                                    <th class="px-4 py-3">Vendor</th>
+                                    <th class="px-4 py-3">Order ID</th>
+                                    <th class="px-4 py-3">Ordered By</th>
+                                    <th class="px-4 py-3">Book Name</th>
+                                    <th class="px-4 py-3">Quantity</th>
+                                    <th class="px-4 py-3">Ordered Date</th>
                                     <th class="px-4 py-3">Phone</th>
-                                    <th class="px-4 py-3">Email</th>
                                     <th class="px-4 py-3">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             <c:forEach var="order" items="${orders}">
                                 <tr class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3 text-sm"><c:out value='${order.id}'/></td>
+                                    <td class="px-4 py-3 text-sm font-bold"><c:out value='${order.getId()}'/></td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
-                                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                            <img class="object-cover w-full h-full rounded-full" src="images/vendor_profiles/<c:out value='${vendor.profile_pic_name}'/>" alt="" loading="lazy" />
-                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                        </div>
                                         <div>
-                                            <p class="font-semibold"><c:out value='${vendor.store_name}'/></p>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer</p>
+                                            <p class="font-semibold"><c:out value='${order.username}'/></p>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-4 py-3 text-sm"><c:out value='${vendor.phone_number}'/></td>
-                                <td class="px-4 py-3 text-sm"><c:out value='${vendor.email}'/></td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center text-sm">
+                                        <div>
+                                            <p class="font-semibold"><c:out value='${order.book_name}'/></p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">By: ${order.book_author}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm"><c:out value='${order.quantity}'/></td>
+                                <td class="px-4 py-3 text-sm"><c:out value='${order.order_date}'/></td>
+                                <td class="px-4 py-3 text-sm"><c:out value='${order.phone_number}'/></td>
                                 <td class="px-4 py-3 text-xs">
-                                    <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"> Approved </span>
+                                    <span class="px-2 py-1 font-semibold leading-tight text-yellow-700 bg-yellow-100 rounded-full dark:bg-yellow-700 dark:text-green-100"> Pending </span>
                                 </td>
                                 </tr>
                             </c:forEach>

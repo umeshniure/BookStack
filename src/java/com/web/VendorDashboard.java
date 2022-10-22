@@ -7,6 +7,7 @@ package com.web;
 import com.dao.*;
 import com.model.*;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,8 +75,8 @@ public class VendorDashboard extends HttpServlet {
         HttpSession session = request.getSession(false);
         int id = (int) session.getAttribute("id");
         Users vendor = userDAO.selectUser(id);
-        BookOrder orders = orderDAO.selectOrderByVendorId(id);
-        System.out.println("Orders are as follows: " + orders);
+        List<BookOrder> orders = orderDAO.selectOrderByVendorId(id);
+        System.out.print(orders);
         RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-order-page.jsp");
         request.setAttribute("vendor", vendor);
         request.setAttribute("orders", orders);

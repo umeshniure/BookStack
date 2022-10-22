@@ -24,6 +24,9 @@ public class BookOrder {
     private String username;
     private Double order_subtotal_amount;
     private Double order_total_amount;
+    private String book_name, book_author;
+    private int quantity;
+    private long phone_number;
 
     public BookOrder() {
     }
@@ -53,7 +56,7 @@ public class BookOrder {
 
     public BookOrder(int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, int transaction_satus,
             String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
-            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amoun) {
+            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount) {
         super();
         this.user_id = user_id;
         this.transaction_id = transaction_id;
@@ -70,13 +73,13 @@ public class BookOrder {
         this.shipping_country = shipping_country;
         this.shipping_city = shipping_city;
         this.order_subtotal_amount = order_subtotal_amount;
-        this.order_total_amount = order_total_amoun;
+        this.order_total_amount = order_total_amount;
     }
 
     //constructor for joined transaction status and order status table
     public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, String order_status_name, int transaction_satus, String transaction_satus_name,
             String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
-            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username) {
+            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username, String book_name, String book_author) {
         super();
         this.id = id;
         this.user_id = user_id;
@@ -98,6 +101,39 @@ public class BookOrder {
         this.order_subtotal_amount = order_subtotal_amount;
         this.order_total_amount = order_total_amount;
         this.username = username;
+        this.book_name = book_name;
+        this.book_author = book_author;
+    }
+
+    //constructor for joined transaction status and order status table
+    public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, String order_status_name, int transaction_satus, String transaction_satus_name,
+            String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
+            String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username, String book_name, String book_author, int quantity, long phone_number) {
+        super();
+        this.id = id;
+        this.user_id = user_id;
+        this.transaction_id = transaction_id;
+        this.order_date = order_date;
+        this.order_status = order_status;
+        this.order_status_name = order_status_name;
+        this.transaction_satus = transaction_satus;
+        this.transaction_satus_name = transaction_satus_name;
+        this.special_instruction = special_instruction;
+        this.payment_method = payment_method;
+        this.shipping_apartment = shipping_apartment;
+        this.shipping_postcode = shipping_postcode;
+        this.shipping_method = shipping_method;
+        this.shipping_street = shipping_street;
+        this.shipping_province = shipping_province;
+        this.shipping_country = shipping_country;
+        this.shipping_city = shipping_city;
+        this.order_subtotal_amount = order_subtotal_amount;
+        this.order_total_amount = order_total_amount;
+        this.username = username;
+        this.book_name = book_name;
+        this.book_author = book_author;
+        this.quantity = quantity;
+        this.phone_number = phone_number;
     }
 
     /**
@@ -378,6 +414,62 @@ public class BookOrder {
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * @return the book_name
+     */
+    public String getBook_name() {
+        return book_name;
+    }
+
+    /**
+     * @param book_name the book_name to set
+     */
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
+    }
+
+    /**
+     * @return the book_author
+     */
+    public String getBook_author() {
+        return book_author;
+    }
+
+    /**
+     * @param book_author the book_author to set
+     */
+    public void setBook_author(String book_author) {
+        this.book_author = book_author;
+    }
+
+    /**
+     * @return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * @return the phone_number
+     */
+    public long getPhone_number() {
+        return phone_number;
+    }
+
+    /**
+     * @param phone_number the phone_number to set
+     */
+    public void setPhone_number(long phone_number) {
+        this.phone_number = phone_number;
     }
 
 }
