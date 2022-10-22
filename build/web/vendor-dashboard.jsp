@@ -25,7 +25,9 @@
             <!--navigation bar ends-->
 
             <div class="px-6 pt-6 2xl:container">
-                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                Nothing to show at the moment!<br>
+                Please kindly visit other section of this page.
+<!--                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     <div class="md:col-span-2 lg:col-span-1" >
                         <div class="h-full py-8 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
                             <svg class="w-40 m-auto opacity-75" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -288,7 +290,7 @@
                             </table>   
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </body>

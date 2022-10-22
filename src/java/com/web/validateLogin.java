@@ -106,7 +106,7 @@ public class validateLogin extends HttpServlet {
                                 break;
                             case 2:
                                 request.getSession(false).setAttribute("successMessage", "Welcome vendor! you are successfully logged in.");
-                                response.sendRedirect("vendorDashboard");
+                                response.sendRedirect("vendorbook");
                                 break;
                             case 3:
                                 request.getSession(false).setAttribute("successMessage", "You are successfully logged in.");
