@@ -47,19 +47,29 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-                if ((int) session.getAttribute("id") == 1) {
-
-                    int userCartCount = cartDAO.userCartCount((int) session.getAttribute("id"));
-                    System.out.println("cart count is: " + userCartCount);
-                    if (userCartCount > 0) {
-                        showCheckoutPage(request, response);
-                    } else {
-                        String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                        request.setAttribute("errorMessage", errorMessage);
-                        dispatcher.forward(request, response);
+                if ((int) session.getAttribute("user_type") == 1) {
+                    String action = request.getParameter("action");
+                    if (action == null) {
+                        action = "";
                     }
-
+                    switch (action) {
+                        case "history":
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
+                            dispatcher.forward(request, response);
+                            break;
+                        case "recentOrder":
+                            break;
+                        default:
+                            int userCartCount = cartDAO.userCartCount((int) session.getAttribute("id"));
+                            if (userCartCount > 0) {
+                                showCheckoutPage(request, response);
+                            } else {
+                                String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
+                                RequestDispatcher dispatcher2 = request.getRequestDispatcher("home");
+                                request.setAttribute("errorMessage", errorMessage);
+                                dispatcher2.forward(request, response);
+                            }
+                    }
                 } else {
                     String errorMessage = "Ohh! You cannot access this page.";
                     RequestDispatcher dispatcher = request.getRequestDispatcher("home");
@@ -87,7 +97,6 @@ public class OrderServlet extends HttpServlet {
             if (session.getAttribute("id") != null) {
                 int user_id = (int) session.getAttribute("id");
                 List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
-                System.out.println(cartItemList);
                 List<Books> book = bookDAO.selectAllBooks();
                 Users user = userDAO.selectUser(user_id);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");

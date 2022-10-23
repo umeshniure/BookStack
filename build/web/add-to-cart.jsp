@@ -74,6 +74,7 @@
                             <h3 class="text-sm font-normal tracking-tight text-gray-900 justify-self-center">Ohh! your cart is empty  :-(</h3>
                         </div>
                     </c:if>
+
                     <c:forEach var="cartItem" items="${cartItemList}">
                         <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 rounded">
                             <div class="flex w-2/5 rounded"> <!-- product -->
@@ -111,7 +112,6 @@
                                 <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.price * cartItem.quantity}"/></span>                                                  
                                 <c:set var="total_price" value="${total_price + (cartItem.price * cartItem.quantity)}"/>
                             </c:if>
-
                         </div>
                     </c:forEach>
 
@@ -130,15 +130,15 @@
                     <div>
                         <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
                         <select class="block p-2 text-gray-600 w-full text-sm rounded">
-                            <option>Free shipping - NPR. 0</option>
-                            <option disabled>Standard shipping - NPR. 100</option>
+                            <option>Free shipping - NPR. 0.0</option>
+                            <option disabled>Standard shipping - NPR. 100.0</option>
                         </select>
                     </div>
                     <div class="py-10">
-                        <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
-                        <input type="text" id="promo" placeholder="Coming soon..." class="p-2 text-sm w-full border rounded" disabled>
+                        <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase text-gray-400">Promo Code</label>
+                        <input type="text" id="promo" placeholder="Coming soon..." class="p-2 text-sm w-full border rounded cursor-not-allowed" disabled>
                     </div>
-                    <button class="bg-red-400 px-5 py-2 text-sm text-gray-300 uppercase rounded" disabled>Apply</button>
+                    <button class="bg-red-400 px-5 py-2 text-sm text-gray-300 uppercase rounded cursor-not-allowed" disabled>Apply</button>
                     <div class="border-t mt-8">
                         <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                             <span>Total cost</span>
