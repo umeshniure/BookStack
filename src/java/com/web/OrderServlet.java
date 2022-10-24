@@ -54,8 +54,7 @@ public class OrderServlet extends HttpServlet {
                     }
                     switch (action) {
                         case "history":
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
-                            dispatcher.forward(request, response);
+                            userOrderHistory(request, response);
                             break;
                         case "recentOrder":
                             break;
@@ -88,6 +87,18 @@ public class OrderServlet extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
         }
+    }
+
+    public void userOrderHistory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // user detailsl: name. email, profile pic
+        // order: order id, ordered date, order subtotal, shipping address:post code, street, city, country
+        // order items: book name, book cover name, quantity, book price, shipping amount
+        HttpSession session = request.getSession(false);
+        Users user = userDAO.selectUser((int) session.getAttribute("id"));
+        OrderItems orderItems = orderItemsDAO.selectOrderItemsByUserId((int) session.getAttribute("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
+        dispatcher.forward(request, response);
     }
 
     public void showCheckoutPage(HttpServletRequest request, HttpServletResponse response)
