@@ -136,6 +136,22 @@ public class BookOrder {
         this.phone_number = phone_number;
     }
 
+    public BookOrder(String id, double order_total_amount, double order_subtotal_amount, Date order_date,Integer postalcode,
+            String street, String apartment, String city, String province, String country, String payment_method, String shipping_method) {
+        this.id = id;
+        this.order_total_amount = order_total_amount;
+        this.order_subtotal_amount = order_subtotal_amount;
+        this.order_date = order_date;
+        this.shipping_postcode = postalcode;
+        this.shipping_street = street;
+        this.shipping_apartment = apartment;
+        this.shipping_city = city;
+        this.shipping_province = province;
+        this.shipping_country = country;
+        this.payment_method = payment_method;
+        this.shipping_method = shipping_method;
+    }
+
     /**
      * @return the id
      */

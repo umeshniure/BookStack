@@ -10,7 +10,7 @@
     <div class="container flex flex-wrap justify-between items-center mx-auto rounded">
         <a href="home" >
             <div class="flex items-center h-20 w-20">
-                <img src="images/bookstack-logo.png" class="ml-4 h-full w-auto" alt="Bookstack Logo">
+                <img src="./images/static/bookstack_logos/bookstack-logo.png" class="ml-4 h-full w-auto" alt="Bookstack Logo">
                     <!--<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-grey">Bookstack</span>-->
             </div>
         </a>
@@ -35,7 +35,7 @@
                 <div class="flex -space-x-2 overflow-hidden">
                     <div class="flex justify-center">
                         <c:if test="${user.profile_pic_name == null}">
-                            <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="">
+                            <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="./images/static/general_images/empty_profile_pic.png" alt="Empty profile picture">
                             </c:if>
                             <c:if test="${user.profile_pic_name != null}">
                                 <c:if test="${sessionScope.user_type == 1}">
@@ -53,7 +53,7 @@
                                         <div class="bg-white shadow rounded-lg">
                                             <div class="flex justify-center">
                                                 <c:if test="${user.profile_pic_name == null}">
-                                                    <img src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                                                    <img src="./images/static/general_images/empty_profile_pic.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
                                                     </c:if>
                                                     <c:if test="${user.profile_pic_name != null}">
                                                         <c:if test="${sessionScope.user_type == 1}">

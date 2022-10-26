@@ -41,10 +41,11 @@ public class OrderItemsDAO {
                 int book_id = rs.getInt("book_id");
                 int quantity = rs.getInt("quantity");
                 String order_id = rs.getString("order_id");
+                double unit_price = rs.getDouble("unit_price");
                 double total_price = rs.getDouble("total_price");
                 double tax_amount = rs.getDouble("tax_amount");
                 double shipping_amount = rs.getDouble("shipping_amount");
-                orderItemList.add(new OrderItems(id, book_id, quantity, order_id, total_price, tax_amount, shipping_amount));
+                orderItemList.add(new OrderItems(id, book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -64,10 +65,11 @@ public class OrderItemsDAO {
                 int book_id = rs.getInt("book_id");
                 int quantity = rs.getInt("quantity");
                 String order_id = rs.getString("order_id");
+                double unit_price = rs.getDouble("unit_price");
                 double total_price = rs.getDouble("total_price");
                 double tax_amount = rs.getDouble("tax_amount");
                 double shipping_amount = rs.getDouble("shipping_amount");
-                orderItems = (new OrderItems(id, book_id, quantity, order_id, total_price, tax_amount, shipping_amount));
+                orderItems = (new OrderItems(id, book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -75,28 +77,31 @@ public class OrderItemsDAO {
         return orderItems;
     }
 
-    public OrderItems selectOrderItemsByUserId(int id) {
+    public List<OrderItems> selectOrderItemsByUserId(int id) {
         // user detailsl: name. email, profile pic
         // order: order id, ordered date, order subtotal, shipping address:post code, street, city, country
         // order items: book name, book cover name, quantity, book price, shipping amount
         String SELECT_ORDERITEMS_BY_ID = "select * from order_items "
                 + "INNER JOIN books ON order_items.book_id = books.id "
                 + "INNER JOIN book_order ON order_items.order_id = book_order.id "
-                + "where book_order.user_id=?";
-        OrderItems orderItems = new OrderItems();
+                + "where book_order.user_id=? ";
+        List<OrderItems> orderItems = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_ORDERITEMS_BY_ID);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 int book_id = rs.getInt("book_id");
                 int quantity = rs.getInt("quantity");
                 String order_id = rs.getString("order_id");
-                double total_price = rs.getDouble("total_price");
-                double tax_amount = rs.getDouble("tax_amount");
+                String book_name = rs.getString("books.name");
+                double book_unit_price = rs.getDouble("unit_price");
+                int vendor_id = rs.getInt("books.vendor_id");
+                String book_cover_name = rs.getString("books.cover_photo_name");
                 double shipping_amount = rs.getDouble("shipping_amount");
-                orderItems = (new OrderItems(id, book_id, quantity, order_id, total_price, tax_amount, shipping_amount));
+                double tax_amount = rs.getDouble("tax_amount");
+                orderItems.add(new OrderItems(book_id, quantity, order_id, book_name, book_unit_price, book_cover_name, vendor_id, shipping_amount, tax_amount));
             }
         } catch (Exception e) {
             System.out.println(e);

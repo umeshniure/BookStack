@@ -96,8 +96,12 @@ public class OrderServlet extends HttpServlet {
         // order items: book name, book cover name, quantity, book price, shipping amount
         HttpSession session = request.getSession(false);
         Users user = userDAO.selectUser((int) session.getAttribute("id"));
-        OrderItems orderItems = orderItemsDAO.selectOrderItemsByUserId((int) session.getAttribute("id"));
+        List<OrderItems> orderItems = orderItemsDAO.selectOrderItemsByUserId((int) session.getAttribute("id"));
+        List<BookOrder> orders = orderDao.selectOrderByUserId((int) session.getAttribute("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
+        request.setAttribute("user", user);
+        request.setAttribute("orderItems", orderItems);
+        request.setAttribute("orders", orders);
         dispatcher.forward(request, response);
     }
 
@@ -137,7 +141,7 @@ public class OrderServlet extends HttpServlet {
         String transaction_id = null;
         Integer shipping_postcode;
         String temp = request.getParameter("postcode");
-        if (temp == null) {
+        if (temp == "") {
             shipping_postcode = null;
         } else if (Integer.parseInt(temp) == 0) {
             shipping_postcode = null;
@@ -166,10 +170,14 @@ public class OrderServlet extends HttpServlet {
             int book_id = cart.getBook_id();
             int quantity = cart.getQuantity();
             String order_id = id;
-            double total_price = order_subtotal_amount;
+            double unit_price = cart.getDiscounted_price();
+            if (unit_price == 0) {
+                unit_price = cart.getPrice();
+            }
+            double total_price = quantity * unit_price;
             double tax_amount = 0;
             double shipping_amount = 0;
-            OrderItems orderItem = new OrderItems(book_id, quantity, order_id, total_price, tax_amount, shipping_amount);
+            OrderItems orderItem = new OrderItems(book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount);
             orderItemsDAO.insertOrderItems(orderItem);
         }
         cartDAO.deleteCartByUserId(user_id);
