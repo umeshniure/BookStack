@@ -79,9 +79,7 @@
                                                 <p class="text-base dark:text-gray-300 leading-4 text-gray-600">NPR. ${order.order_subtotal_amount}</p>
                                             </div>
                                             <div class="flex justify-between items-center w-full">
-                                                <p class="text-base dark:text-white leading-4 text-gray-800">Discount 
-                                                    <span class="bg-gray-200 p-1 text-xs font-medium dark:bg-white dark:text-gray-800 leading-3 text-gray-800">STUDENT</span>
-                                                </p>
+                                                <p class="text-base dark:text-white leading-4 text-gray-800">Discount</p>
                                                 <p class="text-base dark:text-gray-300 leading-4 text-gray-600">NPR 0.0</p>
                                             </div>
                                             <div class="flex justify-between items-center w-full">
@@ -112,14 +110,14 @@
                                                 <div class="flex flex-col justify-start items-center">
                                                     <p class="text-normal leading-6 dark:text-white font-semibold text-gray-800 px-3">Address<br />
                                                         <span class="font-normal">
-                                                            <c:if test="${order.shipping_postcode != null || order.shipping_postcode != 0}">
+                                                            <c:if test="${order.shipping_postcode != null && order.shipping_postcode != 0}">
                                                                 ${order.shipping_postcode}
                                                             </c:if>
-                                                            <c:if test='${order.shipping_apartment != null || order.shipping_apartment != ""}'>
+                                                            <c:if test='${order.shipping_apartment != null && order.shipping_apartment != ""}'>
                                                                 ${order.shipping_apartment}, 
                                                             </c:if>
                                                             ${order.shipping_street}, ${order.shipping_city}, 
-                                                            <c:if test='${order.shipping_province != null || order.shipping_province != ""}'>
+                                                            <c:if test='${order.shipping_province != null && order.shipping_province != ""}'>
                                                                 ${order.shipping_province}, 
                                                             </c:if>
                                                             ${order.shipping_country}
@@ -133,7 +131,7 @@
                                                 <div class="flex flex-col justify-start items-center">
                                                     <p class="text-normal leading-6 dark:text-white font-semibold text-gray-800 ml-3">Method: 
                                                         <span class="font-normal">
-                                                            ${order.shipping_method}
+                                                            ${order.shipping_method_name}
                                                         </span>
                                                     </p>
                                                 </div>
@@ -205,7 +203,12 @@
                         <div class="flex flex-col justify-start items-start flex-shrink-0">
                             <div class="flex justify-center w-full md:justify-start md:items-center items-center space-x-4 py-8 border-b border-gray-200">
                                 <div class=" w-16 h-16 rounded-lg">
-                                    <img src="./images/user_profiles/${user.profile_pic_name}" alt="${user.firstname}" class="rounded-lg h-auto w-full"/>
+                                    <c:if test='${user.profile_pic_name == null}'>
+                                        <img src="./images/static/general_images/empty_profile_pic.png" alt="" class="rounded-lg h-auto w-full"/>
+                                    </c:if>
+                                    <c:if test='${user.profile_pic_name != null}'>
+                                        <img src="./images/user_profiles/${user.profile_pic_name}" alt="${user.firstname}" class="rounded-lg h-auto w-full"/>
+                                    </c:if> 
                                 </div>
                                 <div class="flex justify-start items-start flex-col space-y-2">
                                     <p class="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">${user.firstname} ${user.lastname}</p>

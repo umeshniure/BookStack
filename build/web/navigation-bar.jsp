@@ -85,6 +85,11 @@
                                                                         <a href="vendorDashboard" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
                                                                     </div>
                                                                 </c:if>
+                                                                <c:if test="${sessionScope.user_type == 3}">
+                                                                    <div class="my-5 px-6">
+                                                                        <a href="admin" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
+                                                                    </div>
+                                                                </c:if>
                                                                 <c:if test="${sessionScope.user_type == 1}">
                                                                     <div class="flex justify-between items-center my-5 px-6">
                                                                         <a href="order?action=recentOrder" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>

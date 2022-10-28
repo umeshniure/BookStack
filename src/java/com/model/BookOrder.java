@@ -14,8 +14,10 @@ public class BookOrder {
     private String order_status_name;
     private String transaction_satus_name;
     private String special_instruction;
-    private String payment_method;
-    private String shipping_method;
+    private String payment_method_name;
+    private int payment_method;
+    private int shipping_method;
+    private String shipping_method_name;
     private String shipping_street;
     private String shipping_apartment;
     private String shipping_province;
@@ -32,7 +34,7 @@ public class BookOrder {
     }
 
     public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, int transaction_satus,
-            String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
+            String special_instruction, int payment_method, int shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
             String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount) {
         super();
         this.id = id;
@@ -55,7 +57,7 @@ public class BookOrder {
     }
 
     public BookOrder(int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, int transaction_satus,
-            String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
+            String special_instruction, int payment_method, int shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
             String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount) {
         super();
         this.user_id = user_id;
@@ -78,7 +80,7 @@ public class BookOrder {
 
     //constructor for joined transaction status and order status table
     public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, String order_status_name, int transaction_satus, String transaction_satus_name,
-            String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
+            String special_instruction, int payment_method, int shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
             String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username, String book_name, String book_author) {
         super();
         this.id = id;
@@ -107,7 +109,7 @@ public class BookOrder {
 
     //constructor for joined transaction status and order status table
     public BookOrder(String id, int user_id, String transaction_id, Integer shipping_postcode, Date order_date, int order_status, String order_status_name, int transaction_satus, String transaction_satus_name,
-            String special_instruction, String payment_method, String shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
+            String special_instruction, int payment_method, int shipping_method, String shipping_street, String shipping_apartment, String shipping_province,
             String shipping_city, String shipping_country, Double order_subtotal_amount, Double order_total_amount, String username, String book_name, String book_author, int quantity, long phone_number) {
         super();
         this.id = id;
@@ -136,8 +138,8 @@ public class BookOrder {
         this.phone_number = phone_number;
     }
 
-    public BookOrder(String id, double order_total_amount, double order_subtotal_amount, Date order_date,Integer postalcode,
-            String street, String apartment, String city, String province, String country, String payment_method, String shipping_method) {
+    public BookOrder(String id, double order_total_amount, double order_subtotal_amount, Date order_date, Integer postalcode,
+            String street, String apartment, String city, String province, String country, int payment_method, int shipping_method, String shipping_method_name) {
         this.id = id;
         this.order_total_amount = order_total_amount;
         this.order_subtotal_amount = order_subtotal_amount;
@@ -150,6 +152,18 @@ public class BookOrder {
         this.shipping_country = country;
         this.payment_method = payment_method;
         this.shipping_method = shipping_method;
+        this.shipping_method_name = shipping_method_name;
+    }
+
+    public BookOrder(String id, int user_id, Date order_date, int order_status, String order_status_name, double order_total_amount, String username) {
+        super();
+        this.id = id;
+        this.user_id = user_id;
+        this.order_date = order_date;
+        this.order_status = order_status;
+        this.order_status_name = order_status_name;
+        this.order_total_amount = order_total_amount;
+        this.username = username;
     }
 
     /**
@@ -267,28 +281,28 @@ public class BookOrder {
     /**
      * @return the payment_method
      */
-    public String getPayment_method() {
+    public int getPayment_method() {
         return payment_method;
     }
 
     /**
      * @param payment_method the payment_method to set
      */
-    public void setPayment_method(String payment_method) {
+    public void setPayment_method(int payment_method) {
         this.payment_method = payment_method;
     }
 
     /**
      * @return the shipping_method
      */
-    public String getShipping_method() {
+    public int getShipping_method() {
         return shipping_method;
     }
 
     /**
      * @param shipping_method the shipping_method to set
      */
-    public void setShipping_method(String shipping_method) {
+    public void setShipping_method(int shipping_method) {
         this.shipping_method = shipping_method;
     }
 
@@ -486,6 +500,34 @@ public class BookOrder {
      */
     public void setPhone_number(long phone_number) {
         this.phone_number = phone_number;
+    }
+
+    /**
+     * @return the payment_method_name
+     */
+    public String getPayment_method_name() {
+        return payment_method_name;
+    }
+
+    /**
+     * @param payment_method_name the payment_method_name to set
+     */
+    public void setPayment_method_name(String payment_method_name) {
+        this.payment_method_name = payment_method_name;
+    }
+
+    /**
+     * @return the shipping_method_name
+     */
+    public String getShipping_method_name() {
+        return shipping_method_name;
+    }
+
+    /**
+     * @param shipping_method_name the shipping_method_name to set
+     */
+    public void setShipping_method_name(String shipping_method_name) {
+        this.shipping_method_name = shipping_method_name;
     }
 
 }

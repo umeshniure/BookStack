@@ -9,7 +9,10 @@ import com.model.*;
 import com.secure.RandomAlphanumericString;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +33,10 @@ public class OrderServlet extends HttpServlet {
     private UsersDAO userDAO;
     private OrderDAO orderDao;
     private OrderItemsDAO orderItemsDAO;
+    private ShippingAddressDAO addressDAO;
+    private CityDAO cityDAO;
+    private ProvinceDAO provinceDAO;
+    private CountryDAO countryDAO;
     private RandomAlphanumericString randomString;
 
     public void init() {
@@ -38,6 +45,10 @@ public class OrderServlet extends HttpServlet {
         userDAO = new UsersDAO();
         orderDao = new OrderDAO();
         orderItemsDAO = new OrderItemsDAO();
+        addressDAO = new ShippingAddressDAO();
+        cityDAO = new CityDAO();
+        provinceDAO = new ProvinceDAO();
+        countryDAO = new CountryDAO();
         randomString = new RandomAlphanumericString();
     }
 
@@ -58,16 +69,22 @@ public class OrderServlet extends HttpServlet {
                             break;
                         case "recentOrder":
                             break;
+                        case "fillAddress":
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            showCheckoutPage(request, response, id);
+                            break;
                         default:
                             int userCartCount = cartDAO.userCartCount((int) session.getAttribute("id"));
                             if (userCartCount > 0) {
-                                showCheckoutPage(request, response);
+                                id = 0;
+                                showCheckoutPage(request, response, id);
                             } else {
                                 String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
                                 RequestDispatcher dispatcher2 = request.getRequestDispatcher("home");
                                 request.setAttribute("errorMessage", errorMessage);
                                 dispatcher2.forward(request, response);
                             }
+                            break;
                     }
                 } else {
                     String errorMessage = "Ohh! You cannot access this page.";
@@ -105,32 +122,27 @@ public class OrderServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    public void showCheckoutPage(HttpServletRequest request, HttpServletResponse response)
+    public void showCheckoutPage(HttpServletRequest request, HttpServletResponse response, int id)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            if (session.getAttribute("id") != null) {
-                int user_id = (int) session.getAttribute("id");
-                List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
-                List<Books> book = bookDAO.selectAllBooks();
-                Users user = userDAO.selectUser(user_id);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
-                request.setAttribute("cartItemList", cartItemList);
-                request.setAttribute("book", book);
-                request.setAttribute("user", user);
-                dispatcher.forward(request, response);
-            } else {
-                String errorMessage = "Ohh! I think you not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
-            }
-        } else {
-            String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
-        }
+        int user_id = (int) session.getAttribute("id");
+        Users user = userDAO.selectUser(user_id);
+        List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
+        List<Books> book = bookDAO.selectAllBooks();
+        List<City> cities = cityDAO.selectAllCity();
+        List<Province> provinces = provinceDAO.selectAllProvince();
+        List<Country> countries = countryDAO.selectAllCountry();
+        List<ShippingAddress> addresses = addressDAO.selectShippingAddressByUserId(user_id);
+        ShippingAddress fillAddress = addressDAO.selectShippingAddress(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
+        request.setAttribute("cartItemList", cartItemList);
+        request.setAttribute("book", book);
+        request.setAttribute("user", user);
+        request.setAttribute("cities", cities);
+        request.setAttribute("provinces", provinces);
+        request.setAttribute("countries", countries);
+        request.setAttribute("addresses", addresses);
+        dispatcher.forward(request, response);
     }
 
     public void insertOrder(HttpServletRequest request, HttpServletResponse response)
@@ -152,8 +164,8 @@ public class OrderServlet extends HttpServlet {
         int transaction_satus = 1;
         Date order_date = new Date(System.currentTimeMillis());
         String special_instruction = request.getParameter("specialInstruction");
-        String payment_method = "Cash On Delivery";
-        String shipping_method = "Standard Shipping";
+        int payment_method = 1;
+        int shipping_method = 1;
         String shipping_street = request.getParameter("street");
         String shipping_apartment = request.getParameter("apartment");
         String shipping_province = request.getParameter("province");
@@ -186,15 +198,57 @@ public class OrderServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    public void saveAddress(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            HttpSession session = request.getSession(false);
+            int user_id = (int) session.getAttribute("id");
+            Integer postal_code;
+            String temp = request.getParameter("postcode");
+            if (temp == "" || temp == null) {
+                postal_code = null;
+            } else if (Integer.parseInt(temp) == 0) {
+                postal_code = null;
+            } else {
+                postal_code = Integer.parseInt(temp);
+            }
+            String shipping_street = request.getParameter("street");
+            String shipping_apartment = request.getParameter("apartment");
+            int shipping_province = Integer.parseInt(request.getParameter("province"));
+            int shipping_city = Integer.parseInt(request.getParameter("city"));
+            int shipping_country = Integer.parseInt(request.getParameter("country"));
+            boolean is_default = false;
+            if (addressDAO.checkDefaultAddress(user_id) == 0) {
+                is_default = true;
+            }
+            ShippingAddress Address = new ShippingAddress(user_id, shipping_street, shipping_apartment,
+                    shipping_province, shipping_city, shipping_country, postal_code, is_default);
+            if (addressDAO.insertshippingAddress(Address)) {
+                request.getSession(false).setAttribute("successMessage", "Your address is saved successfully.");
+            } else {
+                request.getSession(false).setAttribute("errorMessage", "Sorry! Your address couldnot be saved at the moment!");
+            }
+            response.sendRedirect("order");
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-
-                insertOrder(request, response);
-
+                String action = (request.getParameter("action"));
+                System.out.println(action);
+                if (action.equals("submitOrder")) {
+                    insertOrder(request, response);
+                } else if (action.equals("saveAddress")) {
+                    saveAddress(request, response);
+                } else {
+                    response.sendRedirect("order");
+                }
             } else {
                 String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");
