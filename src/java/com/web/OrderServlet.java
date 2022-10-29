@@ -76,8 +76,9 @@ public class OrderServlet extends HttpServlet {
                         default:
                             int userCartCount = cartDAO.userCartCount((int) session.getAttribute("id"));
                             if (userCartCount > 0) {
-                                id = 0;
-                                showCheckoutPage(request, response, id);
+                                int defaultAddId = addressDAO.checkDefaultAddress((int) session.getAttribute("id"));
+                                System.out.println("default address id: " + defaultAddId);
+                                showCheckoutPage(request, response, defaultAddId);
                             } else {
                                 String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
                                 RequestDispatcher dispatcher2 = request.getRequestDispatcher("home");
@@ -142,6 +143,7 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("provinces", provinces);
         request.setAttribute("countries", countries);
         request.setAttribute("addresses", addresses);
+        request.setAttribute("fillAddress", fillAddress);
         dispatcher.forward(request, response);
     }
 

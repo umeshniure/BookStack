@@ -156,9 +156,9 @@
                                         </div>
                                     </c:if>
                                     <c:forEach var="address" items="${addresses}">
-                                        
-                                            <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-4 hover:bg-gray-200" title="Click to use this address">
-                                                <a href="order?action=fillAddress&id=${address.id}">
+
+                                        <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-4 hover:bg-gray-200" title="Click to use this address">
+                                            <a href="order?action=fillAddress&id=${address.id}">
                                                 <div class="flex">
                                                     <c:if test="${address.postal_code != null && address.postal_code != 0}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -172,8 +172,8 @@
                                                     </c:if>
                                                     ${address.city_name}, ${address.province_name}, ${address.country_name}
                                                 </div>
-                                                </a>
-                                            </div>
+                                            </a>
+                                        </div>
                                     </c:forEach>
 
                                 </div>
@@ -202,14 +202,15 @@
                                     <form action="order" method="post">
                                         <div class="px-5 pb-5 mt-4">
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Street name</span>
-                                            <input name="street"  placeholder="Street name" class=" mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
+                                            <input name="street" value="${fillAddress.street}"  placeholder="Street name" class=" mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Apartment, Suite</span>
-                                            <input name="apartment" placeholder="Apartment, Suite" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
+                                            <input name="apartment" value="${fillAddress.apartment}" placeholder="Apartment, Suite" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                                             <div class="flex">
                                                 <div class="flex-grow w-2/4 pr-2">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Province / State</span>
                                                     <!--<input name="province"  placeholder="Province / State" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">-->
                                                     <select name="province" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                        <option value="${fillAddress.province}">${fillAddress.province_name}</option>
                                                         <c:forEach var="province" items="${provinces}">
                                                             <option value="${province.id}">${province.province_name}</option>
                                                         </c:forEach>
@@ -219,6 +220,7 @@
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">City</span>
                                                     <!--<input name="city" placeholder="City" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">-->
                                                     <select name="city" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                        <option value="${fillAddress.city}">${fillAddress.city_name}</option>
                                                         <c:forEach var="city" items="${cities}">
                                                             <option value="${city.id}">${city.city_name}</option>
                                                         </c:forEach>
@@ -228,12 +230,18 @@
                                             <div class="flex">
                                                 <div class="flex-grow w-2/4 pr-2">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Postal Code</span>
-                                                    <input name="postcode" placeholder="Post Code" class="mb-8 text-black placeholder-gray-600 border-grey-900 shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    <c:if test="${fillAddress.postal_code != 0 && fillAddress.postal_code != null}">
+                                                        <input name="postcode" value="${fillAddress.postal_code}" placeholder="Post Code" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    </c:if>
+                                                    <c:if test="${fillAddress.postal_code == 0 || fillAddress.postal_code == null}">
+                                                        <input name="postcode" placeholder="Post Code" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                    </c:if>
                                                 </div>
                                                 <div class="flex-grow w-2/4">
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Country</span>
                                                     <!--<input name="country" placeholder="Country" value="Nepal" readonly class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">-->
                                                     <select name="country" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                                                        <option value="${fillAddress.country}">${fillAddress.country_name}</option>
                                                         <c:forEach var="country" items="${countries}">
                                                             <option value="${country.id}">${country.country_name}</option>
                                                         </c:forEach>

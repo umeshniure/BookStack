@@ -40,7 +40,7 @@ public class ShippingAddressDAO {
     }
 
     public List<ShippingAddress> selectAllShippingAddress() {
-        String SELECT_ALL_ADDRESS = "INSERT * FROM shipping_address "
+        String SELECT_ALL_ADDRESS = "SELECT * FROM shipping_address "
                 + "INNER JOIN city ON shipping_address.city = city.id "
                 + "INNER JOIN province ON shipping_address.province = province.id "
                 + "INNER JOIN country ON shipping_address.country = country.id";
@@ -72,7 +72,7 @@ public class ShippingAddressDAO {
     }
 
     public ShippingAddress selectShippingAddress(int id) {
-        String SELECT_ALL_ADDRESS = "INSERT * FROM shipping_address "
+        String SELECT_ALL_ADDRESS = "SELECT * FROM shipping_address "
                 + "INNER JOIN city ON shipping_address.city = city.id "
                 + "INNER JOIN province ON shipping_address.province = province.id "
                 + "INNER JOIN country ON shipping_address.country = country.id "
