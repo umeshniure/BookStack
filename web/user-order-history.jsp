@@ -22,10 +22,21 @@
         <div class="py-10 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
             <div class="flex justify-start item-start space-y-2 flex-col">
                 <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">Order History</h1>
-            </div> 
+            </div>
             <div class="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
                 <div class="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
-
+                    <c:if test="${orderItems.size()==0}">
+                        <div class="flex justify-start item-start space-y-8 flex-col">
+                            <div>
+                                <h1 class="text-lg dark:text-white lg:text-xl font-normal leading-7 lg:leading-9 text-gray-800">Looks like you have not ordered anything yet!</h1>
+                                <h5 class="text-sm dark:text-white font-normal leading-7 lg:leading-9 text-gray-800">First add books to your cart and then you can easily checkout with few clicks.</h5>
+                            </div>
+                            <a href="home" class="flex font-semibold text-indigo-600 text-sm mt-10">
+                                <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+                                Continue Shopping
+                            </a>
+                        </div>
+                    </c:if>
                     <c:forEach var="order" items="${orders}">
                         <div class="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full rounded-md">
                             <div class="flex w-full text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800 mb-2 justify-between">

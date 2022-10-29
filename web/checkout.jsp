@@ -141,7 +141,7 @@
 
                             <!--Payment methods-->
                             <div class="relative flex flex-row min-w-0 mb-4 mt-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full drop-shadow-lg rounded-md">
-                                <div class="p-4 w-full">
+                                <div class="p-2 w-full">
                                     <div class="flex items-center justify-between w-full">
                                         <h3 class="inline text-lg font-semibold leading-none">Select payment method</h3>
                                         <a href="#"><button type="button" class="px-2 py-2 font-medium tracking-wide text-black rounded-lg hover:bg-gray-200" title="Click to addd/edit your default payment method">
@@ -156,8 +156,8 @@
                                     <c:forEach var="payment" items="${paymentTypes}">
                                         <div class="flex items-center justify-start">
                                             <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.payment_type}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
-                                            <label for="${payment.payment_type}" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
-                                                <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-purple-100" title="Click to use this payment method">
+                                            <label for="${payment.payment_type}" class="py-1 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
+                                                <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-gray-100" title="Click to use this payment method">
                                                     ${payment.payment_type}
                                                 </div>
                                             </label>
@@ -186,7 +186,7 @@
                                         </div>
                                     </c:if>
                                     <c:forEach var="address" items="${addresses}">
-                                        <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-4 hover:bg-gray-200" title="Click to use this address">
+                                        <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-4 hover:bg-gray-100" title="Click to use this address">
                                             <a href="order?action=fillAddress&id=${address.id}">
                                                 <div class="flex">
                                                     <c:if test="${address.postal_code != null && address.postal_code != 0}">
