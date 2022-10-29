@@ -24,7 +24,7 @@ public class CityDAO {
     }
 
     public List<City> selectAllCity() {
-        String SELECT_ALL_CITY = "select * from city";
+        String SELECT_ALL_CITY = "SELECT * from city";
         List<City> cities = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -43,7 +43,7 @@ public class CityDAO {
     }
 
     public City selectCity(int id) {
-        String SELECT_CITY_BY_ID = "select * from city where id = ?";
+        String SELECT_CITY_BY_ID = "SELECT * from city where id = ?";
         City city = new City();
         try {
             Connection connection = Config.getConnection();

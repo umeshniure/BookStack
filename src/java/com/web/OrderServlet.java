@@ -37,6 +37,7 @@ public class OrderServlet extends HttpServlet {
     private CityDAO cityDAO;
     private ProvinceDAO provinceDAO;
     private CountryDAO countryDAO;
+    private PaymentTypeDAO paymentDAO;
     private RandomAlphanumericString randomString;
 
     public void init() {
@@ -49,6 +50,7 @@ public class OrderServlet extends HttpServlet {
         cityDAO = new CityDAO();
         provinceDAO = new ProvinceDAO();
         countryDAO = new CountryDAO();
+        paymentDAO = new PaymentTypeDAO();
         randomString = new RandomAlphanumericString();
     }
 
@@ -77,7 +79,6 @@ public class OrderServlet extends HttpServlet {
                             int userCartCount = cartDAO.userCartCount((int) session.getAttribute("id"));
                             if (userCartCount > 0) {
                                 int defaultAddId = addressDAO.checkDefaultAddress((int) session.getAttribute("id"));
-                                System.out.println("default address id: " + defaultAddId);
                                 showCheckoutPage(request, response, defaultAddId);
                             } else {
                                 String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
@@ -134,6 +135,7 @@ public class OrderServlet extends HttpServlet {
         List<Province> provinces = provinceDAO.selectAllProvince();
         List<Country> countries = countryDAO.selectAllCountry();
         List<ShippingAddress> addresses = addressDAO.selectShippingAddressByUserId(user_id);
+        List<PaymentType> paymentTypes = paymentDAO.selectAllPaymentType();
         ShippingAddress fillAddress = addressDAO.selectShippingAddress(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
         request.setAttribute("cartItemList", cartItemList);
@@ -144,6 +146,7 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("countries", countries);
         request.setAttribute("addresses", addresses);
         request.setAttribute("fillAddress", fillAddress);
+        request.setAttribute("paymentTypes", paymentTypes);
         dispatcher.forward(request, response);
     }
 
@@ -166,15 +169,21 @@ public class OrderServlet extends HttpServlet {
         int transaction_satus = 1;
         Date order_date = new Date(System.currentTimeMillis());
         String special_instruction = request.getParameter("specialInstruction");
-        int payment_method = 1;
-        int shipping_method = 1;
         String shipping_street = request.getParameter("street");
         String shipping_apartment = request.getParameter("apartment");
-        String shipping_province = request.getParameter("province");
-        String shipping_city = request.getParameter("city");
-        String shipping_country = request.getParameter("country");
+        int province_id = Integer.parseInt(request.getParameter("province"));
+        String shipping_province = provinceDAO.selectProvince(province_id).getProvince_name();
+        int city_id = Integer.parseInt(request.getParameter("city"));
+        String shipping_city = cityDAO.selectCity(city_id).getCity_name();
+        int country_id = Integer.parseInt(request.getParameter("country"));
+        String shipping_country = countryDAO.selectCountry(country_id).getCountry_name();
         Double order_subtotal_amount = Double.parseDouble(request.getParameter("order_subtotal"));
         Double order_total_amount = Double.parseDouble(request.getParameter("order_total"));
+        
+        int payment_method = Integer.parseInt(request.getParameter("paymentMethod"));
+        
+        System.out.println("Payment method: " + payment_method);
+        int shipping_method = 1;
         BookOrder order = new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, transaction_satus,
                 special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
                 shipping_city, shipping_country, order_subtotal_amount, order_total_amount);
@@ -184,17 +193,22 @@ public class OrderServlet extends HttpServlet {
             int book_id = cart.getBook_id();
             int quantity = cart.getQuantity();
             String order_id = id;
-            double unit_price = cart.getDiscounted_price();
+            double unit_price;
+            if (cart.getDiscounted_price() != 0 && cart.getDiscounted_price() != null) {
+                unit_price = cart.getDiscounted_price();
+            } else {
+                unit_price = 0;
+            }
             if (unit_price == 0) {
                 unit_price = cart.getPrice();
             }
             double total_price = quantity * unit_price;
-            double tax_amount = 0;
+            double tax_amount = (13 / 100) * total_price;
             double shipping_amount = 0;
             OrderItems orderItem = new OrderItems(book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount);
             orderItemsDAO.insertOrderItems(orderItem);
         }
-        cartDAO.deleteCartByUserId(user_id);
+//        cartDAO.deleteCartByUserId(user_id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home");
         request.setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
         dispatcher.forward(request, response);

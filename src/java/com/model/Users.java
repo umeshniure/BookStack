@@ -3,7 +3,7 @@ package com.model;
 public class Users {
 
     protected int id, user_type;
-    protected long phone_number;
+    protected Long phone_number;
     protected String firstname, lastname, email, store_name;
     protected String profile_pic;
     protected String profile_pic_name;
@@ -12,7 +12,7 @@ public class Users {
     public Users() {
     }
 
-    public Users(String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String profile_pic_name, String password, int user_type) {
+    public Users(String firstname, String lastname, String store_name, Long phone_number, String email, String profile_pic, String profile_pic_name, String password, int user_type) {
         super();
         this.firstname = firstname;
         this.lastname = lastname;
@@ -39,7 +39,7 @@ public class Users {
         this.user_type = user_type;
     }
 
-    public Users(int id, String firstname, String lastname, String store_name, long phone_number, String email, String profile_pic, String profile_pic_name) {
+    public Users(int id, String firstname, String lastname, String store_name, Long phone_number, String email, String profile_pic, String profile_pic_name) {
         super();
         this.id = id;
         this.firstname = firstname;
@@ -96,11 +96,11 @@ public class Users {
         this.email = email;
     }
 
-    public long getPhone_number() {
+    public Long getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(long phone_number) {
+    public void setPhone_number(Long phone_number) {
         this.phone_number = phone_number;
     }
 

@@ -24,7 +24,7 @@ public class CountryDAO {
     }
 
     public List<Country> selectAllCountry() {
-        String SELECT_ALL_COUNTRY = "select * from country";
+        String SELECT_ALL_COUNTRY = "SELECT * from country";
         List<Country> country = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -43,7 +43,7 @@ public class CountryDAO {
     }
 
     public Country selectCountry(int id) {
-        String SELECT_COUNTRY_BY_ID = "select * from country where id = ?";
+        String SELECT_COUNTRY_BY_ID = "SELECT * from country where id = ?";
         Country country = new Country();
         try {
             Connection connection = Config.getConnection();

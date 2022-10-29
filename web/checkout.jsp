@@ -57,8 +57,8 @@
                         <p class="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800 dark:text-gray-50">Checkout</p>
                     </div>
 
-                    <div class="flex flex-col xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
-                        <div class="xl:w-2/5 flex flex-col sm:flex-row xl:flex-col justify-start items-start bg-white dark:bg-gray-800 sm:py-0 xl:py-0 md:px-10 sm:px-3">
+                    <div class="flex flex-col lg:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
+                        <div class="xl:w-2/5 flex flex-col justify-start items-start bg-white dark:bg-gray-800 sm:py-0 xl:py-0 md:px-10 sm:px-3">
 
                             <div class="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full drop-shadow-lg rounded-md">
                                 <div class="px-0">
@@ -137,18 +137,46 @@
                                 </div>
                             </div>
 
+                            <!--Payment methods-->
+                            <div class="relative flex flex-row min-w-0 mb-4 mt-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full drop-shadow-lg rounded-md">
+                                <div class="p-4 w-full">
+                                    <div class="flex items-center justify-between w-full">
+                                        <h3 class="inline text-lg font-semibold leading-none">Select payment method</h3>
+                                        <a href="#"><button type="button" class="px-2 py-2 font-medium tracking-wide text-black rounded-lg hover:bg-gray-200" title="Click to addd/edit your default payment method">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                                <path d="M5 18.08V19h.92l9.06-9.06-.92-.92z" opacity=".3"></path>
+                                                <path d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19z"></path>
+                                                </svg>
+                                            </button></a>
+                                    </div>
+
+                                    <c:forEach var="payment" items="${paymentTypes}">
+                                        <div class="flex items-center justify-start">
+                                            <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.id}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="${payment.payment_type}" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
+                                                <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-purple-100" title="Click to use this payment method">
+                                                    ${payment.payment_type}
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                            <!--Payment methods ends-->
+
                             <!--shipping address portion-->
                             <div class="relative flex flex-row min-w-0 mb-4 mt-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full drop-shadow-lg rounded-md">
                                 <div class="p-4 space-y-3 w-full">
                                     <div class="flex items-center justify-between w-full">
                                         <h3 class="inline text-lg font-semibold leading-none">Your shipping addresses</h3>
-                                        <button type="button" class="px-2 py-2 font-medium tracking-wide text-black rounded-lg hover:bg-gray-200" title="Click to addd/edit your shipping addresses">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-                                            <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                            <path d="M5 18.08V19h.92l9.06-9.06-.92-.92z" opacity=".3"></path>
-                                            <path d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19z"></path>
-                                            </svg>
-                                        </button>
+                                        <a href="updateProfile"><button type="button" class="px-2 py-2 font-medium tracking-wide text-black rounded-lg hover:bg-gray-200" title="Click to addd/edit your shipping addresses">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                                <path d="M5 18.08V19h.92l9.06-9.06-.92-.92z" opacity=".3"></path>
+                                                <path d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19z"></path>
+                                                </svg>
+                                            </button></a>
                                     </div>
                                     <c:if test="${addresses.size()== 0}">
                                         <div class="flex items-center w-full">
@@ -199,7 +227,7 @@
                                         </div>
                                         <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
                                     </div>
-                                    <form action="order" method="post">
+                                    <form id="myform" action="order" method="post">
                                         <div class="px-5 pb-5 mt-4">
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Street name</span>
                                             <input name="street" value="${fillAddress.street}"  placeholder="Street name" class=" mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
@@ -210,7 +238,9 @@
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Province / State</span>
                                                     <!--<input name="province"  placeholder="Province / State" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">-->
                                                     <select name="province" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                                                        <option value="${fillAddress.province}">${fillAddress.province_name}</option>
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.province}">${fillAddress.province_name}</option>
+                                                        </c:if>
                                                         <c:forEach var="province" items="${provinces}">
                                                             <option value="${province.id}">${province.province_name}</option>
                                                         </c:forEach>
@@ -220,7 +250,9 @@
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">City</span>
                                                     <!--<input name="city" placeholder="City" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">-->
                                                     <select name="city" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                                                        <option value="${fillAddress.city}">${fillAddress.city_name}</option>
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.city}">${fillAddress.city_name}</option>
+                                                        </c:if>
                                                         <c:forEach var="city" items="${cities}">
                                                             <option value="${city.id}">${city.city_name}</option>
                                                         </c:forEach>
@@ -241,7 +273,9 @@
                                                     <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Country</span>
                                                     <!--<input name="country" placeholder="Country" value="Nepal" readonly class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">-->
                                                     <select name="country" class="mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                                                        <option value="${fillAddress.country}">${fillAddress.country_name}</option>
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.country}">${fillAddress.country_name}</option>
+                                                        </c:if>
                                                         <c:forEach var="country" items="${countries}">
                                                             <option value="${country.id}">${country.country_name}</option>
                                                         </c:forEach>
@@ -269,49 +303,11 @@
                                                 <button type="submit" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
                                                     Confirm order
                                                 </button>
-                                                <!--                                            <button type="button" class="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out">
-                                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
-                                                                                                <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                                                                                <path d="M8 9h8v10H8z" opacity=".3"></path>
-                                                                                                <path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"></path>
-                                                                                                </svg>
-                                                                                                <span class="pl-2 mx-1">Delete</span>
-                                                                                            </button>-->
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
-
-                                <div class="mt-5 bg-white shadow cursor-pointer rounded-xl">
-                                    <div class="flex">
-                                        <div class="flex-1 py-5 pl-5 overflow-hidden">
-                                            <ul>
-                                                <li class="text-xs text-gray-600 uppercase ">Receiver</li>
-                                                <li>Max Mustermann</li>
-                                                <li>Musterstrasse 1</li>
-                                                <li>4020 Linz</li>
-                                            </ul>
-                                        </div>
-                                        <div class="flex-1 py-5 pl-1 overflow-hidden">
-                                            <ul>
-                                                <li class="text-xs text-gray-600 uppercase">Sender</li>
-                                                <li>Rick Astley</li>
-                                                <li>Rickrolled 11</li>
-                                                <li>1000 Vienna</li>
-                                            </ul>
-                                        </div>
-                                        <div class="flex-none pt-2.5 pr-2.5 pl-1">
-                                            <button type="button" class="px-2 py-2 font-medium tracking-wide text-black capitalize transition duration-300 ease-in-out transform rounded-xl hover:bg-gray-300 focus:outline-none active:scale-95">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-                                                <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                                <path d="M5 18.08V19h.92l9.06-9.06-.92-.92z" opacity=".3"></path>
-                                                <path d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>

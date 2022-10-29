@@ -69,7 +69,9 @@
                                                                 <h1 class="font-bold text-center text-3xl text-gray-900">${user.firstname} ${user.lastname}</h1>
                                                                 <h1 class="font-bold text-center text-2xl text-gray-900">${user.store_name}</h1>
                                                                 <p class="text-center text-sm text-gray-400 font-medium">${user.email}</p>
-                                                                <p class="text-center text-sm text-gray-400 font-medium">${user.phone_number}</p>
+                                                                <c:if test="${user.phone_number != 0 && user.phone_number != null}">
+                                                                    <p class="text-center text-sm text-gray-400 font-medium">${user.phone_number}</p>
+                                                                </c:if>
                                                                 <p>
                                                                     <span>
 
@@ -139,7 +141,7 @@
                                                                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill=""><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                                                             </button>
                                                             </div>
-                                                                
+
                                                         </c:if>
                                                         <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                                                             <ul class="flex flex-col p-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-auto md:font-medium md:bg-white">

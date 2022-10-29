@@ -3,7 +3,6 @@ package com.dao;
 import com.config.Config;
 import com.model.OrderItems;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 public class OrderItemsDAO {
 
     public void insertOrderItems(OrderItems newOrderItem) {
-        String INSERT_ORDER_ITEMS_SQL = "INSERT INTO order_items (id, order_id, book_id, quantity, total_price, tax_amount, shipping_amount) VALUES (?,?,?,?,?,?,?);";
+        String INSERT_ORDER_ITEMS_SQL = "INSERT INTO order_items (id, order_id, book_id, quantity, unit_price, total_price, tax_amount, shipping_amount) VALUES (?,?,?,?,?,?,?,?);";
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(INSERT_ORDER_ITEMS_SQL);
@@ -20,9 +19,10 @@ public class OrderItemsDAO {
             ps.setString(2, newOrderItem.getOrder_id());
             ps.setInt(3, newOrderItem.getBook_id());
             ps.setInt(4, newOrderItem.getQuantity());
-            ps.setDouble(5, newOrderItem.getTotal_price());
-            ps.setDouble(6, newOrderItem.getTax_amount());
-            ps.setDouble(7, newOrderItem.getShipping_amount());
+            ps.setDouble(5, newOrderItem.getUnit_price());
+            ps.setDouble(6, newOrderItem.getTotal_price());
+            ps.setDouble(7, newOrderItem.getTax_amount());
+            ps.setDouble(8, newOrderItem.getShipping_amount());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
