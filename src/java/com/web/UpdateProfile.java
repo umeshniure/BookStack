@@ -4,10 +4,16 @@
  */
 package com.web;
 
-import com.dao.UsersDAO;
+import com.dao.*;
+import com.model.City;
+import com.model.Country;
+import com.model.Province;
+import com.model.ShippingAddress;
 import com.model.Users;
+import com.secure.RandomAlphanumericString;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -30,10 +36,18 @@ import javax.servlet.http.Part;
 
 public class UpdateProfile extends HttpServlet {
 
-    UsersDAO userDAO;
+    private UsersDAO userDAO;
+    private CityDAO cityDAO;
+    private ProvinceDAO provinceDAO;
+    private CountryDAO countryDAO;
+    private ShippingAddressDAO addressDAO;
 
     public void init() {
         userDAO = new UsersDAO();
+        cityDAO = new CityDAO();
+        provinceDAO = new ProvinceDAO();
+        countryDAO = new CountryDAO();
+        addressDAO = new ShippingAddressDAO();
     }
 
     @Override
@@ -43,10 +57,7 @@ public class UpdateProfile extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("id") != null) {
 
-                Users user = userDAO.selectUser((int) session.getAttribute("id"));
-                RequestDispatcher rd = request.getRequestDispatcher("user-profile-update-form.jsp");
-                request.setAttribute("user", user);
-                rd.forward(request, response);
+                showUpdateProfilePage(request, response);
 
             } else {
                 String errorMessage = "Sorrry! you should log in first to access the page.";
@@ -60,6 +71,23 @@ public class UpdateProfile extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
         }
+    }
+
+    public void showUpdateProfilePage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        Users user = userDAO.selectUser((int) session.getAttribute("id"));
+        List<City> cities = cityDAO.selectAllCity();
+        List<Province> provinces = provinceDAO.selectAllProvince();
+        List<Country> countries = countryDAO.selectAllCountry();
+        List<ShippingAddress> addresses = addressDAO.selectShippingAddressByUserId((int) session.getAttribute("id"));
+        RequestDispatcher rd = request.getRequestDispatcher("user-profile-update-form.jsp");
+        request.setAttribute("user", user);
+        request.setAttribute("cities", cities);
+        request.setAttribute("provinces", provinces);
+        request.setAttribute("countries", countries);
+        request.setAttribute("addresses", addresses);
+        rd.forward(request, response);
     }
 
     public void updateProfile(HttpServletRequest request, HttpServletResponse response)

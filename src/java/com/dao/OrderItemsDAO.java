@@ -54,7 +54,10 @@ public class OrderItemsDAO {
     }
 
     public OrderItems selectOrderItems(int id) {
-        String SELECT_ORDERITEMS_BY_ID = "select * from order_items INNER JOIN books ON order_items.book_id = books.id INNER JOIN book_order ON order_items.order_id = book_order.id where id=?";
+        String SELECT_ORDERITEMS_BY_ID = "select * from order_items "
+                + "INNER JOIN books ON order_items.book_id = books.id "
+                + "INNER JOIN book_order ON order_items.order_id = book_order.id "
+                + "where id=?";
         OrderItems orderItems = new OrderItems();
         try {
             Connection connection = Config.getConnection();
@@ -81,14 +84,14 @@ public class OrderItemsDAO {
         // user detailsl: name. email, profile pic
         // order: order id, ordered date, order subtotal, shipping address:post code, street, city, country
         // order items: book name, book cover name, quantity, book price, shipping amount
-        String SELECT_ORDERITEMS_BY_ID = "select * from order_items "
+        String SELECT_ORDERITEMS_BY_USER_ID = "SELECT * FROM order_items "
                 + "INNER JOIN books ON order_items.book_id = books.id "
                 + "INNER JOIN book_order ON order_items.order_id = book_order.id "
-                + "where book_order.user_id=? ";
+                + "where book_order.user_id=?;";
         List<OrderItems> orderItems = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SELECT_ORDERITEMS_BY_ID);
+            PreparedStatement ps = connection.prepareStatement(SELECT_ORDERITEMS_BY_USER_ID);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

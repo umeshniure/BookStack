@@ -30,7 +30,7 @@ public class OrderDAO {
             ps.setInt(6, newOrder.getOrder_status());
             ps.setInt(7, newOrder.getTransaction_satus());
             ps.setString(8, newOrder.getSpecial_instruction());
-            ps.setInt(9, newOrder.getPayment_method());
+            ps.setString(9, newOrder.getPayment_method());
             ps.setInt(10, newOrder.getShipping_method());
             ps.setString(11, newOrder.getShipping_street());
             ps.setString(12, newOrder.getShipping_apartment());
@@ -107,7 +107,7 @@ public class OrderDAO {
                 int transaction_satus = rs.getInt("transaction_status");
                 String transaction_satus_name = rs.getString("transaction_status.transaction_status");
                 String special_instruction = rs.getString("special_instruction");
-                int payment_method = rs.getInt("payment_method");
+                String payment_method = rs.getString("payment_method");
                 int shipping_method = rs.getInt("shipping_method");
                 String shipping_street = rs.getString("shipping_street");
                 String shipping_apartment = rs.getString("shipping_apartment");
@@ -156,7 +156,7 @@ public class OrderDAO {
 //                String transaction_satus_name = rs.getString("transaction_status.transaction_status");
                 String transaction_satus_name = "";
                 String special_instruction = rs.getString("special_instruction");
-                int payment_method = rs.getInt("payment_method");
+                String payment_method = rs.getString("payment_method");
                 int shipping_method = rs.getInt("shipping_method");
                 String shipping_street = rs.getString("shipping_street");
                 String shipping_apartment = rs.getString("shipping_apartment");
@@ -186,8 +186,8 @@ public class OrderDAO {
         // order items: book name, book cover name, quantity, book price, shipping amount
         String SELECT_ORDERITEMS_BY_ID = "select * from book_order "
                 + "INNER JOIN shipping_method ON book_order.shipping_method = shipping_method.id "
-                //                + "INNER JOIN book_order ON order_items.order_id = book_order.id "
-                + "where user_id=? ORDER BY order_date DESC";
+//                + "INNER JOIN payment_method ON order_items.order_id = book_order.id "
+                + "where book_order.user_id=? ORDER BY order_date DESC";
         List<BookOrder> orders = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -207,7 +207,7 @@ public class OrderDAO {
                 String country = rs.getString("shipping_country");
                 String shipping_method_name = rs.getString("shipping_method.name");
                 int shipping_method = rs.getInt("shipping_method.id");
-                int payment_method = rs.getInt("payment_method");
+                String payment_method = rs.getString("payment_method");
                 orders.add(new BookOrder(id, order_total_amount, order_subtotal_amount, order_date, postalcode, street, apartment, city, province, country, payment_method, shipping_method, shipping_method_name));
             }
         } catch (Exception e) {

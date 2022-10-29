@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "OrderServlet", urlPatterns = {"/order"})
 public class OrderServlet extends HttpServlet {
-
+    
     private CartDAO cartDAO;
     private BookDAO bookDAO;
     private UsersDAO userDAO;
@@ -38,8 +38,9 @@ public class OrderServlet extends HttpServlet {
     private ProvinceDAO provinceDAO;
     private CountryDAO countryDAO;
     private PaymentTypeDAO paymentDAO;
+    private PaymentMethodDAO payMethodDAO;
     private RandomAlphanumericString randomString;
-
+    
     public void init() {
         cartDAO = new CartDAO();
         bookDAO = new BookDAO();
@@ -51,9 +52,10 @@ public class OrderServlet extends HttpServlet {
         provinceDAO = new ProvinceDAO();
         countryDAO = new CountryDAO();
         paymentDAO = new PaymentTypeDAO();
+        payMethodDAO = new PaymentMethodDAO();
         randomString = new RandomAlphanumericString();
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -107,7 +109,7 @@ public class OrderServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
-
+    
     public void userOrderHistory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // user detailsl: name. email, profile pic
@@ -117,20 +119,21 @@ public class OrderServlet extends HttpServlet {
         Users user = userDAO.selectUser((int) session.getAttribute("id"));
         List<OrderItems> orderItems = orderItemsDAO.selectOrderItemsByUserId((int) session.getAttribute("id"));
         List<BookOrder> orders = orderDao.selectOrderByUserId((int) session.getAttribute("id"));
+        List<ShippingAddress> addresses = addressDAO.selectShippingAddressByUserId((int) session.getAttribute("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
         request.setAttribute("user", user);
         request.setAttribute("orderItems", orderItems);
         request.setAttribute("orders", orders);
+        request.setAttribute("addresses", addresses);
         dispatcher.forward(request, response);
     }
-
+    
     public void showCheckoutPage(HttpServletRequest request, HttpServletResponse response, int id)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         int user_id = (int) session.getAttribute("id");
         Users user = userDAO.selectUser(user_id);
         List<Cart> cartItemList = cartDAO.selectCartByUserId(user_id);
-        List<Books> book = bookDAO.selectAllBooks();
         List<City> cities = cityDAO.selectAllCity();
         List<Province> provinces = provinceDAO.selectAllProvince();
         List<Country> countries = countryDAO.selectAllCountry();
@@ -139,7 +142,6 @@ public class OrderServlet extends HttpServlet {
         ShippingAddress fillAddress = addressDAO.selectShippingAddress(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("checkout.jsp");
         request.setAttribute("cartItemList", cartItemList);
-        request.setAttribute("book", book);
         request.setAttribute("user", user);
         request.setAttribute("cities", cities);
         request.setAttribute("provinces", provinces);
@@ -149,7 +151,7 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("paymentTypes", paymentTypes);
         dispatcher.forward(request, response);
     }
-
+    
     public void insertOrder(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -179,10 +181,18 @@ public class OrderServlet extends HttpServlet {
         String shipping_country = countryDAO.selectCountry(country_id).getCountry_name();
         Double order_subtotal_amount = Double.parseDouble(request.getParameter("order_subtotal"));
         Double order_total_amount = Double.parseDouble(request.getParameter("order_total"));
-        
-        int payment_method = Integer.parseInt(request.getParameter("paymentMethod"));
-        
-        System.out.println("Payment method: " + payment_method);
+        // int payment_method = Integer.parseInt(request.getParameter("paymentMethod"));
+        String payment_method = request.getParameter("paymentMethod");
+//        if (payMethodDAO.checkDefaultPaymentMethod(user_id) == 0) {
+//            if (payment_method == 1) {
+//                try {
+//                    PaymentMethod paymentMethod = new PaymentMethod(user_id, payment_method, null, null, null, true);
+//                    payMethodDAO.insertPaymentMethod(paymentMethod);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(OrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
         int shipping_method = 1;
         BookOrder order = new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, transaction_satus,
                 special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,
@@ -203,7 +213,7 @@ public class OrderServlet extends HttpServlet {
                 unit_price = cart.getPrice();
             }
             double total_price = quantity * unit_price;
-            double tax_amount = (13 / 100) * total_price;
+            double tax_amount = Double.parseDouble(String.format("%.0f", (13.0 / 100.0) * total_price));
             double shipping_amount = 0;
             OrderItems orderItem = new OrderItems(book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount);
             orderItemsDAO.insertOrderItems(orderItem);
@@ -213,7 +223,7 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
         dispatcher.forward(request, response);
     }
-
+    
     public void saveAddress(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -249,7 +259,7 @@ public class OrderServlet extends HttpServlet {
             Logger.getLogger(OrderServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -257,7 +267,6 @@ public class OrderServlet extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("id") != null) {
                 String action = (request.getParameter("action"));
-                System.out.println(action);
                 if (action.equals("submitOrder")) {
                     insertOrder(request, response);
                 } else if (action.equals("saveAddress")) {
@@ -278,7 +287,7 @@ public class OrderServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";

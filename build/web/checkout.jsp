@@ -50,7 +50,7 @@
 
     <body><!-- component -->
         <div class="ml-6 mr-6">
-            <div class="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
+            <div class="py-8 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
                 <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
                 <div class="flex flex-col justify-start items-start w-full space-y-9">
                     <div class="flex justify-start flex-col items-start space-y-2 md:ml-10 sm:ml-3">
@@ -77,7 +77,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:set var="total_price" value="${0}"/>
+                                                <c:set var="total_price" value="${0.0}"/>
+                                                <c:set var="total_tax" value="${0.0}"/>
                                                 <c:forEach var="cartItem" items="${cartItemList}">
                                                     <tr class="text-gray-700 dark:text-gray-100">
                                                         <th class="border-t-0 px-4 content-start border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
@@ -91,16 +92,17 @@
                                                                 </div>
                                                             </div>
 
-                                                            <%--<c:out value="${cartItem.book_name}"/>--%>
                                                         </th>
                                                         <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${cartItem.quantity}</td>
                                                         <c:if test="${cartItem.discounted_price != ''}">                                                        
-                                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${cartItem.discounted_price * cartItem.quantity}</td>
-                                                            <c:set var="total_price" value="${total_price + (cartItem.discounted_price * cartItem.quantity)}"/>
+                                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${(cartItem.discounted_price * cartItem.quantity)+0.0}</td>
+                                                            <c:set var="total_price" value="${total_price + (cartItem.discounted_price * cartItem.quantity)+0.0}"/>
+                                                            <c:set var="total_tax" value="${total_tax + (cartItem.discounted_price * cartItem.quantity)*(13.0/100.0)}"/>
                                                         </c:if>
                                                         <c:if test="${cartItem.discounted_price == ''}">                                                        
-                                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${cartItem.price * cartItem.quantity}</td>
+                                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">${(cartItem.price * cartItem.quantity)+0.0}</td>
                                                             <c:set var="total_price" value="${total_price + (cartItem.price * cartItem.quantity) + 0.0}"/>
+                                                            <c:set var="total_tax" value="${total_tax + (cartItem.price * cartItem.quantity)*(13.0/100.0)}"/>
                                                         </c:if>
                                                     </tr>
                                                 </c:forEach>
@@ -125,11 +127,11 @@
                                                 </tr>
                                                 <tr class="text-gray-700 dark:text-gray-100  border-b-2">
                                                     <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs font-semibold whitespace-nowrap p-4">Taxes</th>
-                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs font-semibold whitespace-nowrap p-4">NPR. 0.0</th>
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs font-semibold whitespace-nowrap p-4">NPR. ${Double.parseDouble(String.format("%.0f", total_tax))}</th>
                                                 </tr>
                                                 <tr class="text-gray-700 dark:text-gray-100">
                                                     <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 whitespace-nowrap p-4 text-sm">Total</th>
-                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 whitespace-nowrap p-4 text-sm">NPR. ${total_price+0.0}</th>
+                                                    <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 whitespace-nowrap p-4 text-sm">NPR. ${total_price+(Double.parseDouble(String.format("%.0f", total_tax)))}</th>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -153,7 +155,7 @@
 
                                     <c:forEach var="payment" items="${paymentTypes}">
                                         <div class="flex items-center justify-start">
-                                            <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.id}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.payment_type}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
                                             <label for="${payment.payment_type}" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
                                                 <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-purple-100" title="Click to use this payment method">
                                                     ${payment.payment_type}
@@ -184,7 +186,6 @@
                                         </div>
                                     </c:if>
                                     <c:forEach var="address" items="${addresses}">
-
                                         <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-4 hover:bg-gray-200" title="Click to use this address">
                                             <a href="order?action=fillAddress&id=${address.id}">
                                                 <div class="flex">
@@ -203,7 +204,6 @@
                                             </a>
                                         </div>
                                     </c:forEach>
-
                                 </div>
                             </div>
                             <!--shipping address portion ends-->
@@ -285,7 +285,7 @@
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Any Special Instructions?</span>
                                             <textarea name="specialInstruction" placeholder="Please tell us anything you would like us to be cautious/informed of (Optional)..." class="h-40 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>  
                                             <input type="hidden" name="order_subtotal" value="${total_price}">
-                                            <input type="hidden" name="order_total" value="${total_price}">
+                                            <input type="hidden" name="order_total" value="${total_price + Double.parseDouble(String.format("%.0f", total_tax))}">
                                         </div>
                                         <hr class="mt-4 mx-3">
                                         <div class="flex flex-row-reverse p-3">

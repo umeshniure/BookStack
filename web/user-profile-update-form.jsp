@@ -177,6 +177,25 @@
                                     <h3 class="text-lg font-medium leading-6 text-gray-900">Shipping Information</h3>
                                     <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
                                 </div>
+                                <div class="px-4 sm:px-0 mt-4 space-y-3">
+                                    <h3 class="text-md font-medium font-semibold leading-6 text-gray-900">Saved shipping address(es)</h3>
+                                    <c:forEach var="address" items="${addresses}">
+                                        <div class="bg-white drop-shadow-lg cursor-pointer rounded-md px-2 py-3 hover:bg-gray-100" title="Click to edit this address">
+                                            <a href="order?action=fillAddress&id=${address.id}">
+                                                <div class="flex">
+                                                    <c:if test="${address.postal_code != null && address.postal_code != 0}">
+                                                        ${address.postal_code} - 
+                                                    </c:if>
+                                                    ${address.street},
+                                                    <c:if test='${address.apartment != null && address.apartment != ""}'>
+                                                        ${address.apartment}, 
+                                                    </c:if>
+                                                    ${address.city_name}, ${address.province_name}, ${address.country_name}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </c:forEach>
+                                </div>
                             </div>
                             <div class="mt-5 md:col-span-2 md:mt-0">
                                 <form action="#" method="POST">
@@ -192,19 +211,38 @@
                                                     <input type="text" name="apartment" id="apartment" autocomplete="apartment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-2">
-                                                    <label for="city" class="block text-sm font-medium text-gray-700">Country</label>
-                                                    <select id="country" name="country" autocomplete="country-name" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                        <option>Nepal</option>
+                                                    <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                                                    <select name="country" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.country}">${fillAddress.country_name}</option>
+                                                        </c:if>
+                                                        <c:forEach var="country" items="${countries}">
+                                                            <option value="${country.id}">${country.country_name}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                                                    <input type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <select name="city" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.city}">${fillAddress.city_name}</option>
+                                                        </c:if>
+                                                        <c:forEach var="city" items="${cities}">
+                                                            <option value="${city.id}">${city.city_name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                                     <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label>
-                                                    <input type="text" name="region" id="region" autocomplete="address-level1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <select name="province" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.province}">${fillAddress.province_name}</option>
+                                                        </c:if>
+                                                        <c:forEach var="province" items="${provinces}">
+                                                            <option value="${province.id}">${province.province_name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
