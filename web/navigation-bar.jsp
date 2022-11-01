@@ -10,7 +10,7 @@
     <div class="container flex flex-wrap justify-between items-center mx-auto rounded">
         <a href="home" >
             <div class="flex items-center h-20 w-20">
-                <img src="images/bookstack-logo.png" class="ml-4 h-full w-auto" alt="Bookstack Logo">
+                <img src="./images/static/bookstack_logos/bookstack-logo.png" class="ml-4 h-full w-auto" alt="Bookstack Logo">
                     <!--<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-grey">Bookstack</span>-->
             </div>
         </a>
@@ -35,7 +35,7 @@
                 <div class="flex -space-x-2 overflow-hidden">
                     <div class="flex justify-center">
                         <c:if test="${user.profile_pic_name == null}">
-                            <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="">
+                            <img  data-popover-target="popover-user-profile" title="My profile" class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="./images/static/general_images/empty_profile_pic.png" alt="Empty profile picture">
                             </c:if>
                             <c:if test="${user.profile_pic_name != null}">
                                 <c:if test="${sessionScope.user_type == 1}">
@@ -53,7 +53,7 @@
                                         <div class="bg-white shadow rounded-lg">
                                             <div class="flex justify-center">
                                                 <c:if test="${user.profile_pic_name == null}">
-                                                    <img src="https://www.pngitem.com/pimgs/m/24-248235_user-profile-avatar-login-account-fa-user-circle.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                                                    <img src="./images/static/general_images/empty_profile_pic.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
                                                     </c:if>
                                                     <c:if test="${user.profile_pic_name != null}">
                                                         <c:if test="${sessionScope.user_type == 1}">
@@ -69,7 +69,9 @@
                                                                 <h1 class="font-bold text-center text-3xl text-gray-900">${user.firstname} ${user.lastname}</h1>
                                                                 <h1 class="font-bold text-center text-2xl text-gray-900">${user.store_name}</h1>
                                                                 <p class="text-center text-sm text-gray-400 font-medium">${user.email}</p>
-                                                                <p class="text-center text-sm text-gray-400 font-medium">${user.phone_number}</p>
+                                                                <c:if test="${user.phone_number != 0 && user.phone_number != null}">
+                                                                    <p class="text-center text-sm text-gray-400 font-medium">${user.phone_number}</p>
+                                                                </c:if>
                                                                 <p>
                                                                     <span>
 
@@ -82,7 +84,12 @@
                                                                 </c:if>
                                                                 <c:if test="${sessionScope.user_type == 2}">
                                                                     <div class="my-5 px-6">
-                                                                        <a href="vendorDashboard" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
+                                                                        <a href="vendorbook" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
+                                                                    </div>
+                                                                </c:if>
+                                                                <c:if test="${sessionScope.user_type == 3}">
+                                                                    <div class="my-5 px-6">
+                                                                        <a href="admin" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
                                                                     </div>
                                                                 </c:if>
                                                                 <c:if test="${sessionScope.user_type == 1}">
@@ -134,7 +141,7 @@
                                                                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill=""><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                                                             </button>
                                                             </div>
-                                                                
+
                                                         </c:if>
                                                         <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                                                             <ul class="flex flex-col p-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-auto md:font-medium md:bg-white">

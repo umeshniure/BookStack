@@ -68,7 +68,8 @@
                         <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
                         <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
                     </div> 
-                    <c:set var="total_price" value="${0}"/>
+                    <c:set var="total_price" value="${0.0}"/>
+                    <c:set var="total_tax" value="${0.0}"/>
                     <c:if test="${cartItemList != null && cartItemList.isEmpty()}">
                         <div class="flex justify-center">
                             <h3 class="text-sm font-normal tracking-tight text-gray-900 justify-self-center">Ohh! your cart is empty  :-(</h3>
@@ -106,11 +107,13 @@
                                 </span>
                                 <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.discounted_price * cartItem.quantity}"/></span>                                                  
                                 <c:set var="total_price" value="${total_price + (cartItem.discounted_price * cartItem.quantity)}"/>
+                                <c:set var="total_tax" value="${total_tax + ((cartItem.discounted_price * cartItem.quantity)*(13.0/100.0))}"/>
                             </c:if>
                             <c:if test="${cartItem.discounted_price == ''}">
                                 <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.price}"/></span>
                                 <span class="text-center w-1/5 font-semibold text-sm">NPR. <c:out value="${cartItem.price * cartItem.quantity}"/></span>                                                  
                                 <c:set var="total_price" value="${total_price + (cartItem.price * cartItem.quantity)}"/>
+                                <c:set var="total_tax" value="${total_tax + ((cartItem.price * cartItem.quantity)*(13.0/100.0))}"/>
                             </c:if>
                         </div>
                     </c:forEach>
@@ -139,10 +142,14 @@
                         <input type="text" id="promo" placeholder="Coming soon..." class="p-2 text-sm w-full border rounded cursor-not-allowed" disabled>
                     </div>
                     <button class="bg-red-400 px-5 py-2 text-sm text-gray-300 uppercase rounded cursor-not-allowed" disabled>Apply</button>
-                    <div class="border-t mt-8">
+                    <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                        <span>Tax</span>
+                        <span>NPR. ${Double.parseDouble(String.format("%.0f", total_tax))}</span>
+                    </div>
+                    <div class="border-t">
                         <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                             <span>Total cost</span>
-                            <span>NPR. <c:out value="${total_price}"/></span>
+                            <span>NPR. ${total_price + Double.parseDouble(String.format("%.0f", total_tax))}</span>
                         </div>
 
                         <c:if test="${cartItemList.size() > 0}">
