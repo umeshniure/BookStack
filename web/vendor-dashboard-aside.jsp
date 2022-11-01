@@ -8,7 +8,7 @@
     <div>
         <div class="-mx-6 px-6 py-4 flex justify-center ">
             <a href="home" title="home">
-                <img src="images/bookstack-logo.png" style="width:60px; height:60px;" alt="Bookstack logo">
+                <img src="images/static/bookstack_logos/bookstack-logo.png" style="width:60px; height:60px;" alt="Bookstack logo">
             </a>
         </div>
 

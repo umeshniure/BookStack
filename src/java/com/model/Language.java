@@ -2,8 +2,8 @@ package com.model;
 
 public class Language {
 
-    protected int id;
-    protected String language_name;
+    private int id;
+    private String language_name;
 
     public Language() {
     }

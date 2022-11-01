@@ -60,8 +60,8 @@
                                         <div class="text-center">
                                             <img
                                                 class="mx-auto w-28"
-                                                src="images/bookstack-logo.png"
-                                                alt="logo"
+                                                src="./images/static/bookstack_logos/bookstack-logo.png"
+                                                alt="Bookstack"
                                                 />
                                             <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">We are The Bookstack Team</h4>
                                         </div>

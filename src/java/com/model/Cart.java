@@ -7,7 +7,8 @@ public class Cart {
     private int id;
     private int user_id;
     private int book_id;
-    private int quantity, price, discounted_price;
+    private int quantity, price;
+    Integer discounted_price;
     private Date created_date;
     private String book_name, book_author, cover_photo_name;
     private int vendor_id;
@@ -33,7 +34,7 @@ public class Cart {
     }
 
     // cart constructor for joined table
-    public Cart(int id, int user_id, int book_id, int quantity, Date created_date, String book_name, String book_author, String cover_photo_name, int price, int discounted_price, int vendor_id) {
+    public Cart(int id, int user_id, int book_id, int quantity, Date created_date, String book_name, String book_author, String cover_photo_name, int price, Integer discounted_price, int vendor_id) {
         super();
         this.id = id;
         this.user_id = user_id;
@@ -177,14 +178,14 @@ public class Cart {
     /**
      * @return the discounted_price
      */
-    public int getDiscounted_price() {
+    public Integer getDiscounted_price() {
         return discounted_price;
     }
 
     /**
      * @param discounted_price the discounted_price to set
      */
-    public void setDiscounted_price(int discounted_price) {
+    public void setDiscounted_price(Integer discounted_price) {
         this.discounted_price = discounted_price;
     }
 

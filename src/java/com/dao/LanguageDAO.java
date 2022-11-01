@@ -1,7 +1,6 @@
 package com.dao;
 
 import com.config.Config;
-import com.model.Category;
 import com.model.Language;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,7 +53,7 @@ public class LanguageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LANGUAGE_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 String language_name = rs.getString("language_name");
                 id = rs.getInt("id");
                 language = new Language(id, language_name);

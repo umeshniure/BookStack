@@ -140,9 +140,11 @@ public class VendorBooks extends HttpServlet {
         HttpSession session = request.getSession(false);
         int id = (int) session.getAttribute("id");
         List<Books> books = bookDAO.selectBookByVendorID(id);
+        Users user = userDAO.selectUser(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("vendor-book-list.jsp");
         request.setAttribute("books", books);
         request.setAttribute("page", "My Books");
+        request.setAttribute("vendor", user);
         dispatcher.forward(request, response);
     }
 
