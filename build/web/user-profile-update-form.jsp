@@ -179,9 +179,18 @@
                                 </div>
                                 <div class="px-4 sm:px-0 mt-4 space-y-3">
                                     <h3 class="text-md font-medium font-semibold leading-6 text-gray-900">Saved shipping address(es)</h3>
+                                    <c:if test="${addresses.size() == 0}">
+                                        <div class="py-2 text-sm w-full">
+                                            <span>No address found!</span>
+                                        </div>
+                                    </c:if>
                                     <c:forEach var="address" items="${addresses}">
                                         <div class="bg-white drop-shadow-lg cursor-pointer rounded-md px-2 py-3 hover:bg-gray-100" title="Click to edit this address">
-                                            <div class="inline-flex absolute -top-2 -right-2 justify-center items-center w-6 h-6 text-xs font-bold text-red rounded-full border-2 border-red-400 dark:border-gray-900">X</div>
+                                            <a href="updateProfile?action=deleteAddress&id=${address.id}">
+                                                <div class="inline-flex absolute -top-2 -right-2 justify-center items-center w-6 h-6 text-xs font-bold text-red-800 bg-white hover:bg-red-500 hover:text-white rounded-full border-2 border-red-500 dark:border-gray-900" title="Delete this address">
+                                                    X
+                                                </div>
+                                            </a>
                                             <a href="updateProfile?action=fillAddress&id=${address.id}">
                                                 <div class="flex">
                                                     <c:if test="${address.postal_code != null && address.postal_code != 0}">

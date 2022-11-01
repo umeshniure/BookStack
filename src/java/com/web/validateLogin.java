@@ -64,27 +64,6 @@ public class validateLogin extends HttpServlet {
         }
     }
 
-//    public void loginWithGoogle(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        response.setContentType("text/html");
-//
-//        try {
-//            String idToken = request.getParameter("id_token");
-//            GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
-//            String name = (String) payLoad.get("name");
-//            String email = payLoad.getEmail();
-//            System.out.println("User name: " + name);
-//            System.out.println("User email: " + email);
-//
-//            HttpSession session = request.getSession(true);
-//            session.setAttribute("userName", name);
-//            request.getServletContext()
-//                    .getRequestDispatcher("/welcome-page.jsp").forward(request, response);
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
     public void normalLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String _email = request.getParameter("email");
