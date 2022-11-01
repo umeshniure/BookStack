@@ -84,7 +84,7 @@
                                                                 </c:if>
                                                                 <c:if test="${sessionScope.user_type == 2}">
                                                                     <div class="my-5 px-6">
-                                                                        <a href="vendorDashboard" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
+                                                                        <a href="vendorbook" class="text-gray-100 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 hover:text-white">My Dashboard</span></a>
                                                                     </div>
                                                                 </c:if>
                                                                 <c:if test="${sessionScope.user_type == 3}">

@@ -5,15 +5,13 @@
 package com.web;
 
 import com.dao.*;
-import com.model.City;
-import com.model.Country;
-import com.model.Province;
-import com.model.ShippingAddress;
-import com.model.Users;
-import com.secure.RandomAlphanumericString;
+import com.model.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -76,6 +74,16 @@ public class UpdateProfile extends HttpServlet {
     public void showUpdateProfilePage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        int user_id = (int) session.getAttribute("id");
+        ShippingAddress fillAddress = null;
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        if (action.equals("fillAddress")) {
+            int addressId = Integer.parseInt(request.getParameter("id"));
+            fillAddress = addressDAO.selectShippingAddress(addressId, user_id);
+        }
         Users user = userDAO.selectUser((int) session.getAttribute("id"));
         List<City> cities = cityDAO.selectAllCity();
         List<Province> provinces = provinceDAO.selectAllProvince();
@@ -87,6 +95,7 @@ public class UpdateProfile extends HttpServlet {
         request.setAttribute("provinces", provinces);
         request.setAttribute("countries", countries);
         request.setAttribute("addresses", addresses);
+        request.setAttribute("fillAddress", fillAddress);
         rd.forward(request, response);
     }
 
@@ -125,15 +134,102 @@ public class UpdateProfile extends HttpServlet {
         }
     }
 
+    public void saveAddress(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            HttpSession session = request.getSession(false);
+            int user_id = (int) session.getAttribute("id");
+            Integer postal_code;
+            String temp = request.getParameter("postcode");
+            if (temp == "" || temp == null) {
+                postal_code = null;
+            } else if (Integer.parseInt(temp) == 0) {
+                postal_code = null;
+            } else {
+                postal_code = Integer.parseInt(temp);
+            }
+            String shipping_street = request.getParameter("street");
+            String shipping_apartment = request.getParameter("apartment");
+            int shipping_province = Integer.parseInt(request.getParameter("province"));
+            int shipping_city = Integer.parseInt(request.getParameter("city"));
+            int shipping_country = Integer.parseInt(request.getParameter("country"));
+            String page = request.getParameter("page");
+            boolean is_default = false;
+            if (addressDAO.checkDefaultAddress(user_id) == 0) {
+                is_default = true;
+            }
+            ShippingAddress Address = new ShippingAddress(user_id, shipping_street, shipping_apartment,
+                    shipping_province, shipping_city, shipping_country, postal_code, is_default);
+            if (addressDAO.insertshippingAddress(Address)) {
+                request.getSession(false).setAttribute("successMessage", "Your address is saved successfully.");
+            } else {
+                request.getSession(false).setAttribute("errorMessage", "Sorry! Your address couldnot be saved at the moment!");
+            }
+            if (page.equals("checkout")) {
+                response.sendRedirect("order");
+            } else if (page.equals("profile")) {
+                response.sendRedirect("updateProfile");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateAddress(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            HttpSession session = request.getSession(false);
+            int user_id = (int) session.getAttribute("id");
+            int id = Integer.parseInt(request.getParameter("id"));
+            Integer postal_code;
+            String temp = request.getParameter("postcode");
+            if (temp.equals("") || temp == null) {
+                postal_code = null;
+            } else if (Integer.parseInt(temp) == 0) {
+                postal_code = null;
+            } else {
+                postal_code = Integer.parseInt(temp);
+            }
+            String shipping_street = request.getParameter("street");
+            String shipping_apartment = request.getParameter("apartment");
+            int shipping_province = Integer.parseInt(request.getParameter("province"));
+            int shipping_city = Integer.parseInt(request.getParameter("city"));
+            int shipping_country = Integer.parseInt(request.getParameter("country"));
+            boolean is_default = Boolean.parseBoolean(request.getParameter("is_default"));
+            ShippingAddress Address = new ShippingAddress(id, user_id, shipping_street, shipping_apartment,
+                    shipping_province, shipping_city, shipping_country, postal_code, is_default);
+            if (addressDAO.updateShippingAddress(Address)) {
+                request.getSession(false).setAttribute("successMessage", "Your address is updated successfully.");
+            } else {
+                request.getSession(false).setAttribute("errorMessage", "Sorry! Your address couldnot be updated at the moment!");
+            }
+            response.sendRedirect("updateProfile");
+        } catch (IOException | NumberFormatException ex) {
+            Logger.getLogger(OrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-
-                updateProfile(request, response);
-
+                String action = (request.getParameter("action"));
+                if (action == null) {
+                    action = "";
+                }
+                switch (action) {
+                    case "saveAddress":
+                        saveAddress(request, response);
+                        break;
+                    case "updateAddress":
+                        updateAddress(request, response);
+                        break;
+                    default:
+                        updateProfile(request, response);
+                        break;
+                }
             } else {
                 String errorMessage = "Sorrry! you should log in first to access the page.";
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home");

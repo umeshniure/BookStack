@@ -18,8 +18,21 @@ public class ShippingAddress {
     public ShippingAddress() {
     }
 
-    public ShippingAddress(int user_id, String street, String apartment, int city, int province, int country, Integer postal_code, boolean is_default) {
+    public ShippingAddress(int user_id, String street, String apartment, int province, int city, int country, Integer postal_code, boolean is_default) {
         super();
+        this.user_id = user_id;
+        this.street = street;
+        this.apartment = apartment;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postal_code = postal_code;
+        this.is_default = is_default;
+    }
+
+    public ShippingAddress(int id, int user_id, String street, String apartment, int province, int city, int country, Integer postal_code, boolean is_default) {
+        super();
+        this.id = id;
         this.user_id = user_id;
         this.street = street;
         this.apartment = apartment;

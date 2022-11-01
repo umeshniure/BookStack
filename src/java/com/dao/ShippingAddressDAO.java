@@ -23,13 +23,13 @@ public class ShippingAddressDAO {
             ps.setString(3, address.getApartment());
             ps.setInt(4, address.getCity());
             ps.setInt(5, address.getProvince());
-            ps.setInt(7, address.getCountry());
-            ps.setBoolean(8, address.getIs_default());
-            if (address.getPostal_code() == null) {
+            if (address.getPostal_code() == null || address.getPostal_code() == 0) {
                 ps.setNull(6, java.sql.Types.NULL);
             } else {
                 ps.setInt(6, address.getPostal_code());
             }
+            ps.setInt(7, address.getCountry());
+            ps.setBoolean(8, address.getIs_default());
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -71,20 +71,20 @@ public class ShippingAddressDAO {
         return addresses;
     }
 
-    public ShippingAddress selectShippingAddress(int id) {
+    public ShippingAddress selectShippingAddress(int id, int user_id) {
         String SELECT_ALL_ADDRESS = "SELECT * FROM shipping_address "
                 + "INNER JOIN city ON shipping_address.city = city.id "
                 + "INNER JOIN province ON shipping_address.province = province.id "
                 + "INNER JOIN country ON shipping_address.country = country.id "
-                + "where shipping_address.id = ?";
+                + "where shipping_address.id = ? AND user_id=?";
         ShippingAddress address = new ShippingAddress();
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ADDRESS);
             preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, user_id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                int user_id = rs.getInt("user_id");
                 Integer postal_code = rs.getInt("postal_code");
                 String street = rs.getString("street");
                 String apartment = rs.getString("apartment");
@@ -140,7 +140,7 @@ public class ShippingAddressDAO {
     public boolean updateShippingAddress(ShippingAddress address) {
         String UPDATE_ADDRESS = "UPDATE shipping_address "
                 + "SET street=?, apartment=?, city=?, province=?, postal_code=?, country=?, is_default=? "
-                + "where id = ? AND user_id=?";
+                + "WHERE id = ? AND user_id=?";
         boolean updated = false;
         try {
             Connection connection = Config.getConnection();

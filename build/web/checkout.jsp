@@ -286,6 +286,7 @@
                                             <textarea name="specialInstruction" placeholder="Please tell us anything you would like us to be cautious/informed of (Optional)..." class="h-40 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>  
                                             <input type="hidden" name="order_subtotal" value="${total_price}">
                                             <input type="hidden" name="order_total" value="${total_price + Double.parseDouble(String.format("%.0f", total_tax))}">
+                                            <input type="hidden" name="page" value="checkout">
                                         </div>
                                         <hr class="mt-4 mx-3">
                                         <div class="flex flex-row-reverse p-3">
