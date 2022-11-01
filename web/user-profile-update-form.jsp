@@ -177,45 +177,110 @@
                                     <h3 class="text-lg font-medium leading-6 text-gray-900">Shipping Information</h3>
                                     <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
                                 </div>
+                                <div class="px-4 sm:px-0 mt-4 space-y-3">
+                                    <h3 class="text-md font-medium font-semibold leading-6 text-gray-900">Saved shipping address(es)</h3>
+                                    <c:forEach var="address" items="${addresses}">
+                                        <div class="bg-white drop-shadow-lg cursor-pointer rounded-md px-2 py-3 hover:bg-gray-100" title="Click to edit this address">
+                                            <div class="inline-flex absolute -top-2 -right-2 justify-center items-center w-6 h-6 text-xs font-bold text-red rounded-full border-2 border-red-400 dark:border-gray-900">X</div>
+                                            <a href="updateProfile?action=fillAddress&id=${address.id}">
+                                                <div class="flex">
+                                                    <c:if test="${address.postal_code != null && address.postal_code != 0}">
+                                                        ${address.postal_code} - 
+                                                    </c:if>
+                                                    ${address.street},
+                                                    <c:if test='${address.apartment != null && address.apartment != ""}'>
+                                                        ${address.apartment}, 
+                                                    </c:if>
+                                                    ${address.city_name}, ${address.province_name}, ${address.country_name}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </c:forEach>
+                                </div>
                             </div>
                             <div class="mt-5 md:col-span-2 md:mt-0">
-                                <form action="#" method="POST">
+                                <form action="updateProfile" method="POST">
                                     <div class="overflow-hidden shadow sm:rounded-md">
                                         <div class="bg-white px-4 py-5 sm:p-6">
                                             <div class="grid grid-cols-6 gap-6">
                                                 <div class="col-span-6">
                                                     <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
-                                                    <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <input type="text" name="street" value="${fillAddress.street}" id="street-address" autocomplete="street-address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-4">
                                                     <label for="email-address" class="block text-sm font-medium text-gray-700">Apartment, Suite</label>
-                                                    <input type="text" name="apartment" id="apartment" autocomplete="apartment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <input type="text" name="apartment" value="${fillAddress.apartment}" id="apartment" autocomplete="apartment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-2">
-                                                    <label for="city" class="block text-sm font-medium text-gray-700">Country</label>
-                                                    <select id="country" name="country" autocomplete="country-name" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                        <option>Nepal</option>
+                                                    <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                                                    <select name="country" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.country}">${fillAddress.country_name}</option>
+                                                        </c:if>
+                                                        <c:forEach var="country" items="${countries}">
+                                                            <option value="${country.id}">${country.country_name}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                                                    <input type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <select name="city" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.city}">${fillAddress.city_name}</option>
+                                                        </c:if>
+                                                        <c:forEach var="city" items="${cities}">
+                                                            <option value="${city.id}">${city.city_name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                                                    <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label>
-                                                    <input type="text" name="region" id="region" autocomplete="address-level1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <label for="province" class="block text-sm font-medium text-gray-700">State / Province</label>
+                                                    <select name="province" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <c:if test="${addresses.size()!= 0}">
+                                                            <option value="${fillAddress.province}">${fillAddress.province_name}</option>
+                                                        </c:if>
+                                                        <c:forEach var="province" items="${provinces}">
+                                                            <option value="${province.id}">${province.province_name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                                     <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
-                                                    <input type="tel" maxlength="7" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <c:if test="${fillAddress.postal_code != 0 && fillAddress.postal_code != null}">
+                                                        <input type="tel" maxlength="7" name="postcode" value="${fillAddress.postal_code}" id="postal-code" autocomplete="postal-code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    </c:if>
+                                                    <c:if test="${fillAddress.postal_code == 0 || fillAddress.postal_code == null}">
+                                                        <input type="tel" maxlength="7" name="postcode" id="postal-code" autocomplete="postal-code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    </c:if>
                                                 </div>
+                                                <c:if test="${fillAddress != null}">
+                                                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                                        <label for="is_default" class="block text-sm font-medium text-gray-700">is_default</label>
+                                                        <select name="is_default" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                            <c:if test="${addresses.size()!= 0}">
+                                                                <option value="${fillAddress.is_default}">${fillAddress.is_default}</option>
+                                                            </c:if>
+                                                            <option value="true">true</option>
+                                                            <option value="false">false</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="hidden" name="id" value="${fillAddress.id}" >
+                                                </c:if>
+                                                <input type="hidden" name="page" value="profile" >
                                             </div>
                                         </div>
-                                        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                                            <button type="submit" class="w-48 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
-                                        </div>
+                                        <c:if test="${fillAddress != null}">
+                                            <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                                                <button type="submit" name="action" value="updateAddress" class="w-48 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Update</button>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${fillAddress == null}">
+                                            <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                                                <button type="submit" name="action" value="saveAddress" class="w-48 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </form>
                             </div>
