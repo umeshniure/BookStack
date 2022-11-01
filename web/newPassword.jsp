@@ -3,7 +3,7 @@
     <head>
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <title>Snippet - BBBootstrap</title>
+        <title>Reset password</title>
         <link
             href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'
             rel='stylesheet'>
@@ -18,13 +18,13 @@
             }
 
             .custom-control-label::before {
-                background-color: #dee2e6;
+                background-color: #eee
                 border: #dee2e6
                     this is a test code
             }
         </style>
     </head>
-    <body oncontextmenu='return false' class='snippet-body bg-info'>
+    <body oncontextmenu='return false' class='' style="background-color:#eee;">
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
         <div>

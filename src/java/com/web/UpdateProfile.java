@@ -54,8 +54,17 @@ public class UpdateProfile extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-
-                showUpdateProfilePage(request, response);
+                String action = request.getParameter("action");
+                System.out.println(action);
+                if (action == null) {
+                    action = "";
+                }
+                System.out.println("action: " + action);
+                if (action.equals("deleteAddress")) {
+                    deleteAddress(request, response);
+                } else {
+                    showUpdateProfilePage(request, response);
+                }
 
             } else {
                 String errorMessage = "Sorrry! you should log in first to access the page.";
@@ -68,6 +77,26 @@ public class UpdateProfile extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("home");
             request.setAttribute("errorMessage", errorMessage);
             dispatcher.forward(request, response);
+        }
+    }
+
+    public void deleteAddress(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        int user_id = (int) session.getAttribute("id");
+        int id = Integer.parseInt(request.getParameter("id"));
+        ShippingAddress address = addressDAO.selectShippingAddress(id, user_id);
+        if (address.getId() != 0) {
+            if (addressDAO.deleteShippingAddress(id)) {
+                session.setAttribute("successMessage", "Your address is successfully deleted.");
+                response.sendRedirect("updateProfile");
+            } else {
+                session.setAttribute("errorMessage", "Sorry! You address couldnot be deleted at the moment.");
+                response.sendRedirect("updateProfile");
+            }
+        } else {
+            session.setAttribute("errorMessage", "Sorry! You cannot delete others address.");
+            response.sendRedirect("updateProfile");
         }
     }
 

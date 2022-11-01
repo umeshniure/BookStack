@@ -27,11 +27,13 @@
         <c:if test="${sessionScope.id != null}">
 
             <div class="flex md:order-2 space-x-5 items-center">
-                <a href="cart"><div class="flex -space-x-2 overflow-hidden hover:text-purple-500" title="My cart">
+                <a href="cart">
+                    <div class="flex -space-x-2 overflow-hidden hover:text-purple-500" title="My cart">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg>
-                    </div></a>
+                    </div>
+                </a>
                 <div class="flex -space-x-2 overflow-hidden">
                     <div class="flex justify-center">
                         <c:if test="${user.profile_pic_name == null}">
@@ -50,7 +52,7 @@
                                     <!--profile cards-->
                                     <div data-popover id="popover-user-profile" role="tooltip" class="inline-block absolute invisible z-40 w-96 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
 
-                                        <div class="bg-white shadow rounded-lg">
+                                        <div class="rounded-lg">
                                             <div class="flex justify-center">
                                                 <c:if test="${user.profile_pic_name == null}">
                                                     <img src="./images/static/general_images/empty_profile_pic.png" alt="" class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
@@ -105,24 +107,23 @@
                                                                             <h3 class="font-medium text-gray-900 text-left pl-6 inline-block">Shipping information</h3>
                                                                             <a href="changePassword"><h3 class="font-medium text-gray-900 text-left pr-6 inline-block hover:text-purple-600">Change password</h3></a>
                                                                         </div>
-                                                                        <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
-                                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
-                                                                                    Updated his status
-                                                                                    <span class="text-gray-500 text-xs">24 min ago</span>
-                                                                            </a>
-
-                                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
-                                                                                    Added new profile picture
-                                                                                    <span class="text-gray-500 text-xs">42 min ago</span>
-                                                                            </a>
-
-                                                                            <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                                                                <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
-                                                                                    Posted new article in <span class="font-bold">#Web Dev</span>
-                                                                                    <span class="text-gray-500 text-xs">49 min ago</span>
-                                                                            </a>
+                                                                        <div class="mt-5 w-full max-h-56 flex flex-col items-center overflow-y-auto text-sm">
+                                                                            <c:if test="${addresses.size() == 0}">
+                                                                                You have not saved any addresses yet!<br>
+                                                                                    Click "Edit Profile" to add addresses.
+                                                                                </c:if>
+                                                                                <c:forEach var="address" items="${addresses}">
+                                                                                    <div class="w-full border-t border-gray-100 font-normal text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                                                                        <c:if test="${address.postal_code != null && address.postal_code != 0}">
+                                                                                            ${address.postal_code} - 
+                                                                                        </c:if>
+                                                                                        ${address.street},
+                                                                                        <c:if test='${address.apartment != null && address.apartment != ""}'>
+                                                                                            ${address.apartment}, 
+                                                                                        </c:if>
+                                                                                        ${address.city_name}, ${address.province_name}, ${address.country_name}
+                                                                                    </div>
+                                                                                </c:forEach>
                                                                         </div>
                                                                     </div>
                                                                 </c:if>
