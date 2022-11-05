@@ -88,7 +88,6 @@ public class ValidateVendorRegistration extends HttpServlet {
                             if (_password1.equals(_password2)) {
                                 try {
                                     pic_part = request.getPart("profile_pic");
-                                    System.out.println("Pic Part: " + pic_part);
                                     //String fileName = extractFileName(pic_part);
                                     String fileName = store_name + "-profile_pic.png";
                                     String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles" + File.separator + fileName;
@@ -96,7 +95,7 @@ public class ValidateVendorRegistration extends HttpServlet {
                                     pic_part.write(imageSavePath + File.separator);
                                     Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, fileName, encrypt.encryptPassword(_password1), user_type);
                                     vendorsDAO.insertUser(newVendor);
-                                    RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+                                    RequestDispatcher dispatcher = request.getRequestDispatcher("LogIn.jsp");
                                     request.setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
                                     dispatcher.forward(request, response);
                                 } catch (Exception e) {

@@ -15,21 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.*;
 import com.model.*;
-import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Home", urlPatterns = {"/home"})
 public class Home extends HttpServlet {
 
     private BookDAO bookDAO;
     private CategoryDAO categoryDAO;
-    private UsersDAO userDAO;
-    private ShippingAddressDAO addressDAO;
 
     public void init() {
         bookDAO = new BookDAO();
         categoryDAO = new CategoryDAO();
-        userDAO = new UsersDAO();
-        addressDAO = new ShippingAddressDAO();
     }
 
     @Override
@@ -174,23 +169,11 @@ public class Home extends HttpServlet {
 
     public void showHome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        Users user = null;
-        List<ShippingAddress> addresses = null;
-        if (session != null) {
-            if (session.getAttribute("id") != null) {
-                user = userDAO.selectUser((int) session.getAttribute("id"));
-                addresses = addressDAO.selectShippingAddressByUserId((int) session.getAttribute("id"));
-
-            }
-        }
         List<Books> booklist = bookDAO.selectAllBooks();
         List<Category> categoryList = categoryDAO.selectAllCategory();
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("booklist", booklist);
-        request.setAttribute("addresses", addresses);
-        request.setAttribute("user", user);
         dispatcher.forward(request, response);
     }
 

@@ -3,9 +3,22 @@
     Created on : Aug 6, 2022, 6:20:48 PM
     Author     : Umesh
 --%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:if test="${sessionScope.id != null}">
+    <%@ page import="com.dao.UsersDAO" %>
+    <%@ page import="com.dao.ShippingAddressDAO" %>
+    <%@ page import="com.model.ShippingAddress" %>
+    <%@ page import="com.model.Users" %>
+    <%@ page import="java.util.List"%>
+
+    <%
+        Users user = new UsersDAO().selectUser((int) session.getAttribute("id"));
+        List<ShippingAddress> addresses = new ShippingAddressDAO().selectShippingAddressByUserId((int) session.getAttribute("id"));
+        pageContext.setAttribute("user", user);
+        pageContext.setAttribute("addresses", addresses);
+    %>
+</c:if>
 <nav class="bg-gray-100 px-2 sm:px-4 py-2.5 mb-2 rounded shadow-md">
     <div class="container flex flex-wrap justify-between items-center mx-auto rounded">
         <a href="home" >

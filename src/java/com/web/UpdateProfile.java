@@ -55,11 +55,9 @@ public class UpdateProfile extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("id") != null) {
                 String action = request.getParameter("action");
-                System.out.println(action);
                 if (action == null) {
                     action = "";
                 }
-                System.out.println("action: " + action);
                 if (action.equals("deleteAddress")) {
                     deleteAddress(request, response);
                 } else {

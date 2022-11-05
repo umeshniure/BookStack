@@ -144,24 +144,26 @@
                                 <div class="p-2 w-full">
                                     <div class="flex items-center justify-between w-full">
                                         <h3 class="inline text-lg font-semibold leading-none">Select payment method</h3>
-                                        <a href="#"><button type="button" class="px-2 py-2 font-medium tracking-wide text-black rounded-lg hover:bg-gray-200" title="Click to addd/edit your default payment method">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-                                                <path d="M0 0h24v24H0V0z" fill="none"></path>
-                                                <path d="M5 18.08V19h.92l9.06-9.06-.92-.92z" opacity=".3"></path>
-                                                <path d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19z"></path>
-                                                </svg>
-                                            </button></a>
+                                        <!--                                        <a href="#"><button type="button" class="px-2 py-2 font-medium tracking-wide text-black rounded-lg hover:bg-gray-200" title="Click to addd/edit your default payment method">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                                                                                        <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                                                                        <path d="M5 18.08V19h.92l9.06-9.06-.92-.92z" opacity=".3"></path>
+                                                                                        <path d="M20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19z"></path>
+                                                                                        </svg>
+                                                                                    </button></a>-->
                                     </div>
 
                                     <c:forEach var="payment" items="${paymentTypes}">
-                                        <div class="flex items-center justify-start">
-                                            <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.payment_type}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
-                                            <label for="${payment.payment_type}" class="py-1 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
-                                                <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-gray-100" title="Click to use this payment method">
-                                                    ${payment.payment_type}
-                                                </div>
-                                            </label>
-                                        </div>
+                                        <c:if test="${payment.id == 1}">
+                                            <div class="flex items-center justify-start mt-2">
+                                                <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.payment_type}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required checked>
+                                                <label for="${payment.payment_type}" class="py-1 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
+                                                    <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-gray-100" title="Click to use this payment method">
+                                                        ${payment.payment_type}
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </c:if>
                                     </c:forEach>
                                 </div>
                             </div>

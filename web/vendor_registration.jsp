@@ -99,7 +99,7 @@
                                     <!-- phone input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="form3Example3">Phone</label>
-                                        <input name="phone_number" type="phone" id="form3Example3" class="form-control" maxlength="10" value="${phone_number}"/>
+                                        <input name="phone_number" type="phone" id="form3Example3" class="form-control" maxlength="10" value="${phone_number}" required/>
                                     </div>
 
                                     <!-- Email input -->
@@ -146,7 +146,7 @@
 
                                     <!-- Submit button -->
                                     <button type="submit" class="btn btn-primary btn-block mb-4 text-blue-600" style="width: 100%;">
-                                        Sign up
+                                        Register
                                     </button>
                                     <!-- Register buttons --> 
                                     <label class=" d-flex justify-content-center">-------------------- OR --------------------</label>

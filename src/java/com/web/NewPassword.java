@@ -48,10 +48,10 @@ public class NewPassword extends HttpServlet {
                     int rowCount = pst.executeUpdate();
                     if (rowCount > 0) {
                         request.setAttribute("successMessage", "Your password is successfully reset. Please login with your new password.");
-                        dispatcher = request.getRequestDispatcher("login");
+                        dispatcher = request.getRequestDispatcher("LogIn.jsp");
                     } else {
                         request.setAttribute("errorMessage", "Sorry! your password couldnot be reset at the moment.");
-                        dispatcher = request.getRequestDispatcher("login");
+                        dispatcher = request.getRequestDispatcher("LogIn.jsp");
                     }
                     dispatcher.forward(request, response);
                 } catch (Exception e) {

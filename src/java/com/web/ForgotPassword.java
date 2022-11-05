@@ -8,7 +8,6 @@ import java.util.Random;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -92,13 +91,12 @@ public class ForgotPassword extends HttpServlet {
                     MimeMessage message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(hostemail));// change accordingly
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                    message.setSubject("Hello");
-                    message.setText("you have requested OTP to reset your password.");
-                    message.setText("your OTP is: " + otpvalue);
-//                message.setText("enter above OTP to reset your password.");
-//                message.setText(" ");
-//                message.setText("Bookstack team.");
-//                message.setText("With Regards!");
+                    message.setSubject("OTP code");
+                    message.setText("you have requested OTP to reset your password. "
+                            + "your OTP is: " + otpvalue
+                            + " Enter above OTP to reset your password. "
+                            + "Bookstack team. "
+                            + "With Regards!");
                     // send message
                     Transport.send(message);
                     System.out.println("message sent successfully");

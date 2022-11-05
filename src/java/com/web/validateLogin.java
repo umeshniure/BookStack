@@ -56,12 +56,7 @@ public class validateLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String loginType = request.getParameter("loginType");
-        if (loginType.equals("normalLogin")) {
-            normalLogin(request, response);
-        } else {
-//            loginWithGoogle(request, response);
-        }
+        normalLogin(request, response);
     }
 
     public void normalLogin(HttpServletRequest request, HttpServletResponse response)

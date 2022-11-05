@@ -208,7 +208,7 @@ public class OrderServlet extends HttpServlet {
             OrderItems orderItem = new OrderItems(book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount);
             orderItemsDAO.insertOrderItems(orderItem);
         }
-//        cartDAO.deleteCartByUserId(user_id);
+        cartDAO.deleteCartByUserId(user_id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home");
         request.setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
         dispatcher.forward(request, response);

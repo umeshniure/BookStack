@@ -112,7 +112,7 @@
                     <!--order list ends -->
 
                     <!-- Recent Activities -->
-                    <div class="relative flex flex-col min-w-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+<!--                    <div class="relative flex flex-col min-w-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
                         <div class="rounded-t mb-0 px-0 border-0">
                             <div class="flex flex-wrap items-center px-4 py-2">
                                 <div class="relative w-full max-w-full flex-grow flex-1">
@@ -186,7 +186,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- ./Recent Activities -->
                 </div>
 
@@ -380,7 +380,7 @@
                 <!-- ./Client Table -->
 
                 <!-- Contact Form -->
-                <div class="mt-8 mx-4">
+<!--                <div class="mt-8 mx-4">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6 mr-2 bg-gray-100 dark:bg-gray-800 sm:rounded-lg">
                             <h1 class="text-4xl sm:text-5xl text-gray-800 dark:text-white font-extrabold tracking-tight">Get in touch</h1>
@@ -428,9 +428,9 @@
                         </form>
                     </div>
                 </div>
-                <!-- ./Contact Form -->
+                 ./Contact Form 
 
-                <!-- External resources -->
+                 External resources 
                 <div class="mt-8 mx-4">
                     <div class="p-4 bg-blue-50 dark:bg-gray-800 dark:text-gray-50 border border-blue-500 dark:border-gray-500 rounded-lg shadow-md">
                         <h4 class="text-lg font-semibold">Have taken ideas & reused components from the following resources:</h4>
@@ -473,7 +473,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
                 <!-- ./External resources -->
             </div>
         </div>    
