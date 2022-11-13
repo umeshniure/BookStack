@@ -68,28 +68,24 @@
 
                                         <form action="login" method="post">
                                             <p class="mb-4">Please login to your account</p>
-                                            <div class="mb-4">
-                                                <input
-                                                    type="text"
-                                                    name="email" 
-                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="exampleFormControlInput1"
-                                                    placeholder="Email"
-                                                    value="${email}"
-                                                    />
+                                            <div class="mb-3">
+                                                <label for="email" class="block text-sm font-medium text-gray-500 text-base">Email</label>
+                                                <input type="text" name="email"  class="mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                       id="exampleFormControlInput1" value="${email}"/>
                                             </div>
-                                            <div class=" relative mb-4">
-                                                <div class="absolute inset-y-0 right-0 flex items-center px-1">
+                                            <div class=" relative mb-3">
+                                                <div class="absolute inset-y-0 right-0 top-7 flex items-center px-1">
                                                     <input class="hidden js-password-toggle" id="toggle" type="checkbox"/>
                                                     <label class="rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label" for="toggle">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </label>
                                                 </div>
+                                                <label for="password" class="block text-sm font-medium text-gray-500 text-base">Password</label>
                                                 <input type="password" name="password"
-                                                       class="js-password appearance-none form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700
+                                                       class="js-password appearance-none form-control mt-1 block w-full px-3 py-1.5 text-base font-normal text-gray-700
                                                        bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700
                                                        focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                       id="password" autocomplete="off" placeholder="Password"/>
+                                                       id="password" autocomplete="off"/>
                                             </div>
                                             <input  type="hidden" name="loginType" value="normalLogin"/>
 

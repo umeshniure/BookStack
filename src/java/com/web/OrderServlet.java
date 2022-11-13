@@ -92,22 +92,16 @@ public class OrderServlet extends HttpServlet {
                             break;
                     }
                 } else {
-                    String errorMessage = "Ohh! You cannot access this page.";
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                    request.setAttribute("errorMessage", errorMessage);
-                    dispatcher.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Ohh! You cannot access this page.");
+                    response.sendRedirect("home");
                 }
             } else {
-                String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Ohh! It seems you not logged in yet. Please login first.");
+                response.sendRedirect("login");
             }
         } else {
-            String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Ohh! It seems you not logged in yet. Please login first.");
+            response.sendRedirect("login");
         }
     }
 
@@ -209,9 +203,8 @@ public class OrderServlet extends HttpServlet {
             orderItemsDAO.insertOrderItems(orderItem);
         }
         cartDAO.deleteCartByUserId(user_id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-        request.setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
-        dispatcher.forward(request, response);
+        request.getSession(false).setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
+        response.sendRedirect("home");
     }
 
     @Override
@@ -230,10 +223,8 @@ public class OrderServlet extends HttpServlet {
                     response.sendRedirect("order");
                 }
             } else {
-                String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Ohh! It seems you not logged in yet. Please login first.");
+                response.sendRedirect("login");
             }
         } else {
             String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";

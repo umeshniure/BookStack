@@ -49,26 +49,16 @@
                                             <p class="mb-4">Please register your account</p>
                                             <div class="w-full md:w-6/12 float-left pr-1">
                                                 <div class="relative w-full mb-3">
-                                                    <input
-                                                        type="text"
-                                                        name="firstname" 
-                                                        class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                        id="exampleFormControlInput1"
-                                                        placeholder="First name"
-                                                        value="${firstname}"
-                                                        />
+                                                    <label for="firstname" class="block text-sm font-medium text-gray-500 text-base">First name</label>
+                                                    <input type="text" name="firstname" class="mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                           id="exampleFormControlInput1" value="${firstname}"/>
                                                 </div>
                                             </div>
                                             <div class="w-full md:w-6/12 float-right pl-1">
                                                 <div class="relative w-full mb-3">
-                                                    <input
-                                                        type="text"
-                                                        name="lastname" 
-                                                        class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                        id="exampleFormControlInput2"
-                                                        placeholder="Last name"
-                                                        value="${lastname}"
-                                                        />
+                                                    <label for="lastname" class="block text-sm font-medium text-gray-500 text-base">Last name</label>
+                                                    <input type="text" name="lastname" class="mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                           id="exampleFormControlInput2" value="${lastname}"/>
                                                 </div>
                                             </div>
 
@@ -93,26 +83,27 @@
                                                                                                 />
                                                                                         </div>-->
                                             <div class="mb-3">
+                                                <label for="email" class="block text-sm font-medium text-gray-500 text-base">Email address</label>
                                                 <input type="text" name="email" 
-                                                       class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                       id="exampleFormControlInput3" placeholder="Email" value="${email}"/>
-                                            </div>                                            
+                                                       class="mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                       id="exampleFormControlInput3" value="${email}"/>
+                                            </div>
                                             <div class="mb-3">
+                                                <label for="password" class="block text-sm font-medium text-gray-500 text-base">Password</label>
                                                 <input
                                                     type="password"
                                                     name="password"
-                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                    class="mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                     id="exampleFormControlInput4"
-                                                    placeholder="Password"
                                                     />
                                             </div>
                                             <div class="mb-3">
+                                                <label for="password2" class="block text-sm font-medium text-gray-500 text-base">Confirm password</label>
                                                 <input
                                                     type="password"
                                                     name="password2"
-                                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                    class="mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                     id="exampleFormControlInput5"
-                                                    placeholder="Re-enter password"
                                                     />
                                             </div>
 
