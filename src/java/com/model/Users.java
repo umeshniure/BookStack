@@ -51,9 +51,10 @@ public class Users {
         this.profile_pic_name = profile_pic_name;
     }
 
-    public Users(int id, int user_type) {
+    public Users(int id, int user_type, String firstname) {
         this.id = id;
         this.user_type = user_type;
+        this.firstname = firstname;
     }
 
     public int getId() {

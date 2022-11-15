@@ -20,11 +20,13 @@
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends--> 
 
-        <section class="h-full gradient-form bg-gray-200">
-            <div class="container py-12 px-6 h-full">
+        <jsp:include page="display-message.jsp"/>
+
+        <section class="h-full gradient-form">
+            <div class="container py-4 px-6 h-full">
                 <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
                     <div class="xl:w-10/12">
-                        <div class="block bg-white shadow-lg rounded-lg">
+                        <div class="block bg-white drop-shadow-lg rounded-lg">
                             <div class="lg:flex lg:flex-wrap g-0">
                                 <div class="lg:w-6/12 flex items-center lg:rounded-r-none rounded-b-none lg:rounded-bl-lg lg:rounded-tl-lg"
                                      style="background: linear-gradient(to left, #C2DBFE, #bf66bf, #b44cb4, #950095);">

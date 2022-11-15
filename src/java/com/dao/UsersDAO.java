@@ -13,13 +13,11 @@ public class UsersDAO {
 
     private static final String INSERT_USER_SQL = "INSERT INTO users" + "  (firstname, lastname, store_name, email, phone_number, profile_pic, profile_pic_name, password, user_type) VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select * from users where id = ?";
-    private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select id, user_type from users where email = ? and password = ?";
     private static final String SELECT_ALL_VENDOR = "select * from users where user_type = 2";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set firstname=?, lastname=?, store_name=?, phone_number=?, email=?, profile_pic=?, profile_pic_name=? where id = ?;";
 
     private static final String SELECT_USER_BY_PASSWORD_SQL = "SELECT id FROM users WHERE password=? AND id=?";
-    private static final String CHANGE_USER_PASSWORD_SQL = "update users set password=? WHERE id=?";
 
     private static final String VENDOR_COUNT = "SELECT count(*) FROM users WHERE user_type=2";
     private static final String USER_COUNT = "SELECT count(*) FROM users WHERE user_type=1";
@@ -56,7 +54,7 @@ public class UsersDAO {
         return 0;
     }
 
-    public void insertUser(Users newUser) throws SQLException {
+    public boolean insertUser(Users newUser) throws SQLException {
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL);
@@ -69,10 +67,13 @@ public class UsersDAO {
             preparedStatement.setString(7, newUser.getProfile_pic_name());
             preparedStatement.setString(8, newUser.getPassword());
             preparedStatement.setInt(9, newUser.getUser_type());
-            preparedStatement.executeUpdate();
+            if (preparedStatement.executeUpdate() > 0) {
+                return true;
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return false;
     }
 
     public boolean updateUser(Users user) {
@@ -96,7 +97,9 @@ public class UsersDAO {
     }
 
     public boolean changePassword(String password, int id) {
+        String CHANGE_USER_PASSWORD_SQL = "update users set password=? WHERE id=?";
         boolean changed = false;
+
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_USER_PASSWORD_SQL);
@@ -162,8 +165,8 @@ public class UsersDAO {
     }
 
     public Users selectUserByEmailAndPassword(String email, String password) {
-        Users user;
-        user = null;
+        String SELECT_USER_BY_EMAIL_AND_PASSWORD = "select id, user_type, firstname from users where email = ? and password = ?";
+        Users user = null;
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD);
@@ -173,7 +176,8 @@ public class UsersDAO {
             if (rs.next()) {
                 int id = rs.getInt("id");
                 int user_type = rs.getInt("user_type");
-                user = new Users(id, user_type);
+                String firstname = rs.getString("firstname");
+                user = new Users(id, user_type, firstname);
             }
         } catch (Exception e) {
             System.out.println(e);

@@ -66,7 +66,7 @@
         <!--navigation section ends-->
 
 
-        <section class="h-full gradient-form bg-gray-200">
+        <section class="flex h-full gradient-form bg-gray-200 justify-center">
             <div class="container py-4 px-6 h-full">
                 <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
                     <div class="xl:w-8/12">

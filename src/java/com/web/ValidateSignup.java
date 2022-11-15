@@ -47,22 +47,13 @@ public class ValidateSignup extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String message = "";
-        String _firstname = "";
-        String _lastname = "";
-        String _email = "";
         RequestDispatcher rd = request.getRequestDispatcher("SignUp.jsp");
-        request.setAttribute("message", message);
-        request.setAttribute("firstname", _firstname);
-        request.setAttribute("lastname", _lastname);
-        request.setAttribute("email", _email);
         rd.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String first_name = request.getParameter("firstname");
         String last_name = request.getParameter("lastname");
@@ -80,16 +71,19 @@ public class ValidateSignup extends HttpServlet {
                 if (checkemail.emailValidity(email)) {
                     if (_password1.equals(_password2)) {
                         Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, profile_pic_name, encrypt.encryptPassword(_password1), user_type);
-                        userDAO.insertUser(newuser);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                        request.setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
-                        dispatcher.forward(request, response);
+                        if (userDAO.insertUser(newuser)) {
+                            request.getSession(false).setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
+                            response.sendRedirect("login");
+                        } else {
+                            request.getSession(false).setAttribute("errorMessage", "Sorry! could not register at the moment.");
+                            response.sendRedirect("signup");
+                        }
                     } else {
                         message = "The passwords didnot match!";
                         passValue(request, response, first_name, last_name, email, message);
                     }
                 } else {
-                    message = "Invalid email address!";
+                    message = "Incorrect email format!";
                     passValue(request, response, first_name, last_name, email, message);
                 }
             } else {

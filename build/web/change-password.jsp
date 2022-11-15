@@ -19,19 +19,21 @@
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends--> 
 
+        <jsp:include page="display-message.jsp"/>
+
         <!-- Container -->
         <div class="container mx-auto">
             <div class="flex justify-center px-6 my-12">
                 <!-- Row -->
                 <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                     <!-- Col -->
-                    <div class="w-full h-auto hidden lg:block lg:w-1/2 bg-cover rounded-lg"
-                         style="background-size:contain; background-repeat: no-repeat; background-image: url('./images/static/general_images/data-protection-concept.jpg')">
+                    <div class="w-full h-full hidden lg:block lg:w-1/2 bg-cover rounded-lg"
+                         style="background-size:contain; background-repeat:no-repeat; background-image: url('./images/static/general_images/data-protection-concept.jpg')">
                     </div>
                     <!-- Col -->
                     <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg border shadow-lg">
                         <div class="px-8 mb-4 text-center">
-                            <h3 class="pt-4 mb-2 text-2xl">Forgot Your Password?</h3>
+                            <h3 class="pt-1 mb-2 text-2xl">Forgot Your Password?</h3>
                             <p class="mb-4 text-sm text-gray-700">
                                 We get it, stuff happens. Just enter your old password and the new password you want
                                 and you will be good to go.
@@ -75,11 +77,9 @@
                                 </button>
                             </div>
                         </form>
-                        <hr class="mb-6 border-t" />
+                        <hr class="mb-3 border-t" />
                         <div class="text-center">
-                            <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="login">
-                                Already have an account? Login!
-                            </a>
+                            <a class="inline-block text-sm text-purple-500 align-baseline hover:text-purple-800" href="forgotPassword">Forgot password?</a>
                         </div>
                     </div>
                 </div>

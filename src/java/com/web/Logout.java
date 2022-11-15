@@ -34,18 +34,15 @@ public class Logout extends HttpServlet {
         if (session != null) {
             if (session.getAttribute("id") != null) {
                 session.invalidate();
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("successMessage", "Successfully logged out.");
-                dispatcher.forward(request, response);
+                request.getSession().setAttribute("successMessage", "You are successfully logged out.");
+                response.sendRedirect("home");
             } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", "You are not logged in yet to be logged out.");
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "You are not logged in yet!");
+                response.sendRedirect("login");
             }
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", "You are not logged in yet to be logged out.");
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "You are not logged in yet!");
+            response.sendRedirect("login");
         }
     }
 

@@ -32,20 +32,12 @@ import javax.servlet.http.HttpSession;
 public class Admin extends HttpServlet {
 
     private BookDAO bookDAO;
-    private CategoryDAO categoryDAO;
-    private LanguageDAO languageDAO;
-    private BookCoverDAO bookCoverDAO;
-    private BookTypeDAO bookTypeDAO;
     private UsersDAO userDAO;
     private CartDAO cartDAO;
     private OrderDAO orderDAO;
 
     public void init() {
         bookDAO = new BookDAO();
-        categoryDAO = new CategoryDAO();
-        languageDAO = new LanguageDAO();
-        bookCoverDAO = new BookCoverDAO();
-        bookTypeDAO = new BookTypeDAO();
         userDAO = new UsersDAO();
         cartDAO = new CartDAO();
         orderDAO = new OrderDAO();
@@ -74,22 +66,16 @@ public class Admin extends HttpServlet {
                     }
 
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("home");
-                    String errorMessage = "Sorry, you are not authorised to access this page.";
-                    request.setAttribute("errorMessage", errorMessage);
-                    rd.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, you are not authorised to access this page.");
+                    response.sendRedirect("home");
                 }
             } else {
-                RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
-                String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-                request.setAttribute("errorMessage", errorMessage);
-                rd.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "You are not logged in. please log in with admin account to access this page.");
+                response.sendRedirect("login");
             }
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
-            String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-            request.setAttribute("errorMessage", errorMessage);
-            rd.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "You are not logged in. please log in with admin account to access this page.");
+            response.sendRedirect("login");
         }
     }
 
@@ -116,6 +102,7 @@ public class Admin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        doGet(request, response);
     }
 
     /**

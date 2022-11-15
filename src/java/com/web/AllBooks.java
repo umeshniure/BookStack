@@ -28,19 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 public class AllBooks extends HttpServlet {
 
     private BookDAO bookDAO;
-    private CategoryDAO categoryDAO;
-    private LanguageDAO languageDAO;
-    private BookCoverDAO bookCoverDAO;
-    private BookTypeDAO bookTypeDAO;
-    private UsersDAO userDAO;
 
     public void init() {
         bookDAO = new BookDAO();
-        categoryDAO = new CategoryDAO();
-        languageDAO = new LanguageDAO();
-        bookCoverDAO = new BookCoverDAO();
-        bookTypeDAO = new BookTypeDAO();
-        userDAO = new UsersDAO();
     }
 
     @Override

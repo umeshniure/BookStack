@@ -24,24 +24,18 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "AdminDatabase", urlPatterns = {"/adminDatabase"})
 public class AdminDatabase extends HttpServlet {
 
-    private BookDAO bookDAO;
     private CategoryDAO categoryDAO;
     private LanguageDAO languageDAO;
     private BookCoverDAO bookCoverDAO;
     private BookTypeDAO bookTypeDAO;
-    private UsersDAO userDAO;
     private UserTypeDAO userTypeDAO;
-    private CartDAO cartDAO;
 
     public void init() {
-        bookDAO = new BookDAO();
         categoryDAO = new CategoryDAO();
         languageDAO = new LanguageDAO();
         bookCoverDAO = new BookCoverDAO();
         bookTypeDAO = new BookTypeDAO();
-        userDAO = new UsersDAO();
         userTypeDAO = new UserTypeDAO();
-        cartDAO = new CartDAO();
     }
 
     @Override
@@ -112,22 +106,16 @@ public class AdminDatabase extends HttpServlet {
                     }
 
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("login");
-                    String errorMessage = "Sorry, you are not authorised to access this page.";
-                    request.setAttribute("errorMessage", errorMessage);
-                    rd.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, you are not authorised to access this page.");
+                    response.sendRedirect("home");
                 }
             } else {
-                RequestDispatcher rd = request.getRequestDispatcher("login");
-                String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-                request.setAttribute("errorMessage", errorMessage);
-                rd.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "You are not logged in. please log in with admin account to access this page.");
+                response.sendRedirect("login");
             }
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("login");
-            String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-            request.setAttribute("errorMessage", errorMessage);
-            rd.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "You are not logged in. please log in with admin account to access this page.");
+            response.sendRedirect("login");
         }
     }
 
@@ -346,22 +334,16 @@ public class AdminDatabase extends HttpServlet {
                     }
 
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("login");
-                    String errorMessage = "Sorry, you are not authorised to access this page.";
-                    request.setAttribute("errorMessage", errorMessage);
-                    rd.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, you are not authorised to access this page.");
+                    response.sendRedirect("home");
                 }
             } else {
-                RequestDispatcher rd = request.getRequestDispatcher("login");
-                String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-                request.setAttribute("errorMessage", errorMessage);
-                rd.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "You are not logged in. please log in with admin account to access this page.");
+                response.sendRedirect("login");
             }
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("login");
-            String errorMessage = "You are not logged in. please log in with admin account to access this page.";
-            request.setAttribute("errorMessage", errorMessage);
-            rd.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "You are not logged in. please log in with admin account to access this page.");
+            response.sendRedirect("login");
         }
     }
 

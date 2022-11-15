@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author Umesh
  */
 @WebServlet(name = "validateLogin", urlPatterns = {"/login"})
-public class validateLogin extends HttpServlet {
+public class ValidateLogin extends HttpServlet {
 
     private Encrypt encrypt;
     private CheckEmail checkemail;
@@ -45,21 +45,17 @@ public class validateLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String message = "";
-        String _email = "";
         RequestDispatcher rd = request.getRequestDispatcher("LogIn.jsp");
-        request.setAttribute("message", message);
-        request.setAttribute("email", _email);
         rd.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        normalLogin(request, response);
+        validateNormalLogin(request, response);
     }
 
-    public void normalLogin(HttpServletRequest request, HttpServletResponse response)
+    public void validateNormalLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String _email = request.getParameter("email");
         String _password = request.getParameter("password");
@@ -72,24 +68,23 @@ public class validateLogin extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute("id", user.getId());
                         session.setAttribute("user_type", user.getUser_type());
+                        System.out.println("Username is: " + user.getEmail() + user.getFirstname());
                         switch (user.getUser_type()) {
                             case 1:
-                                RequestDispatcher rd = request.getRequestDispatcher("home");
-                                request.setAttribute("successMessage", "Welcome to BookStack! you are successfully logged in.");
-                                rd.forward(request, response);
+                                request.getSession(false).setAttribute("successMessage", "Hello " + user.getFirstname() + ", welcome back to BookStack!");
+                                response.sendRedirect("home");
                                 break;
                             case 2:
                                 request.getSession(false).setAttribute("successMessage", "Welcome vendor! you are successfully logged in.");
                                 response.sendRedirect("vendorbook");
                                 break;
                             case 3:
-                                request.getSession(false).setAttribute("successMessage", "You are successfully logged in.");
+                                request.getSession(false).setAttribute("successMessage", "Hello admin! You are successfully logged in.");
                                 response.sendRedirect("admin");
                                 break;
                             default:
-                                RequestDispatcher rd2 = request.getRequestDispatcher("home");
-                                request.setAttribute("successMessage", "Welcome to BookStack! you are successfully logged in.");
-                                rd2.forward(request, response);
+                                request.getSession(false).setAttribute("successMessage", "Hello " + user.getFirstname() + ", welcome back to BookStack!");
+                                response.sendRedirect("home");
                                 break;
                         }
                     } else {

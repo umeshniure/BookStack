@@ -6,11 +6,9 @@ package com.web;
 
 import com.dao.*;
 import com.model.*;
-import com.web.UpdateProfile;
 import com.secure.RandomAlphanumericString;
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +26,6 @@ import javax.servlet.http.HttpSession;
 public class OrderServlet extends HttpServlet {
 
     private CartDAO cartDAO;
-    private BookDAO bookDAO;
     private UsersDAO userDAO;
     private OrderDAO orderDao;
     private OrderItemsDAO orderItemsDAO;
@@ -37,13 +34,11 @@ public class OrderServlet extends HttpServlet {
     private ProvinceDAO provinceDAO;
     private CountryDAO countryDAO;
     private PaymentTypeDAO paymentDAO;
-    private PaymentMethodDAO payMethodDAO;
     private RandomAlphanumericString randomString;
     private UpdateProfile updateProfile;
 
     public void init() {
         cartDAO = new CartDAO();
-        bookDAO = new BookDAO();
         userDAO = new UsersDAO();
         orderDao = new OrderDAO();
         orderItemsDAO = new OrderItemsDAO();
@@ -52,7 +47,6 @@ public class OrderServlet extends HttpServlet {
         provinceDAO = new ProvinceDAO();
         countryDAO = new CountryDAO();
         paymentDAO = new PaymentTypeDAO();
-        payMethodDAO = new PaymentMethodDAO();
         randomString = new RandomAlphanumericString();
         updateProfile = new UpdateProfile();
     }

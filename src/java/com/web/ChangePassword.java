@@ -43,16 +43,14 @@ public class ChangePassword extends HttpServlet {
                 dispatcher.forward(request, response);
 
             } else {
-                String errorMessage = "Sorrry! you should log in first to access the page.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
+                response.sendRedirect("login");
+
             }
         } else {
-            String errorMessage = "Sorrry! you should log in first to access the page";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
+            response.sendRedirect("login");
+
         }
     }
 
@@ -85,10 +83,8 @@ public class ChangePassword extends HttpServlet {
                                     break;
                             }
                         } else {
-                            String errorMessage = "Sorry, password couldnot be changed at the moment.";
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                            request.setAttribute("errorMessage", errorMessage);
-                            dispatcher.forward(request, response);
+                            request.getSession(false).setAttribute("errorMessage", "Sorry, password couldnot be changed at the moment.");
+                            response.sendRedirect("changePassword");
                         }
                     } else {
                         String errorMessage = "Your old and new password are same. Please choose new password different from your current one.";

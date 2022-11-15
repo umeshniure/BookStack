@@ -59,11 +59,11 @@ public class AddToCart extends HttpServlet {
                 }
             } else {
                 request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
-                response.sendRedirect("home");
+                response.sendRedirect("login");
             }
         } else {
             request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page");
-            response.sendRedirect("home");
+            response.sendRedirect("login");
         }
     }
 
@@ -122,10 +122,8 @@ public class AddToCart extends HttpServlet {
                 response.sendRedirect("cart");
             }
         } else {
-            String errorMessage = "Sorry! you cannot delete others cart.";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorry! you cannot delete others cart.");
+            response.sendRedirect("home");
             System.out.println("user " + user_id + " - tried to delete others cart.");
         }
     }

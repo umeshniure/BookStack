@@ -232,7 +232,7 @@
                                 <p class="cursor-pointer text-sm leading-5 ">${user.email}</p>
                             </div>
                         </div>
-                        <div class="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0">
+                        <div class="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0 space-y-4">
                             <div class="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-6 md:space-y-0 md:flex-row items-center md:items-start">
                                 <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-3 xl:mt-8">
                                     <p class="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">Shipping Address</p>
@@ -263,7 +263,9 @@
                                 </div>
                             </div>
                             <div class="flex w-full justify-center items-center md:justify-start md:items-start">
-                                <button class="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-purple-600 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800 rounded-md">Edit Details</button>
+                                <a href="updateProfile" class="w-full"><button class="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-purple-600 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800 rounded-md">
+                                        Edit Details
+                                    </button></a>
                             </div>
                         </div>
                     </div>
