@@ -65,16 +65,12 @@ public class UpdateProfile extends HttpServlet {
                 }
 
             } else {
-                String errorMessage = "Sorrry! you should log in first to access the page.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
+                response.sendRedirect("login");
             }
         } else {
-            String errorMessage = "Sorrry! you should log in first to access the page";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
+            response.sendRedirect("login");
         }
     }
 
@@ -258,16 +254,13 @@ public class UpdateProfile extends HttpServlet {
                         break;
                 }
             } else {
-                String errorMessage = "Sorrry! you should log in first to access the page.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
+                response.sendRedirect("login");
             }
         } else {
-            String errorMessage = "Sorrry! you should log in first to access the page";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to access the page.");
+            response.sendRedirect("login");
+
         }
     }
 

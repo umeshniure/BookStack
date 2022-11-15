@@ -46,7 +46,7 @@ public class ForgotPassword extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
-        RequestDispatcher dispatcher = null;
+        RequestDispatcher dispatcher;
         if (email.equals("")) {
             dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
             request.setAttribute("email", email);

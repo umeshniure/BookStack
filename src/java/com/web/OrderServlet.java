@@ -207,24 +207,27 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-                String action = (request.getParameter("action"));
-                if (action.equals("submitOrder")) {
-                    insertOrder(request, response);
-                } else if (action.equals("saveAddress")) {
-                    updateProfile.init();
-                    updateProfile.saveAddress(request, response);
+                if ((int) session.getAttribute("id") == 1) {
+                    String action = (request.getParameter("action"));
+                    if (action.equals("submitOrder")) {
+                        insertOrder(request, response);
+                    } else if (action.equals("saveAddress")) {
+                        updateProfile.init();
+                        updateProfile.saveAddress(request, response);
+                    } else {
+                        response.sendRedirect("order");
+                    }
                 } else {
-                    response.sendRedirect("order");
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, only users are allowed to access this page.");
+                    response.sendRedirect("home");
                 }
             } else {
                 request.getSession(false).setAttribute("errorMessage", "Ohh! It seems you not logged in yet. Please login first.");
                 response.sendRedirect("login");
             }
         } else {
-            String errorMessage = "Ohh! It seems you not logged in yet. Please login first.";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Ohh! It seems you not logged in yet. Please login first.");
+            response.sendRedirect("login");
         }
     }
 
