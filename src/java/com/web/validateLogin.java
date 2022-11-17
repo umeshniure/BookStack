@@ -68,7 +68,6 @@ public class ValidateLogin extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute("id", user.getId());
                         session.setAttribute("user_type", user.getUser_type());
-                        System.out.println("Username is: " + user.getEmail() + user.getFirstname());
                         switch (user.getUser_type()) {
                             case 1:
                                 request.getSession(false).setAttribute("successMessage", "Hello " + user.getFirstname() + ", welcome back to BookStack!");
