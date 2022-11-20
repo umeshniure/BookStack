@@ -51,7 +51,7 @@ public class VendorDashboard extends HttpServlet {
                             break;
                     }
                 } else {
-                    request.getSession(false).setAttribute("errorMessage", "Sorry, You are not allowed to update book.");
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, You are not authorised to access this page.");
                     response.sendRedirect("home");
                 }
             } else {

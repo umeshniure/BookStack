@@ -183,11 +183,11 @@ public class AddToCart extends HttpServlet {
 
             } else {
                 request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to add items to the cart.");
-                response.sendRedirect("home");
+                response.sendRedirect("login");
             }
         } else {
             request.getSession(false).setAttribute("errorMessage", "Sorrry! you should log in first to add items to the cart.");
-            response.sendRedirect("home");
+            response.sendRedirect("login");
         }
     }
 

@@ -20,10 +20,10 @@
         <!--navigation section-->
         <jsp:include page="navigation-bar.jsp"/>
         <!--navigation section ends--> 
-        
+
         <jsp:include page="display-message.jsp"/>
 
-         
+
 
         <!--carousal section-->
         <!--        <div id="carouselExampleIndicators" class="carousel slide relative mr-6 ml-6 rounded" data-bs-ride="carousel">
@@ -198,7 +198,7 @@
                                         </div>
                                     </a>
                                     <div class="mt-4 flex justify-between">
-                                        <div class="overflow-hidden w-2/3">
+                                        <div class="overflow-hidden inline">
                                             <h3 class="text-sm text-gray-700">
                                                 <a href="<c:out value='home?action=book-detail&id=${book.id}'/>" class="line-clamp" title="<c:out value='${book.name}'/>" >
                                                     <span aria-hidden="true" class="absolute line-clamp-1" ></span>
@@ -210,13 +210,13 @@
                                             </a>
                                         </div>
                                         <c:if test="${book.discounted_price != ''}">
-                                            <div class="overflow-hidden  w-1/3 items-end">
+                                            <div class="overflow-hidden grid inline flex-none">
                                                 <p class="text-lbaseg font-medium text-gray-900">NPR. <c:out value="${book.discounted_price}" /></p>
                                                 <p class="text-xs font-medium text-gray-900 line-through">NPR. <c:out value="${book.price}" /></p>
                                             </div>
                                         </c:if>
                                         <c:if test="${book.discounted_price == ''}">
-                                            <div class="overflow-hidden  w-1/3 items-end">
+                                            <div class="overflow-hidden inline flex-none">
                                                 <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.price}" /></p>
                                             </div>
                                         </c:if>
@@ -279,7 +279,7 @@
                                         </div>
                                     </a>
                                     <div class="mt-4 flex justify-between">
-                                        <div class="overflow-hidden w-2/3">
+                                        <div class="overflow-hidden inline">
                                             <h3 class="text-sm text-gray-700">
                                                 <a href="<c:out value='home?action=book-detail&id=${book.id}'/>" class="line-clamp" title="<c:out value='${book.name}'/>" >
                                                     <span aria-hidden="true" class="absolute line-clamp-1" ></span>
@@ -291,13 +291,13 @@
                                             </a>
                                         </div>
                                         <c:if test="${book.discounted_price != ''}">
-                                            <div class="overflow-hidden  w-1/3 items-end">
+                                            <div class="overflow-hidden inline flex-none">
                                                 <p class="text-lbaseg font-medium text-gray-900">NPR. <c:out value="${book.discounted_price}" /></p>
                                                 <p class="text-xs font-medium text-gray-900 line-through">NPR. <c:out value="${book.price}" /></p>
                                             </div>
                                         </c:if>
                                         <c:if test="${book.discounted_price == ''}">
-                                            <div class="overflow-hidden  w-1/3 items-end">
+                                            <div class="overflow-hidden inline flex-none">
                                                 <p class="text-base font-medium text-gray-900">NPR. <c:out value="${book.price}" /></p>
                                             </div>
                                         </c:if>

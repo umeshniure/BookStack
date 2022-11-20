@@ -190,7 +190,7 @@
 
             <div class="flex p-2 justify-around w-full">
                 <!--product list section-->
-                <div class="max-w-2xl mx-4 py-2 px-2 lg:max-w-7xl lg:px-8">
+                <div class="max-w-2xl py-2 px-2 lg:max-w-7xl">
                     <h3 class="text-2xl font-bold tracking-tight text-gray-900">Similar books</h3>
 
                     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8 w-full">
