@@ -115,7 +115,7 @@
         </section>  
 
         <!--footer section-->
-        <jsp:include page="footer.html"/>
+        <jsp:include page="footer.jsp"/>
         <!--footer section ends-->
 
     </body>

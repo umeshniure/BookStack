@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="allscripts.jsp"/>
-        <title>Order History</title>
+        <title>Orders page</title>
     </head>
     <body>
 
@@ -21,11 +21,17 @@
 
         <div class="py-10 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
             <div class="flex justify-start item-start space-y-2 flex-col">
-                <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">Order History</h1>
+                <c:if test='${orderType.equals("history")}'>
+                    <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">Order History</h1>
+                </c:if>
+                <c:if test='${orderType.equals("recent")}'>
+                    <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">Recent orders</h1>
+                </c:if>
             </div>
             <div class="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
                 <div class="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
-                    <c:if test="${orderItems.size()==0}">
+                    <c:if test="${orders.size()==0}">
+
                         <div class="flex justify-start item-start space-y-8 flex-col">
                             <div>
                                 <h1 class="text-lg dark:text-white lg:text-xl font-normal leading-7 lg:leading-9 text-gray-800">Looks like you have not ordered anything yet!</h1>
@@ -38,7 +44,7 @@
                         </div>
                     </c:if>
                     <c:forEach var="order" items="${orders}">
-                        <div class="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full rounded-md">
+                        <div class="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full rounded-md space-y-6">
                             <div class="flex w-full text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800 mb-2 justify-between">
                                 <div class="flex items-center">
                                     <span>Order: #${order.id}</span>
@@ -47,9 +53,11 @@
                                         <span class="text-sm font-normal">Ordered on: ${order.order_date}</span>
                                     </div>
                                 </div>
-                                <div>
-                                    <span class="text-sm font-semibold text-purple-600 hover:text-purple-800">View invoice</span>
-                                </div>
+                                <c:if test="${order.order_status == 4}">
+                                    <div>
+                                        <span class="text-sm font-semibold text-purple-600 hover:text-purple-800">View invoice</span>
+                                    </div>
+                                </c:if>
                             </div>
 
                             <div class="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8 mb-4">
@@ -155,50 +163,55 @@
                             </div>
 
                             <!--Progress bar-->
-                            <p class="text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800 mb-2">Status bar </p>
-                            <div class="w-full lg:w-full mx-auto p-6">
-                                <div class="bg-gray-200 dark:bg-gray-700 h-1 flex items-center justify-between">
-                                    <div class="w-1/3 bg-indigo-700 h-1 flex items-center">
-                                        <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center">
-                                            <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                            <c:if test="${order.order_status != 4 && order.order_status != 5}">
+                                <p class="text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800 mb-2">Status bar </p>
+                                <div class="w-full lg:w-full mx-auto p-6">
+                                    <div class="bg-gray-200 dark:bg-gray-700 h-1 flex items-center justify-between">
+                                        <div class="w-1/3 bg-indigo-700 h-1 flex items-center">
+                                            <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center">
+                                                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="w-1/3 flex justify-between bg-indigo-700 h-1 items-center relative">
-                                        <!--                                        <div class="absolute right-0 -mr-2">
-                                                                                    <div class="relative bg-white dark:bg-gray-800 shadow-lg px-2 py-1 rounded mt-16 -mr-12">
-                                                                                        <svg class="absolute top-0 -mt-1 w-full right-0 left-0 text-white dark:text-gray-800" width="16px" height="8px" viewBox="0 0 16 8" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                                                                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                        <g id="Progress-Bars" transform="translate(-322.000000, -198.000000)" fill="currentColor">
-                                                                                        <g id="Group-4" transform="translate(310.000000, 198.000000)">
-                                                                                        <polygon id="Triangle" points="20 0 28 8 12 8"></polygon>
-                                                                                        </g>
-                                                                                        </g>
-                                                                                        </g>
-                                                                                        </svg>
-                                                                                        <p tabindex="0" class="focus:outline-none text-indigo-700 dark:text-indigo-400 text-xs font-bold">Step 3: Analyzing</p>
-                                                                                    </div>
-                                                                                </div>-->
-                                        <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">
-                                            <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                        <div class="w-1/3 flex justify-between bg-indigo-700 h-1 items-center relative">
+                                            <!--                                        <div class="absolute right-0 -mr-2">
+                                                                                        <div class="relative bg-white dark:bg-gray-800 shadow-lg px-2 py-1 rounded mt-16 -mr-12">
+                                                                                            <svg class="absolute top-0 -mt-1 w-full right-0 left-0 text-white dark:text-gray-800" width="16px" height="8px" viewBox="0 0 16 8" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                                                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                            <g id="Progress-Bars" transform="translate(-322.000000, -198.000000)" fill="currentColor">
+                                                                                            <g id="Group-4" transform="translate(310.000000, 198.000000)">
+                                                                                            <polygon id="Triangle" points="20 0 28 8 12 8"></polygon>
+                                                                                            </g>
+                                                                                            </g>
+                                                                                            </g>
+                                                                                            </svg>
+                                                                                            <p tabindex="0" class="focus:outline-none text-indigo-700 dark:text-indigo-400 text-xs font-bold">Step 3: Analyzing</p>
+                                                                                        </div>
+                                                                                    </div>-->
+                                            <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">
+                                                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                            </div>
+                                            <!--                                        <div class="bg-white dark:bg-gray-700 h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
+                                                                                        <div class="h-3 w-3 bg-indigo-700 rounded-full"></div>
+                                                                                    </div>-->
+                                            <div class="bg-indigo-700 dark:bg-gray-700 h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
+                                                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                            </div>
                                         </div>
-                                        <!--                                        <div class="bg-white dark:bg-gray-700 h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                                                                                    <div class="h-3 w-3 bg-indigo-700 rounded-full"></div>
-                                                                                </div>-->
-                                        <div class="bg-indigo-700 dark:bg-gray-700 h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                                            <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/3 flex justify-end bg-indigo-700 h-1">
+                                        <div class="w-1/3 flex justify-end bg-indigo-700 h-1">
 
-                                        <!--                                        <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center">
-                                                                                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
-                                                                                </div>-->
-                                    </div>
-                                    <div class="bg-indigo-700 dark:bg-gray-700 h-6 w-6 rounded-full shadow flex items-center justify-center">
-                                        <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                            <!--                                        <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center">
+                                                                                        <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                                                                    </div>-->
+                                        </div>
+                                        <div class="bg-indigo-700 dark:bg-gray-700 h-6 w-6 rounded-full shadow flex items-center justify-center">
+                                            <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </c:if>
+                            <c:if test="${order.order_status == 4}">
+                                <span class="text-gray-500 text-lg">Delivered on: ${order.delivered_date}</span>
+                            </c:if>
                             <!--progress bar ends-->
 
                         </div>
@@ -207,7 +220,7 @@
                 </div>
 
 
-                <div class="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+                <div class="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:px-6 xl:px-8 flex-col rounded-md">
                     <h3 class="text-xl dark:text-white font-semibold leading-5 text-gray-800">Profile</h3>
                     <div class="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
                         <div class="flex flex-col justify-start items-start flex-shrink-0">
@@ -222,7 +235,12 @@
                                 </div>
                                 <div class="flex justify-start items-start flex-col space-y-2">
                                     <p class="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">${user.firstname} ${user.lastname}</p>
-                                    <p class="text-sm dark:text-gray-300 leading-5 text-gray-600">${orders.size()} Previous Orders</p>
+                                    <c:if test='${orderType.equals("history")}'>
+                                        <p class="text-sm dark:text-gray-300 leading-5 text-gray-600">You had ${orders.size()} order(s) delivered.</p>
+                                    </c:if>
+                                    <c:if test='${orderType.equals("recent")}'>
+                                        <p class="text-sm dark:text-gray-300 leading-5 text-gray-600">You have ${orders.size()} order(s) in progress.</p>
+                                    </c:if>
                                 </div>
                             </div>
 
@@ -235,7 +253,7 @@
                         <div class="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0 space-y-4">
                             <div class="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-6 md:space-y-0 md:flex-row items-center md:items-start">
                                 <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-3 xl:mt-8">
-                                    <p class="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">Shipping Address</p>
+                                    <p class="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">Your Shipping Address(es)</p>
                                     <c:if test="${addresses.size()== 0}">
                                         <div class="flex items-center w-full">
                                             No address found!
@@ -257,15 +275,15 @@
                                             </div>
                                         </a>
                                     </c:forEach>
+                                    <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">
+                                        <p class="lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm font_normal leading-5 text-gray-600 text-justified">NOTE: Shipping and billing address are same for all orders.</p>
+                                    </div>
+                                    <div class="flex w-full justify-center items-center md:justify-start md:items-start">
+                                        <a href="updateProfile" class="w-full"><button class="mt-6 md:mt-0 text-purple-700 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-purple-600 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800 rounded-md">
+                                                Edit Details
+                                            </button></a>
+                                    </div>
                                 </div>
-                                <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">
-                                    <p class="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm font_normal leading-5 text-gray-600 text-justified">NOTE: Shipping and billing address are same for all orders.</p>
-                                </div>
-                            </div>
-                            <div class="flex w-full justify-center items-center md:justify-start md:items-start">
-                                <a href="updateProfile" class="w-full"><button class="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-purple-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-purple-600 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800 rounded-md">
-                                        Edit Details
-                                    </button></a>
                             </div>
                         </div>
                     </div>
@@ -274,7 +292,7 @@
         </div>
 
         <!--footer section-->
-        <jsp:include page="footer.html"/>
+        <jsp:include page="footer.jsp"/>
         <!--footer section ends-->
 
     </body>

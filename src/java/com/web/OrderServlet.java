@@ -64,9 +64,10 @@ public class OrderServlet extends HttpServlet {
                     }
                     switch (action) {
                         case "history":
-                            userOrderHistory(request, response);
+                            userOrderHistory(request, response, action);
                             break;
                         case "recentOrder":
+                            userOrderHistory(request, response, action);
                             break;
                         case "fillAddress":
                             int id = Integer.parseInt(request.getParameter("id"));
@@ -99,21 +100,46 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
-    public void userOrderHistory(HttpServletRequest request, HttpServletResponse response)
+    public void userOrderHistory(HttpServletRequest request, HttpServletResponse response, String action)
             throws ServletException, IOException {
         // user detailsl: name. email, profile pic
         // order: order id, ordered date, order subtotal, shipping address:post code, street, city, country
         // order items: book name, book cover name, quantity, book price, shipping amount
         HttpSession session = request.getSession(false);
         Users user = userDAO.selectUser((int) session.getAttribute("id"));
+        List<BookOrder> orders = null;
+        if (action.equals("history")) {
+            orders = orderDao.selectOrderHistoryByUserId((int) session.getAttribute("id"));
+            request.setAttribute("orderType", "history");
+        } else if (action.equals("recentOrder")) {
+            orders = orderDao.selectRecentOrderByUserId((int) session.getAttribute("id"));
+            request.setAttribute("orderType", "recent");
+        }
+        System.out.println("orders: " + orders);
         List<OrderItems> orderItems = orderItemsDAO.selectOrderItemsByUserId((int) session.getAttribute("id"));
-        List<BookOrder> orders = orderDao.selectOrderByUserId((int) session.getAttribute("id"));
+        System.out.println("orderitems: " + orderItems);
         List<ShippingAddress> addresses = addressDAO.selectShippingAddressByUserId((int) session.getAttribute("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
         request.setAttribute("user", user);
         request.setAttribute("orderItems", orderItems);
         request.setAttribute("orders", orders);
         request.setAttribute("addresses", addresses);
+        dispatcher.forward(request, response);
+    }
+
+    public void userRecentOrder(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        Users user = userDAO.selectUser((int) session.getAttribute("id"));
+        List<OrderItems> orderItems = orderItemsDAO.selectOrderItemsByUserId((int) session.getAttribute("id"));
+        List<BookOrder> orders = orderDao.selectRecentOrderByUserId((int) session.getAttribute("id"));
+        List<ShippingAddress> addresses = addressDAO.selectShippingAddressByUserId((int) session.getAttribute("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user-order-history.jsp");
+        request.setAttribute("user", user);
+        request.setAttribute("orderItems", orderItems);
+        request.setAttribute("orders", orders);
+        request.setAttribute("addresses", addresses);
+        request.setAttribute("orderType", "recent");
         dispatcher.forward(request, response);
     }
 

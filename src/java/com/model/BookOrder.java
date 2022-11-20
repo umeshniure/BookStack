@@ -9,6 +9,7 @@ public class BookOrder {
     private int order_status;
     private int transaction_satus;
     private Date order_date;
+    private Date delivered_date;
     private String id;
     private String transaction_id;
     private String order_status_name;
@@ -137,12 +138,13 @@ public class BookOrder {
         this.phone_number = phone_number;
     }
 
-    public BookOrder(String id, double order_total_amount, double order_subtotal_amount, Date order_date, Integer postalcode,
-            String street, String apartment, String city, String province, String country, String payment_method, int shipping_method, String shipping_method_name) {
+    public BookOrder(String id, double order_total_amount, double order_subtotal_amount, Date order_date, Date delivered_date, Integer postalcode,
+            String street, String apartment, String city, String province, String country, String payment_method, int shipping_method, String shipping_method_name, int order_status, String order_status_name) {
         this.id = id;
         this.order_total_amount = order_total_amount;
         this.order_subtotal_amount = order_subtotal_amount;
         this.order_date = order_date;
+        this.delivered_date = delivered_date;
         this.shipping_postcode = postalcode;
         this.shipping_street = street;
         this.shipping_apartment = apartment;
@@ -152,6 +154,8 @@ public class BookOrder {
         this.payment_method = payment_method;
         this.shipping_method = shipping_method;
         this.shipping_method_name = shipping_method_name;
+        this.order_status = order_status;
+        this.order_status_name = order_status_name;
     }
 
     public BookOrder(String id, int user_id, Date order_date, int order_status, String order_status_name, double order_total_amount, String username) {
@@ -513,6 +517,20 @@ public class BookOrder {
      */
     public void setShipping_method_name(String shipping_method_name) {
         this.shipping_method_name = shipping_method_name;
+    }
+
+    /**
+     * @return the delivered_date
+     */
+    public Date getDelivered_date() {
+        return delivered_date;
+    }
+
+    /**
+     * @param delivered_date the delivered_date to set
+     */
+    public void setDelivered_date(Date delivered_date) {
+        this.delivered_date = delivered_date;
     }
 
 }

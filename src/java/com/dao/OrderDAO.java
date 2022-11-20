@@ -180,18 +180,19 @@ public class OrderDAO {
         return order;
     }
 
-    public List<BookOrder> selectOrderByUserId(int user_id) {
+    public List<BookOrder> selectOrderHistoryByUserId(int user_id) {
         // user detailsl: name. email, profile pic
         // order: order id, ordered date, order subtotal, shipping address:post code, street, city, country
         // order items: book name, book cover name, quantity, book price, shipping amount
-        String SELECT_ORDERITEMS_BY_ID = "select * from book_order "
+        String SELECT_ORDERHISTORY_BY_ID = "select * from book_order "
                 + "INNER JOIN shipping_method ON book_order.shipping_method = shipping_method.id "
-//                + "INNER JOIN payment_method ON order_items.order_id = book_order.id "
-                + "where book_order.user_id=? ORDER BY order_date DESC";
+                + "INNER JOIN order_status ON book_order.order_status = order_status.id "
+                //                + "INNER JOIN payment_method ON order_items.order_id = book_order.id "
+                + "where book_order.user_id=? AND book_order.order_status=4 ORDER BY order_date DESC";
         List<BookOrder> orders = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SELECT_ORDERITEMS_BY_ID);
+            PreparedStatement ps = connection.prepareStatement(SELECT_ORDERHISTORY_BY_ID);
             ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -199,6 +200,7 @@ public class OrderDAO {
                 double order_total_amount = rs.getDouble("order_total_amount");
                 double order_subtotal_amount = rs.getDouble("order_subtotal_amount");
                 Date order_date = rs.getDate("order_date");
+                Date delivered_date = rs.getDate("delivered_date");
                 Integer postalcode = rs.getInt("shipping_postcode");
                 String street = rs.getString("shipping_street");
                 String apartment = rs.getString("shipping_apartment");
@@ -208,7 +210,46 @@ public class OrderDAO {
                 String shipping_method_name = rs.getString("shipping_method.name");
                 int shipping_method = rs.getInt("shipping_method.id");
                 String payment_method = rs.getString("payment_method");
-                orders.add(new BookOrder(id, order_total_amount, order_subtotal_amount, order_date, postalcode, street, apartment, city, province, country, payment_method, shipping_method, shipping_method_name));
+                int order_status = rs.getInt("book_order.order_status");
+                String order_status_name = rs.getString("order_status.order_status");
+                orders.add(new BookOrder(id, order_total_amount, order_subtotal_amount, order_date, delivered_date, postalcode, street, apartment, city, province, country, payment_method, shipping_method, shipping_method_name, order_status, order_status_name));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return orders;
+    }
+
+    public List<BookOrder> selectRecentOrderByUserId(int user_id) {
+        String SELECT_RECENT_ORDERS_BY_ID = "select * from book_order "
+                + "INNER JOIN shipping_method ON book_order.shipping_method = shipping_method.id "
+                + "INNER JOIN order_status ON book_order.order_status = order_status.id "
+                //                + "INNER JOIN payment_method ON order_items.order_id = book_order.id "
+                + "where book_order.user_id=? AND book_order.order_status!=4 AND book_order.order_status!=5 ORDER BY order_date DESC";
+        List<BookOrder> orders = new ArrayList<>();
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SELECT_RECENT_ORDERS_BY_ID);
+            ps.setInt(1, user_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("id");
+                double order_total_amount = rs.getDouble("order_total_amount");
+                double order_subtotal_amount = rs.getDouble("order_subtotal_amount");
+                Date order_date = rs.getDate("order_date");
+                Date delivered_date = rs.getDate("delivered_date");
+                Integer postalcode = rs.getInt("shipping_postcode");
+                String street = rs.getString("shipping_street");
+                String apartment = rs.getString("shipping_apartment");
+                String city = rs.getString("shipping_city");
+                String province = rs.getString("shipping_province");
+                String country = rs.getString("shipping_country");
+                String shipping_method_name = rs.getString("shipping_method.name");
+                int shipping_method = rs.getInt("shipping_method.id");
+                String payment_method = rs.getString("payment_method");
+                int order_status = rs.getInt("book_order.order_status");
+                String order_status_name = rs.getString("order_status.order_status");
+                orders.add(new BookOrder(id, order_total_amount, order_subtotal_amount, order_date, delivered_date, postalcode, street, apartment, city, province, country, payment_method, shipping_method, shipping_method_name, order_status, order_status_name));
             }
         } catch (Exception e) {
             System.out.println(e);

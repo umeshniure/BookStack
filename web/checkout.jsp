@@ -322,7 +322,7 @@
     </body>
 
     <!--navigation section-->
-    <jsp:include page="footer.html"/>
+    <jsp:include page="footer.jsp"/>
     <!--navigation section ends--> 
 
 </html>

@@ -109,9 +109,9 @@
                                                                 </c:if>
                                                                 <c:if test="${sessionScope.user_type == 1}">
                                                                     <div class="flex justify-between items-center my-5 px-6">
-                                                                        <a href="order?action=recentOrder" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>
-                                                                        <a href="order?action=history" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Order history</a>
-                                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My wishlist</a>
+                                                                        <a href="order?action=recentOrder" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 hover:text-purple-700 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">My orders</a>
+                                                                        <a href="order?action=history" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 hover:text-purple-700 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Order history</a>
+                                                                        <a href="#" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 hover:text-purple-700 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3 cursor-not-allowed">My wishlist</a>
                                                                         <!--<a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Email</a>-->
                                                                     </div>
 
