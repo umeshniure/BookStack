@@ -45,6 +45,7 @@ public class ValidateSignup extends HttpServlet {
         rd.forward(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("SignUp.jsp");

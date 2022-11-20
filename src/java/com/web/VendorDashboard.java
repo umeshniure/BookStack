@@ -51,22 +51,16 @@ public class VendorDashboard extends HttpServlet {
                             break;
                     }
                 } else {
-                    String errorMessage = "Sorry, You are not allowed to update book. ";
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
-                    request.setAttribute("errorMessage", errorMessage);
-                    dispatcher.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Sorry, You are not allowed to update book.");
+                    response.sendRedirect("home");
                 }
             } else {
-                String errorMessage = "Sorry, You are not allowed to update book because you are not logged in yet.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Sorry, you are not logged in. Please login to access ths page");
+                response.sendRedirect("login");
             }
         } else {
-            String errorMessage = "Sorry, You are not allowed to update book because you are not logged in yet.";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("vendorbook");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorry, you are not logged in. Please login to access ths page");
+            response.sendRedirect("login");
         }
     }
 
@@ -97,6 +91,7 @@ public class VendorDashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        doGet(request, response);
     }
 
     @Override

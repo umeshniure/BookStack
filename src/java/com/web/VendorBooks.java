@@ -76,19 +76,16 @@ public class VendorBooks extends HttpServlet {
                     }
 
                 } else {
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                    request.setAttribute("errorMessage", "Sorry! you are not authorised to access this page.");
-                    dispatcher.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Sorry! you are not authorised to access this page.");
+                    response.sendRedirect("home");
                 }
             } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                request.setAttribute("errorMessage", "Sorry! you are not authorised. Please login to access this page.");
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Sorry! you are not logged in. Please login to access this page.");
+                response.sendRedirect("login");
             }
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-            request.setAttribute("errorMessage", "Sorry! you are not logged in yet. Please login to access this page.");
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorry! you are not logged in. Please login to access this page.");
+            response.sendRedirect("login");
         }
 
     }

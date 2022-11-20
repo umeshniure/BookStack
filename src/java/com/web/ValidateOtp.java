@@ -1,9 +1,6 @@
 package com.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +23,7 @@ public class ValidateOtp extends HttpServlet {
         HttpSession session = request.getSession();
         int otp = (int) session.getAttribute("otp");
 
-        RequestDispatcher dispatcher = null;
+        RequestDispatcher dispatcher;
 
         if (value == otp) {
             request.setAttribute("email", request.getParameter("email"));

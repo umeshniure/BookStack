@@ -25,11 +25,9 @@ import javax.servlet.http.HttpSession;
 public class AddToCart extends HttpServlet {
 
     private CartDAO cartDAO;
-    private BookDAO bookDAO;
 
     public void init() {
         cartDAO = new CartDAO();
-        bookDAO = new BookDAO();
     }
 
     @Override

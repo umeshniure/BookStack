@@ -61,22 +61,16 @@ public class UploadBook extends HttpServlet {
                         showBookUploadForm(request, response);
 
                     } else {
-                        String errorMessage = "Sorry, You are not allowed to access this page.";
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                        request.setAttribute("errorMessage", errorMessage);
-                        dispatcher.forward(request, response);
+                        request.getSession(false).setAttribute("errorMessage", "Sorry, You are not allowed to access this page.");
+                        response.sendRedirect("home");
                     }
                 } else {
-                    String errorMessage = "Ohh! looks like you are not logged in yet. Please login first.";
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                    request.setAttribute("errorMessage", errorMessage);
-                    dispatcher.forward(request, response);
+                    request.getSession(false).setAttribute("errorMessage", "Ohh! looks like you are not logged in yet. Please login first.");
+                    response.sendRedirect("login");
                 }
             } else {
-                String errorMessage = "Ohh! looks like you are not logged in yet. Please login first.";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Ohh! looks like you are not logged in yet. Please login first.");
+                response.sendRedirect("login");
             }
         } catch (Exception e) {
             out.println(e);
@@ -113,16 +107,12 @@ public class UploadBook extends HttpServlet {
                 }
 
             } else {
-                String errorMessage = "Sorry, You are not allowed to upload book. ";
-                RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-                request.setAttribute("errorMessage", errorMessage);
-                dispatcher.forward(request, response);
+                request.getSession(false).setAttribute("errorMessage", "Sorry, You are not allowed to upload book.");
+                response.sendRedirect("home");
             }
         } else {
-            String errorMessage = "Sorry, You are not allowed to upload book. ";
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            request.setAttribute("errorMessage", errorMessage);
-            dispatcher.forward(request, response);
+            request.getSession(false).setAttribute("errorMessage", "Sorrry! you should login first to upload books.");
+            response.sendRedirect("login");
         }
     }
 

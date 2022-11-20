@@ -4,7 +4,6 @@ import com.config.Config;
 import com.secure.Encrypt;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 import javax.servlet.RequestDispatcher;
@@ -47,11 +46,11 @@ public class NewPassword extends HttpServlet {
 
                     int rowCount = pst.executeUpdate();
                     if (rowCount > 0) {
-                        request.setAttribute("successMessage", "Your password is successfully reset. Please login with your new password.");
-                        dispatcher = request.getRequestDispatcher("LogIn.jsp");
+                        request.getSession(false).setAttribute("successMessage", "Your password is successfully reset. Please login with your new password.");
+                        response.sendRedirect("login");
                     } else {
-                        request.setAttribute("errorMessage", "Sorry! your password couldnot be reset at the moment.");
-                        dispatcher = request.getRequestDispatcher("LogIn.jsp");
+                        request.getSession(false).setAttribute("errorMessage", "Sorry! your password couldnot be reset at the moment.");
+                        response.sendRedirect("login");
                     }
                     dispatcher.forward(request, response);
                 } catch (Exception e) {
