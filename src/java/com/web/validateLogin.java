@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author Umesh
  */
 @WebServlet(name = "validateLogin", urlPatterns = {"/login"})
-public class ValidateLogin extends HttpServlet {
+public class validateLogin extends HttpServlet {
 
     private Encrypt encrypt;
     private CheckEmail checkemail;
