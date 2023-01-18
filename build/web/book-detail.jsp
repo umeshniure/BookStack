@@ -123,7 +123,31 @@
                             <!-- Sizes -->
                             <div class="mt-5">
                                 <div class="flex items-center">
-                                    <h3 class="text-sm text-gray-900 font-medium">Status: <span class="text-green-500 text-base"> In stock </span></h3>
+                                    <h3 class="text-sm text-gray-900 font-medium">Status: 
+                                        <c:choose>
+                                            <c:when test="${book.quantity > 5}">
+                                                <span class="text-green-500 text-base font-bold"> In stock </span>
+                                            </c:when>
+                                            <c:when test="${book.quantity <= 5 && book.quantity >0}">
+                                                <span class="text-red-600 text-base font-bold"> Low stock </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="text-red-500 text-base font-bold"> Out of stock </span>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <!--
+                                        <c:if test="${book.quantity > 5}">
+                                            <span class="text-green-500 text-base font-bold"> In stock </span>
+                                        </c:if>      
+                                        <c:if test="${book.quantity <= 5 && book.quantity >0}">
+                                            <span class="text-red-600 text-base font-bold"> Low stock </span>
+                                        </c:if>
+                                        <c:if test="${book.quantity == 0}">
+                                            <span class="text-red-500 text-base font-bold"> Out of stock </span>
+                                        </c:if>
+                                        -->
+                                    </h3>
                                 </div>                                    
                             </div>
 
