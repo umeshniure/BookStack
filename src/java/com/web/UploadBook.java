@@ -140,6 +140,7 @@ public class UploadBook extends HttpServlet {
         String description = request.getParameter("description");
         String authorname = request.getParameter("authorname");
         int vendor_id = (int) session.getAttribute("id");
+        int quantity = (int) session.getAttribute("quantity");
         try {
             Part pic_part = null;
             pic_part = request.getPart("cover_photo");
@@ -155,7 +156,7 @@ public class UploadBook extends HttpServlet {
             System.out.println("image save path: " + imageSavePath);
             pic_part.write(imageSavePath + File.separator);
             Books newBook = new Books(isbn, bookname, authorname, publication, price, discounted_price,
-                    published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
+                    published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id, quantity);
             System.out.println("book constructor called");
             if (bookDAO.insertBook(newBook)) {
                 request.getSession(false).setAttribute("successMessage", "Hurray! one book is successfully added.");

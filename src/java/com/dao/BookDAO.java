@@ -11,25 +11,10 @@ import java.util.List;
 
 public class BookDAO {
 
-    private static final String SELECT_ALL_BOOKS = "select * from books INNER JOIN categories ON books.category = categories.id";
-    private static final String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,\n"
-            + "                published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    private static final String UPDATE_BOOK_SQL = "UPDATE books set isbn=?, name=?, author=?, publication=?, price=?, discounted_price=?,\n"
-            + "                published_year=?, category=?, cover_type=?, language=?, type=?, description=?, cover_photo=?, cover_photo_name=?, vendor_id=? where id=?;";
 //    private static final String SELECT_BOOK_BY_ID = "select * from books where id =?";
-    private static final String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id "
-            + "INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
-    private static final String SELECT_BOOK_BY_VENDOR_ID = "select * from books INNER JOIN categories ON books.category = categories.id where books.vendor_id = ?";
-    private static final String SELECT_BOOK_BY_CATEGORY = "select * from books INNER JOIN categories ON books.category = categories.id where category = ?";
-    private static final String SELECT_BOOK_BY_AUTHOR = "select * from books INNER JOIN categories ON books.category = categories.id where author = ?";
-    private static final String SELECT_BOOK_BY_LANGUAGE = "select * from books INNER JOIN categories ON books.category = categories.id where language = ?";
-    private static final String SELECT_BOOK_BY_COVER = "select * from books INNER JOIN categories ON books.category = categories.id where cover_type = ?";
-    private static final String SELECT_BOOK_BY_BOOKTYPE = "select * from books INNER JOIN categories ON books.category = categories.id where type = ?";
     //SELECT table1.*, table2.first_name FROM table1 LEFT JOIN table2
-    private static final String DELETE_BOOK_SQL = "delete from books where id = ?;";
-    private static final String BOOK_COUNT = "SELECT count(*) FROM books";
-
     public int countBooks() {
+        String BOOK_COUNT = "SELECT count(*) FROM books";
         try {
             Connection connection = Config.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(BOOK_COUNT);
@@ -76,13 +61,14 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                booklist.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                booklist.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language, type,
+                        description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -92,6 +78,7 @@ public class BookDAO {
     }
 
     public List<Books> selectAllBooks() {
+        String SELECT_ALL_BOOKS = "select * from books INNER JOIN categories ON books.category = categories.id";
         List<Books> booklist = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -115,13 +102,14 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
                 booklist.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -131,6 +119,8 @@ public class BookDAO {
     }
 
     public boolean insertBook(Books newBook) {
+        String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,published_year, category, cover_type, \n"
+                + "language, type, description, cover_photo, cover_photo_name, vendor_id, quantity) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(INSERT_BOOK_SQL);
@@ -147,6 +137,7 @@ public class BookDAO {
             ps.setString(14, newBook.getCover_photo_name());
             ps.setInt(15, newBook.getVendor_id());
             ps.setInt(5, newBook.getPrice());
+            ps.setInt(16, newBook.getQuantity());
             if (newBook.getDiscounted_price() == null) {
                 ps.setNull(6, java.sql.Types.NULL);
             } else {
@@ -163,6 +154,8 @@ public class BookDAO {
     }
 
     public boolean updateBook(Books newBook) {
+        String UPDATE_BOOK_SQL = "UPDATE books set isbn=?, name=?, author=?, publication=?, price=?, discounted_price=?,\n"
+                + "published_year=?, category=?, cover_type=?, language=?, type=?, description=?, cover_photo=?, cover_photo_name=?, vendor_id=?, quantity=? where id=?;";
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(UPDATE_BOOK_SQL);
@@ -185,7 +178,8 @@ public class BookDAO {
             ps.setString(13, newBook.getCover_photo());
             ps.setString(14, newBook.getCover_photo_name());
             ps.setInt(15, newBook.getVendor_id());
-            ps.setInt(16, newBook.getId());
+            ps.setInt(16, newBook.getQuantity());
+            ps.setInt(17, newBook.getId());
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -196,6 +190,8 @@ public class BookDAO {
     }
 
     public Books selectBook(int id) {
+        String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id "
+                + "INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";
         Books bookDetail = new Books();
         try {
             Connection connection = Config.getConnection();
@@ -218,14 +214,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = rs.getString("language_name");
                 String category_name = rs.getString("category_name");
                 String book_type = rs.getString("book_type.type");
                 String cover = rs.getString("book_cover.cover_type");
                 String vendor = rs.getString("store_name");
-                bookDetail = (new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookDetail = (new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -235,6 +232,7 @@ public class BookDAO {
     }
 
     public List<Books> selectBookByVendorID(int id) {
+        String SELECT_BOOK_BY_VENDOR_ID = "select * from books INNER JOIN categories ON books.category = categories.id where books.vendor_id = ?";
         List<Books> bookList = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -258,14 +256,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String category_name = rs.getString("category_name");
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -275,6 +274,7 @@ public class BookDAO {
     }
 
     public List<Books> selectBookByCategory(int id) {
+        String SELECT_BOOK_BY_CATEGORY = "select * from books INNER JOIN categories ON books.category = categories.id where category = ?";
         List<Books> bookList = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -298,14 +298,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String category_name = rs.getString("category_name");
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -315,6 +316,7 @@ public class BookDAO {
     }
 
     public List<Books> selectBookByAuthor(String authorName) {
+        String SELECT_BOOK_BY_AUTHOR = "select * from books INNER JOIN categories ON books.category = categories.id where author = ?";
         List<Books> bookList = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -338,14 +340,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String category_name = rs.getString("category_name");
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -355,6 +358,7 @@ public class BookDAO {
     }
 
     public List<Books> selectBookByLanguage(int languageId) {
+        String SELECT_BOOK_BY_LANGUAGE = "select * from books INNER JOIN categories ON books.category = categories.id where language = ?";
         List<Books> bookList = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -378,14 +382,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String category_name = rs.getString("category_name");
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -395,6 +400,7 @@ public class BookDAO {
     }
 
     public List<Books> selectBookByCover(int coverId) {
+        String SELECT_BOOK_BY_COVER = "select * from books INNER JOIN categories ON books.category = categories.id where cover_type = ?";
         List<Books> bookList = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -418,14 +424,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String category_name = rs.getString("category_name");
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -435,6 +442,7 @@ public class BookDAO {
     }
 
     public List<Books> selectBookByBookType(int bookTypeId) {
+        String SELECT_BOOK_BY_BOOKTYPE = "select * from books INNER JOIN categories ON books.category = categories.id where type = ?";
         List<Books> bookList = new ArrayList<>();
         try {
             Connection connection = Config.getConnection();
@@ -458,14 +466,15 @@ public class BookDAO {
                 int discounted_price = rs.getInt("discounted_price");
                 int published_year = rs.getInt("published_year");
                 int vendor_id = rs.getInt("vendor_id");
+                int quantity = rs.getInt("quantity");
 
                 String language_name = "";
                 String category_name = rs.getString("category_name");
                 String book_type = "";
                 String cover = "";
                 String vendor = "";
-                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price,
-                        published_year, category, cover_type, language, type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor));
+                bookList.add(new Books(id, isbn, name, author, publication, price, discounted_price, published_year, category, cover_type, language,
+                        type, description, cover_photo, cover_photo_name, vendor_id, category_name, language_name, book_type, cover, vendor, quantity));
             }
 
         } catch (Exception e) {
@@ -475,6 +484,7 @@ public class BookDAO {
     }
 
     public boolean deleteBookById(int id) {
+        String DELETE_BOOK_SQL = "delete from books where id = ?;";
         boolean deleted = false;
         try {
             Connection connection = Config.getConnection();

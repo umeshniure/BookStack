@@ -3,6 +3,7 @@ package com.model;
 public class Books {
 
     protected int id, category, cover_type, type, language, price, published_year, vendor_id;
+    private int quantity;
     Integer discounted_price;
     protected long isbn;
     protected String name, description, author, cover_photo, cover_photo_name, publication;
@@ -12,7 +13,7 @@ public class Books {
     }
 
     public Books(long isbn, String bookname, String authorname, String publication, int price, Integer discounted_price, int published_year, int category,
-            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id) {
+            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id, int quantity) {
         super();
         this.isbn = isbn;
         this.name = bookname;
@@ -29,11 +30,12 @@ public class Books {
         this.cover_photo_name = cover_photo_name;
         this.description = description;
         this.vendor_id = vendor_id;
+        this.quantity = quantity;
     }
 
     //constructor wit id for inner joined table
     public Books(int id, long isbn, String bookname, String authorname, String publication, int price, int discounted_price, int published_year, int category,
-            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id, String category_name, String language_name, String book_type, String cover, String vendor) {
+            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id, String category_name, String language_name, String book_type, String cover, String vendor, int quantity) {
         super();
         this.id = id;
         this.isbn = isbn;
@@ -56,11 +58,12 @@ public class Books {
         this.book_type = book_type;
         this.cover = cover;
         this.language_name = language_name;
+        this.quantity = quantity;
 
     }
 
     public Books(int id, long isbn, String bookname, String authorname, String publication, int price, Integer discounted_price, int published_year, int category,
-            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id) {
+            int cover_type, int language, int type, String description, String cover_photo, String cover_photo_name, int vendor_id, int quantity) {
         super();
         this.id = id;
         this.isbn = isbn;
@@ -78,6 +81,7 @@ public class Books {
         this.cover_photo_name = cover_photo_name;
         this.description = description;
         this.vendor_id = vendor_id;
+        this.quantity = quantity;
     }
 
     public int getId() {
@@ -276,6 +280,20 @@ public class Books {
      */
     public void setVendor(String vendor) {
         this.vendor = vendor;
+    }
+
+    /**
+     * @return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 }

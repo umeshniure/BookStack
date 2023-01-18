@@ -147,10 +147,10 @@
                                         </div>
                                         <div class="w-full md:w-4/12 px-4">
                                             <div class="relative w-full mb-3">
-                                                <label class="block uppercase text-gray-200 text-xs font-bold mb-2" htmlfor="grid-password">
+                                                <label class="block uppercase text-blueGray-400 text-xs font-bold mb-2" htmlfor="grid-password">
                                                     Quantity
                                                 </label>
-                                                <input disabled type="number" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
+                                                <input name="quantity" type="number" value="${book.quantity}" class="border border-solid border-gray-300 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" value="">
                                             </div>
                                         </div>
                                     </div>

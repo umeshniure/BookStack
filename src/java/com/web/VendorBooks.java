@@ -205,6 +205,7 @@ public class VendorBooks extends HttpServlet {
         String description = request.getParameter("description");
         String authorname = request.getParameter("authorname");
         int vendor_id = (int) session.getAttribute("id");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         Books book = bookDAO.selectBook(id);
         try {
             Part pic_part = request.getPart("cover_photo");
@@ -224,7 +225,7 @@ public class VendorBooks extends HttpServlet {
                 pic_part.write(imageSavePath + File.separator);
             }
             Books newBook = new Books(id, isbn, bookname, authorname, publication, price, discounted_price,
-                    published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id);
+                    published_year, category, cover_type, language, book_type, description, imageSavePath, fileName, vendor_id, quantity);
             if (bookDAO.updateBook(newBook)) {
                 request.getSession(false).setAttribute("successMessage", "One book is successfully updated.");
             } else {
