@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "OrderServlet", urlPatterns = {"/order"})
 public class OrderServlet extends HttpServlet {
 
+    private BookDAO bookDAO;
     private CartDAO cartDAO;
     private UsersDAO userDAO;
     private OrderDAO orderDao;
@@ -38,6 +39,7 @@ public class OrderServlet extends HttpServlet {
     private UpdateProfile updateProfile;
 
     public void init() {
+        bookDAO = new BookDAO();
         cartDAO = new CartDAO();
         userDAO = new UsersDAO();
         orderDao = new OrderDAO();
@@ -79,10 +81,8 @@ public class OrderServlet extends HttpServlet {
                                 int defaultAddId = addressDAO.checkDefaultAddress((int) session.getAttribute("id"));
                                 showCheckoutPage(request, response, defaultAddId);
                             } else {
-                                String errorMessage = "Sorry, your cart is empty. Please add some books on your cart to access the page.";
-                                RequestDispatcher dispatcher2 = request.getRequestDispatcher("home");
-                                request.setAttribute("errorMessage", errorMessage);
-                                dispatcher2.forward(request, response);
+                                request.getSession(false).setAttribute("errorMessage", "Sorry, your cart is empty. Please add some books on your cart to access the page.");
+                                response.sendRedirect("home");
                             }
                             break;
                     }
@@ -221,6 +221,7 @@ public class OrderServlet extends HttpServlet {
             double shipping_amount = 0;
             OrderItems orderItem = new OrderItems(book_id, quantity, order_id, unit_price, total_price, tax_amount, shipping_amount);
             orderItemsDAO.insertOrderItems(orderItem);
+            bookDAO.updateQuantity(book_id, (bookDAO.getQuantity(book_id) - quantity));
         }
         cartDAO.deleteCartByUserId(user_id);
         request.getSession(false).setAttribute("successMessage", "congratulations! Your order has been successfully placed and cart has been emptied.");
@@ -233,7 +234,7 @@ public class OrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("id") != null) {
-                if ((int) session.getAttribute("id") == 1) {
+                if ((int) session.getAttribute("user_type") == 1) {
                     String action = (request.getParameter("action"));
                     if (action.equals("submitOrder")) {
                         insertOrder(request, response);

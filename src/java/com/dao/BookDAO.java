@@ -189,6 +189,41 @@ public class BookDAO {
         return false;
     }
 
+    public boolean updateQuantity(int id, int quantity) {
+        String UPDATE_QUANTITY_SQL = "UPDATE books SET quantity=? WHERE id=?;";
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement ps = connection.prepareStatement(UPDATE_QUANTITY_SQL);
+            if (quantity < 0) {
+                quantity = 0;
+            }
+            ps.setInt(1, quantity);
+            ps.setInt(2, id);
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public int getQuantity(int id) {
+        String GET_BOOK_QUANTITY = "SELECT quantity FROM books WHERE id=?;";
+        try {
+            Connection connection = Config.getConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_BOOK_QUANTITY);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("quantity");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+
     public Books selectBook(int id) {
         String SELECT_BOOK_BY_ID = "select * from books INNER JOIN categories ON books.category = categories.id INNER JOIN language ON books.language = language.id "
                 + "INNER JOIN book_type ON books.type = book_type.id INNER JOIN book_cover ON books.cover_type = book_cover.id INNER JOIN users ON books.vendor_id = users.id where books.id = ?";

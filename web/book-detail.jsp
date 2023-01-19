@@ -126,10 +126,10 @@
                                     <h3 class="text-sm text-gray-900 font-medium">Status: 
                                         <c:choose>
                                             <c:when test="${book.quantity > 5}">
-                                                <span class="text-green-500 text-base font-bold"> In stock </span>
+                                                <span class="text-green-500 text-base font-bold"> In stock (${book.quantity})</span>
                                             </c:when>
                                             <c:when test="${book.quantity <= 5 && book.quantity >0}">
-                                                <span class="text-red-600 text-base font-bold"> Low stock </span>
+                                                <span class="text-red-600 text-base font-bold"> Low stock (${book.quantity})</span>
                                             </c:when>
                                             <c:otherwise>
                                                 <span class="text-red-500 text-base font-bold"> Out of stock </span>
