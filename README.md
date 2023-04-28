@@ -39,21 +39,23 @@ BookStack is a Java-based project that is currently in development, aimed at cre
 
 ## System Prototype/Screenshots
 ### Login Page
-![image](https://user-images.githubusercontent.com/70754744/235118952-638ba9d3-0ea7-4480-a676-8ba7b39d3052.png)
+![image](https://user-images.githubusercontent.com/70754744/235122903-63b0cb36-7dbe-4985-b98f-a780f7396de9.png)
 ### Signup Page
 ![image](https://user-images.githubusercontent.com/70754744/235118762-8251d89d-f551-4ab5-aac2-ab43460b544c.png)
 ### Home Page
-![image](https://user-images.githubusercontent.com/70754744/235119069-1cf692d0-0c69-4648-83ed-54ed4ae68747.png)
+![image](https://user-images.githubusercontent.com/70754744/235123122-55233048-dadb-4c1a-8ea7-25b8d10abad2.png)
+### Home Page 2
+![image](https://user-images.githubusercontent.com/70754744/235123239-808089f7-3eac-4ec2-822f-e672cfe32926.png)
 ### Book Detail Page
-![image](https://user-images.githubusercontent.com/70754744/235119482-122e0c9a-e33b-47d6-b94b-b0c9732bf5cb.png)
+![image](https://user-images.githubusercontent.com/70754744/235123463-1781b353-0aa3-4bfb-87ca-458c231ab39b.png)
 ### Cart Page
-![image](https://user-images.githubusercontent.com/70754744/235119575-44dfc84d-bd1c-4725-87d8-8064f936b1ba.png)
+![image](https://user-images.githubusercontent.com/70754744/235123599-b1d6a1b3-3563-4dd9-a66a-0352b8412502.png)
 ### Checkout Page
-![image](https://user-images.githubusercontent.com/70754744/235119617-7eca9b42-b449-459b-95bc-ee866008d2e0.png)
+![image](https://user-images.githubusercontent.com/70754744/235124011-3585f46b-8544-4f37-ab4a-51b489bc8970.png)
 ### User Profile Preview
 ![image](https://user-images.githubusercontent.com/70754744/235122049-7588f3e0-3310-4a3f-ad41-3f856e737722.png)
 ### Profile Edit Page
-![image](https://user-images.githubusercontent.com/70754744/235119741-3049458f-1a52-4f13-b314-49d592db94e6.png)
+![image](https://user-images.githubusercontent.com/70754744/235124391-ce1cefb6-9862-4bdb-8b58-b82913374415.png)
 ### User Recent Order Page
 ![image](https://user-images.githubusercontent.com/70754744/235121765-fc93cd41-4a51-4dfc-9e56-e76510e8bf90.png)
 ### User Order History Page
