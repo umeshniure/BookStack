@@ -21,3 +21,19 @@ BookStack is a Java-based project that is currently in development, aimed at cre
 - Adobe XD
 ### 7. Operating System
 - Windows 11
+
+## Process Modeling
+### Context Diagram
+![image](https://user-images.githubusercontent.com/70754744/235108746-e8823878-d520-4870-9295-7f048746b888.png)
+### Use Case Diagram
+![image](https://user-images.githubusercontent.com/70754744/235108850-d84f8db3-b78e-4913-836e-dd71dd524f81.png)
+## Logic Modeling
+### Decision tree of browsing book
+![image](https://user-images.githubusercontent.com/70754744/235109396-9e1f23cd-7546-4a95-9139-f0f3d4a36af5.png)
+## Conceptual Modeling
+### ER-Diagram
+![image](https://user-images.githubusercontent.com/70754744/235109466-de1cfffd-cfa5-464e-87a8-96a52a474c4b.png)
+## Database Design
+![image](https://user-images.githubusercontent.com/70754744/235109605-368a53df-dd66-43fe-ba89-e637915a9c26.png)
+
+
