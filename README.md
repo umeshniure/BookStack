@@ -1,6 +1,8 @@
 # BookStack : An Online Bookstore
 BookStack is a Java-based project that is currently in development, aimed at creating an online bookstore for three different types of users - end-users, vendors/booksellers, and superadmin/bookstore service providers. The project's main objective is to develop a user-friendly platform that provides customers with a seamless shopping experience. Vendors will have access to an efficient dashboard to showcase their books and manage their inventory and sales, while superadmin/bookstore service providers can use a comprehensive backend system to manage the entire bookstore. The system's goal is to create a convenient, reliable, and secure online shopping experience for all book enthusiasts, and keep improving BookStack as it is continued with its development.
 
+
+
 ## Hardware requirements
 - 1 GHz processor or higher
 - 1 GB memory or higher
@@ -61,18 +63,19 @@ BookStack is a Java-based project that is currently in development, aimed at cre
 ### User Order History Page
 ![image](https://user-images.githubusercontent.com/70754744/235122227-9b7fd8d1-9b88-4b7a-8fa4-dc66d329e475.png)
 ### Admin Dashboard
-![image](https://user-images.githubusercontent.com/70754744/235120392-016e829f-b3d1-45b3-a9f5-2d0c2770f9f2.png)
+![image](https://user-images.githubusercontent.com/70754744/235125937-11d3350f-e1f3-442e-a38b-f4dcb0a20218.png)
 ### Admin Database Management Page
 ![image](https://user-images.githubusercontent.com/70754744/235120858-463e4d4c-45c1-4d5b-89b2-96ec618ca8b3.png)
 ### Vendor Book List Page
-![image](https://user-images.githubusercontent.com/70754744/235121387-8ed47b00-804f-4822-9c87-74becb728832.png)
+![image](https://user-images.githubusercontent.com/70754744/235121399-c1ccc931-ea43-4bb2-82a8-d3da444ecda6.png)
 ### Vendor book Upload Page/Form
 ![image](https://user-images.githubusercontent.com/70754744/235121173-da143c3b-f12e-4453-a2d6-4fc9e71dd2ec.png)
 ### Vendor Order List Page
-![image](https://user-images.githubusercontent.com/70754744/235121399-c1ccc931-ea43-4bb2-82a8-d3da444ecda6.png)
+![image](https://user-images.githubusercontent.com/70754744/235121387-8ed47b00-804f-4822-9c87-74becb728832.png)
 
-## Last Words
-In conclusion, the above multivendor online bookstore will be a comprehensive solution that addresses the current challenges faced by traditional bookstores. By leveraging the latest technology and utilizing a multivendor model, the online bookstore will provide a convenient and cost-effective platform for both customers and vendors. The extensive market research and system analysis conducted have demonstrated the viability and potential success of the proposed online bookstore. The above system design is both efficient and user-friendly, ensuring a smooth shopping experience for customers.
+
+## Summary
+In short, the above multivendor online bookstore will be a comprehensive solution that addresses the current challenges faced by traditional bookstores. By leveraging the latest technology and utilizing a multivendor model, the online bookstore will provide a convenient and cost-effective platform for both customers and vendors. The extensive market research and system analysis conducted have demonstrated the viability and potential success of the proposed online bookstore. The above system design is both efficient and user-friendly, ensuring a smooth shopping experience for customers.
 
 The multivendor online bookstore has the potential to revolutionize the book industry and offer a unique and innovative shopping experience for customers. The above-mentioned solution will not only benefit the vendors but also bring value to the customers and the community as a whole.
 
