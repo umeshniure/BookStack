@@ -33,6 +33,7 @@ BookStack is a Java-based project that is currently in development, aimed at cre
 ## Conceptual Modeling
 ### ER-Diagram
 ![image](https://user-images.githubusercontent.com/70754744/235109466-de1cfffd-cfa5-464e-87a8-96a52a474c4b.png)
+> NOTE: ER-Diagram is extracted by using SQL Workbench reverse engineering technique
 ## Database Design
 ![image](https://user-images.githubusercontent.com/70754744/235109605-368a53df-dd66-43fe-ba89-e637915a9c26.png)
 
