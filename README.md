@@ -7,17 +7,17 @@ BookStack is a Java-based project that is currently in development, aimed at cre
 - 2 GB storage or higher
 
 ## Software requirements
-### i. Backend Development
+### 1. Backend Development
 - Java, Java Server Page(JSP), Servlet
-### ii. Integrated Development Environment
+### 2. Integrated Development Environment
 - NetBeans
-### iii. Front End Development
+### 3. Front End Development
 - HTML, CSS, JavaScript, Bootstrap, TailwindCSS
-### iv. Database
+### 4. Database
 - MySQL (Xampp)
-### v. UML design
+### 5. UML design
 - Star UML
-### vi. UI/UX design
+### 6. UI/UX design
 - Adobe XD
-### vii. Operating System
+### 7. Operating System
 - Windows 11
