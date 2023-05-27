@@ -120,7 +120,7 @@ public class BookDAO {
 
     public boolean insertBook(Books newBook) {
         String INSERT_BOOK_SQL = "INSERT INTO books" + "  (isbn, name, author, publication, price, discounted_price,published_year, category, cover_type, \n"
-                + "language, type, description, cover_photo, cover_photo_name, vendor_id, quantity) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                + "language, type, description, cover_photo, cover_photo_name, vendor_id, quantity) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
             Connection connection = Config.getConnection();
             PreparedStatement ps = connection.prepareStatement(INSERT_BOOK_SQL);

@@ -140,7 +140,8 @@ public class UploadBook extends HttpServlet {
         String description = request.getParameter("description");
         String authorname = request.getParameter("authorname");
         int vendor_id = (int) session.getAttribute("id");
-        int quantity = (int) session.getAttribute("quantity");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+//        int quantity = (int) session.getAttribute("quantity");
         try {
             Part pic_part = null;
             pic_part = request.getPart("cover_photo");

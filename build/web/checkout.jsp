@@ -154,10 +154,15 @@
                                     </div>
 
                                     <c:forEach var="payment" items="${paymentTypes}">
-                                        <c:if test="${payment.id == 1}">
+                                        <c:if test="${payment.id != 2}">
                                             <div class="flex items-center justify-start mt-2">
-                                                <input id="${payment.payment_type}" form="myform" type="radio" value="${payment.payment_type}" name="paymentMethod" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required checked>
-                                                <label for="${payment.payment_type}" class="py-1 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
+                                                <c:if test="${payment.id == 1}">
+                                                    <input id="${payment.id}" form="myform" type="radio" onchange="updateButtonContent()" value="${payment.payment_type}" name="paymentMethod"  class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required checked>
+                                                </c:if>
+                                                <c:if test="${payment.id != 1}">
+                                                    <input id="${payment.id}" form="myform" type="radio" onchange="updateButtonContent()" value="${payment.payment_type}" name="paymentMethod"  class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                                </c:if>
+                                                <label for="${payment.id}" class="py-1 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"> 
                                                     <div class="bg-white drop-shadow-md cursor-pointer rounded-md p-6 hover:bg-gray-100" title="Click to use this payment method">
                                                         ${payment.payment_type}
                                                     </div>
@@ -165,6 +170,23 @@
                                             </div>
                                         </c:if>
                                     </c:forEach>
+
+                                    <script>
+                                        function updateButtonContent() {
+                                            var form = document.getElementById('OrderSubmitForm');
+                                            var submitButton = document.getElementById("SubmitOrderButton");
+                                            var option1 = document.getElementById("1");
+
+                                            if (option1.checked) {
+                                                submitButton.textContent = "CONFIRM ORDER";
+                                                form.action = "order";
+                                            } else {
+                                                submitButton.textContent = "PAY NOW";
+                                                form.action = "secureStripePayment";
+                                            }
+                                        }
+                                    </script>
+
                                 </div>
                             </div>
                             <!--Payment methods ends-->
@@ -229,7 +251,7 @@
                                         </div>
                                         <div class="flex-none pt-2.5 pr-2.5 pl-1"></div>
                                     </div>
-                                    <form id="myform" action="order" method="post">
+                                    <form id="OrderSubmitForm" action="order" method="post">                                       
                                         <div class="px-5 pb-5 mt-4">
                                             <span class="block uppercase text-gray-600 text-xs font-bold mb-2">Street name</span>
                                             <input name="street" value="${fillAddress.street}"  placeholder="Street name" class=" mb-8 text-black placeholder-gray-600 border shadow-sm w-full px-4 py-2.5 text-base transition duration-500 ease-in-out transform rounded focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
@@ -303,7 +325,21 @@
                                                 </button>
                                             </div>
                                             <div class="flex-initial a w-full ">
-                                                <button type="submit" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
+                                                <button type="submit" id="SubmitOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
+
+                                                    <script
+                                                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                        data-key="pk_test_51NCHgbAnmHEqWsDuMYOjvcPlDgaVaKdkyd0ynk0euUfkn7SOQPgnUgMYdtX6no8T19o3RwZ1F0Dz5rnQwpOQJJFC00tjYdoYrM"
+                                                        data-amount="${total_price+(Double.parseDouble(String.format("%.0f", total_tax)))}"
+                                                        data-name="Bookstack"
+                                                        data-description="Book Purchase"
+                                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                        data-locale="auto"
+                                                        data-currency="jpy">
+                                                    </script>
+                                                </button>
+
+                                                <button type="submit" id="SubmitOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
                                                     Confirm order
                                                 </button>
                                             </div>
