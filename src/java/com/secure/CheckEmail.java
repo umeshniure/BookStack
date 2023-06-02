@@ -2,7 +2,7 @@ package com.secure;
 
 public class CheckEmail {
 
-    public boolean emailValidity(String email) {
+    public static boolean isEmailValid(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
                 + "[a-zA-Z0-9_+&*-]+)*@"
                 + "(?:[a-zA-Z0-9-]+\\.)+[a-z"

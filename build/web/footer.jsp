@@ -347,7 +347,10 @@
                             </svg>
                         </a>
                     </div>
-                    <p class="text-base text-body-color">&copy; 2022 BookStack</p>
+                    <p class="text-base text-body-color">&copy; 
+                        <script>document.write(/\d{4}/.exec(Date())[0])</script> 
+                        BookStack
+                    </p>
                     <a href="termsAndConditions"><p class="text-base text-body-color text-purple-600 hover:text-purple-800">Terms & Conditions</p></a>
                     <a href="privacyPolicy"><p class="text-base text-body-color text-purple-600 hover:text-purple-800">Privacy Policies</p></a>
                 </div>

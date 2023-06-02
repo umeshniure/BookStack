@@ -7,7 +7,7 @@ package com.web;
 import com.dao.UsersDAO;
 import com.model.Users;
 import com.secure.CheckEmail;
-import com.secure.Encrypt;
+import com.secure.PasswordEncryption;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,12 +24,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "validateLogin", urlPatterns = {"/login"})
 public class validateLogin extends HttpServlet {
 
-    private Encrypt encrypt;
     private CheckEmail checkemail;
     private UsersDAO userDAO;
 
     public void init() {
-        encrypt = new Encrypt();
         checkemail = new CheckEmail();
         userDAO = new UsersDAO();
     }
@@ -62,8 +60,8 @@ public class validateLogin extends HttpServlet {
         String message;
         try {
             if (!_email.equals("") && !_password.equals("")) {
-                if (checkemail.emailValidity(_email)) {
-                    Users user = userDAO.selectUserByEmailAndPassword(_email, encrypt.encryptPassword(_password));
+                if (checkemail.isEmailValid(_email)) {
+                    Users user = userDAO.selectUserByEmailAndPassword(_email, PasswordEncryption.encrypt(_password));
                     if (user != null) {
                         HttpSession session = request.getSession();
                         session.setAttribute("id", user.getId());

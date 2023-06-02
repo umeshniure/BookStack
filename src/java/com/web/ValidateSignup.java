@@ -8,7 +8,8 @@ import com.config.Config;
 import com.dao.UsersDAO;
 import com.model.Users;
 import com.secure.CheckEmail;
-import com.secure.Encrypt;
+import com.secure.PasswordEncryption;
+import com.secure.PasswordValidator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -25,12 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ValidateSignup", urlPatterns = {"/signup"})
 public class ValidateSignup extends HttpServlet {
 
-    private Encrypt encrypt;
     private CheckEmail checkemail;
     private UsersDAO userDAO;
 
     public void init() {
-        encrypt = new Encrypt();
         checkemail = new CheckEmail();
         userDAO = new UsersDAO();
     }
@@ -69,15 +68,22 @@ public class ValidateSignup extends HttpServlet {
         try {
             String message;
             if (!email.equals("") && !_password1.equals("") && !_password2.equals("")) {
-                if (checkemail.emailValidity(email)) {
+                if (checkemail.isEmailValid(email)) {
                     if (_password1.equals(_password2)) {
-                        Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, profile_pic_name, encrypt.encryptPassword(_password1), user_type);
-                        if (userDAO.insertUser(newuser)) {
-                            request.getSession(false).setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
-                            response.sendRedirect("login");
+                        if (PasswordValidator.isValidPassword(_password2)) {
+
+                            Users newuser = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, profile_pic_name, PasswordEncryption.encrypt(_password2), user_type);
+                            if (userDAO.insertUser(newuser)) {
+                                request.getSession(false).setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
+                                response.sendRedirect("login");
+                            } else {
+                                request.getSession(false).setAttribute("errorMessage", "Sorry! could not register at the moment.");
+                                response.sendRedirect("signup");
+                            }
+
                         } else {
-                            request.getSession(false).setAttribute("errorMessage", "Sorry! could not register at the moment.");
-                            response.sendRedirect("signup");
+                            message = "Password must be at least 8 characters long, one capital letter, a number, and a special character.";
+                            passValue(request, response, first_name, last_name, email, message);
                         }
                     } else {
                         message = "The passwords didnot match!";

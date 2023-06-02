@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.model.Users;
 import com.dao.UsersDAO;
-import com.secure.*;
+import com.secure.CheckEmail;
+import com.secure.PasswordEncryption;
+import com.secure.PasswordValidator;
 import java.io.File;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
@@ -32,12 +34,10 @@ public class ValidateVendorRegistration extends HttpServlet {
 
     private UsersDAO vendorsDAO;
     private CheckEmail check;
-    private Encrypt encrypt;
 
     public void init() {
         vendorsDAO = new UsersDAO();
         check = new CheckEmail();
-        encrypt = new Encrypt();
     }
 
     @Override
@@ -82,23 +82,30 @@ public class ValidateVendorRegistration extends HttpServlet {
             String message;
             if (!store_name.equals("")) {
                 if (!email.equals("")) {
-                    if (check.emailValidity(email)) {
+                    if (check.isEmailValid(email)) {
                         if (!_password1.equals("") && !_password2.equals("")) {
                             if (_password1.equals(_password2)) {
-                                try {
-                                    pic_part = request.getPart("profile_pic");
-                                    //String fileName = extractFileName(pic_part);
-                                    String fileName = store_name + "-profile_pic.png";
-                                    String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles" + File.separator + fileName;
-                                    File fileSaveDir = new File(imageSavePath);
-                                    pic_part.write(imageSavePath + File.separator);
-                                    Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, fileName, encrypt.encryptPassword(_password1), user_type);
-                                    vendorsDAO.insertUser(newVendor);
-                                    RequestDispatcher dispatcher = request.getRequestDispatcher("LogIn.jsp");
-                                    request.setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
-                                    dispatcher.forward(request, response);
-                                } catch (Exception e) {
-                                    System.out.println(e);
+                                if (PasswordValidator.isValidPassword(_password2)) {
+
+                                    try {
+                                        pic_part = request.getPart("profile_pic");
+                                        //String fileName = extractFileName(pic_part);
+                                        String fileName = store_name + "-profile_pic.png";
+                                        String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles" + File.separator + fileName;
+                                        File fileSaveDir = new File(imageSavePath);
+                                        pic_part.write(imageSavePath + File.separator);
+                                        Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, fileName, PasswordEncryption.encrypt(_password1), user_type);
+                                        vendorsDAO.insertUser(newVendor);
+                                        RequestDispatcher dispatcher = request.getRequestDispatcher("LogIn.jsp");
+                                        request.setAttribute("successMessage", "You are successfuly Registered. Please login with your registered account to continue.");
+                                        dispatcher.forward(request, response);
+                                    } catch (Exception e) {
+                                        System.out.println(e);
+                                    }
+
+                                } else {
+                                    message = "Password must be at least 8 characters long, one capital letter, a number, and a special character.";
+                                    passValue(request, response, store_name, phone_number, email, message);
                                 }
                             } else {
                                 message = "Password didn't match!";

@@ -53,7 +53,7 @@ public class ForgotPassword extends HttpServlet {
             request.setAttribute("message", "Empty email address!");
             dispatcher.forward(request, response);
         }
-        if (!checkemail.emailValidity(email)) {
+        if (!checkemail.isEmailValid(email)) {
             dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
             request.setAttribute("email", email);
             request.setAttribute("message", "Incorrect email format!");
@@ -61,7 +61,7 @@ public class ForgotPassword extends HttpServlet {
         }
 
         String hostemail = "info@bookstack.com";
-        int otpvalue = 0;
+        int otpvalue;
         HttpSession mySession = request.getSession();
         try {
             Connection connection = Config.getConnection();

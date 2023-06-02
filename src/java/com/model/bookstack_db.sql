@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2022 at 09:43 AM
+-- Generation Time: Jun 02, 2023 at 11:56 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -43,20 +43,21 @@ CREATE TABLE `books` (
   `language` int(11) DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
   `cover_photo_name` text DEFAULT NULL,
-  `vendor_id` int(11) NOT NULL
+  `vendor_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `name`, `isbn`, `author`, `published_year`, `category`, `price`, `cover_photo`, `publication`, `discounted_price`, `description`, `cover_type`, `language`, `type`, `cover_photo_name`, `vendor_id`) VALUES
-(4, 'Do Epic Shit', 2663523, 'Ankur Warikoo', 2021, 5, 500, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\3\\Do Epic Shit-vendor3.png', 'Mumbai Publishers', 479, 'sredtyftughuijoojihughfds hbnm', 1, 1, 1, 'Do Epic Shit-vendor3.png', 3),
-(5, 'The Alchemist', 43563456455645, 'paulo coehaelo', 2002, 4, 450, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\The Alchemistt-vendor4.png', 'harper collins', NULL, 'dfbdfg egbgb dfgb fg fghdfgh herth eth erth eerth rth ', 1, 2, 1, 'The Alchemistt-vendor4.png', 4),
-(7, 'Rockin Rollin Rolpa', 232323234234, 'mahendra Joshi', 2018, 3, 400, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\Rockin Rollin Rolpa-vendor4.png', 'brosis india Pvt. Ltd.', NULL, 'zdfvsdfbsfd this a awesone rockin rollin book with tons of humor, drama, and culture heighlights.', 1, 1, 1, 'Rockin Rollin Rolpa-vendor4.png', 4),
-(8, 'The Subtle Art of Not Giving a Fuck', 4534523533462456, 'Mark Manson', 2016, 6, 550, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\3\\The Subtle Art of Not Giving a Fuck-vendor3.png', 'Harper One Publishers', NULL, 'In this generation-defining self-help guide, a superstar blogger cuts through the crap to show us how to stop trying to be \"positive\" all the time so that we can truly become better, happier people.\r\n\r\nFor decades, weve been told that positive thinking is the key to a happy, rich life. \"F**k positivity,\" Mark Manson says. \"Lets be honest, shit is f**ked and we have to live with it.\" In his wildly popular Internet blog, Manson doesnt sugarcoat or equivocate. He tells it like it isa dose of raw, refreshing, honest truth that is sorely lacking today. The Subtle Art of Not Giving a F**k is his antidote to the coddling, lets-all-feel-good mindset that has infected modern society and spoiled a generation, rewarding them with gold medals just for showing up.\r\n\r\nManson makes the argument, backed both by academic research and well-timed poop jokes, that improving our lives hinges not on our ability to turn lemons into lemonade, but on learning to stomach lemons better. Human beings are flawed and limited\"not everybody can be extraordinary, there are winners and losers in society, and some of it is not fair or your fault.\" Manson advises us to get to know our limitations and accept them. Once we embrace our fears, faults, and uncertainties, once we stop running and avoiding and start confronting painful truths, we can begin to find the courage, perseverance, honesty, responsibility, curiosity, and forgiveness we seek.\r\n\r\nThere are only so many things we can give a f**k about so we need to figure out which ones really matter, Manson makes clear. While money is nice, caring about what you do with your life is better, because true wealth is about experience. A much-needed grab-you-by-the-shoulders-and-look-you-in-the-eye moment of real-talk, filled with entertaining stories and profane, ruthless humor, The Subtle Art of Not Giving a F**k is a refreshing slap for a generation to help them lead contented, grounded lives.', 2, 2, 1, 'The Subtle Art of Not Giving a Fuck-vendor3.png', 3),
-(9, 'The Subtle Art of Not Giving a Fuck', 3245345234, 'Mark Manson', 2016, 6, 610, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\The Subtle Art of Not Giving a Fuck-vendor4.png', 'Harper One Publishers', 600, 'sdfvsdfbsdb sdfdfv sdfgw dffgwe rgwer gwerg wrgwe rgwerg werrg', 2, 2, 1, 'The Subtle Art of Not Giving a Fuck-vendor4.png', 4),
-(16, 'Rich Dad Poor Dad', 4534634, 'Robert kiyosakii', 2002, 5, 345, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\Rich Dad Poor Dad-vendor4.png', 'Harper One Publishers', NULL, 'dfvsdfs sdfvdsfgb', 2, 2, 1, 'Rich Dad Poor Dad-vendor4.png', 4);
+INSERT INTO `books` (`id`, `name`, `isbn`, `author`, `published_year`, `category`, `price`, `cover_photo`, `publication`, `discounted_price`, `description`, `cover_type`, `language`, `type`, `cover_photo_name`, `vendor_id`, `quantity`) VALUES
+(4, 'Do Epic Shit', 2663523, 'Ankur Warikoo', 2021, 5, 500, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\3\\Do Epic Shit-vendor3.png', 'Mumbai Publishers', 479, 'sredtyftughuijoojihughfds hbnm', 1, 1, 1, 'Do Epic Shit-vendor3.png', 3, 3),
+(5, 'The Alchemist', 43563456455645, 'paulo coehaelo', 2002, 4, 450, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\The Alchemistt-vendor4.png', 'harper collins', NULL, 'dfbdfg egbgb dfgb fg fghdfgh herth eth erth eerth rth ', 1, 2, 1, 'The Alchemistt-vendor4.png', 4, 4),
+(7, 'Rockin Rollin Rolpa', 232323234234, 'mahendra Joshi', 2018, 3, 400, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\Rockin Rollin Rolpa-vendor4.png', 'brosis india Pvt. Ltd.', NULL, 'zdfvsdfbsfd this a awesone rockin rollin book with tons of humor, drama, and culture heighlights.', 1, 1, 1, 'Rockin Rollin Rolpa-vendor4.png', 4, 0),
+(8, 'The Subtle Art of Not Giving a Fuck', 4534523533462456, 'Mark Manson', 2016, 6, 550, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\3\\The Subtle Art of Not Giving a Fuck-vendor3.png', 'Harper One Publishers', NULL, 'In this generation-defining self-help guide, a superstar blogger cuts through the crap to show us how to stop trying to be \"positive\" all the time so that we can truly become better, happier people.\r\n\r\nFor decades, weve been told that positive thinking is the key to a happy, rich life. \"F**k positivity,\" Mark Manson says. \"Lets be honest, shit is f**ked and we have to live with it.\" In his wildly popular Internet blog, Manson doesnt sugarcoat or equivocate. He tells it like it isa dose of raw, refreshing, honest truth that is sorely lacking today. The Subtle Art of Not Giving a F**k is his antidote to the coddling, lets-all-feel-good mindset that has infected modern society and spoiled a generation, rewarding them with gold medals just for showing up.\r\n\r\nManson makes the argument, backed both by academic research and well-timed poop jokes, that improving our lives hinges not on our ability to turn lemons into lemonade, but on learning to stomach lemons better. Human beings are flawed and limited\"not everybody can be extraordinary, there are winners and losers in society, and some of it is not fair or your fault.\" Manson advises us to get to know our limitations and accept them. Once we embrace our fears, faults, and uncertainties, once we stop running and avoiding and start confronting painful truths, we can begin to find the courage, perseverance, honesty, responsibility, curiosity, and forgiveness we seek.\r\n\r\nThere are only so many things we can give a f**k about so we need to figure out which ones really matter, Manson makes clear. While money is nice, caring about what you do with your life is better, because true wealth is about experience. A much-needed grab-you-by-the-shoulders-and-look-you-in-the-eye moment of real-talk, filled with entertaining stories and profane, ruthless humor, The Subtle Art of Not Giving a F**k is a refreshing slap for a generation to help them lead contented, grounded lives.', 2, 2, 1, 'The Subtle Art of Not Giving a Fuck-vendor3.png', 3, 0),
+(9, 'The Subtle Art of Not Giving a Fuck', 3245345234, 'Mark Manson', 2016, 6, 610, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\The Subtle Art of Not Giving a Fuck-vendor4.png', 'Harper One Publishers', 600, 'sdfvsdfbsdb sdfdfv sdfgw dffgwe rgwer gwerg wrgwe rgwerg werrg', 2, 2, 1, 'The Subtle Art of Not Giving a Fuck-vendor4.png', 4, 1),
+(16, 'Rich Dad Poor Dad', 4534634, 'Robert kiyosakii', 2002, 5, 345, 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\4\\Rich Dad Poor Dad-vendor4.png', 'Harper One Publishers', NULL, 'dfvsdfs sdfvdsfgb', 2, 2, 1, 'Rich Dad Poor Dad-vendor4.png', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -89,6 +90,7 @@ CREATE TABLE `book_order` (
   `user_id` int(11) NOT NULL,
   `order_date` datetime DEFAULT NULL,
   `order_status` int(11) DEFAULT 1,
+  `delivered_date` date DEFAULT NULL,
   `transaction_id` int(11) DEFAULT NULL,
   `transaction_status` int(11) DEFAULT 1,
   `order_subtotal_amount` double NOT NULL,
@@ -108,11 +110,16 @@ CREATE TABLE `book_order` (
 -- Dumping data for table `book_order`
 --
 
-INSERT INTO `book_order` (`id`, `user_id`, `order_date`, `order_status`, `transaction_id`, `transaction_status`, `order_subtotal_amount`, `order_total_amount`, `special_instruction`, `payment_method`, `shipping_method`, `shipping_street`, `shipping_apartment`, `shipping_province`, `shipping_city`, `shipping_postcode`, `shipping_country`) VALUES
-('aUdOReX4nB', 18, '2022-11-05 00:00:00', 1, NULL, 1, 879, 993, '', 'Cash On Delivery', 1, 'siddhartha marga', 'kapan-07', 'Bagmati', 'Kathmandu', NULL, 'Nepal'),
-('HYfDcEX16w', 1, '2022-11-01 00:00:00', 1, NULL, 1, 2041, 2306, 'fyfff sthvhvhhh', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
-('uzXF5V3qE2', 18, '2022-11-05 00:00:00', 1, NULL, 1, 879, 993, '', 'Cash On Delivery', 1, 'siddhartha marga', 'kapan-07', 'Bagmati', 'Kathmandu', NULL, 'Nepal'),
-('zvcTbWGvzZ', 1, '2022-10-31 00:00:00', 1, NULL, 1, 1220, 1379, 'please deliver ASAP!!', 'Cash On Delivery', 1, 'Bigyan marga', 'Sankhamul, New baneshwor', 'Bagmati', 'Kathmandu', NULL, 'Nepal');
+INSERT INTO `book_order` (`id`, `user_id`, `order_date`, `order_status`, `delivered_date`, `transaction_id`, `transaction_status`, `order_subtotal_amount`, `order_total_amount`, `special_instruction`, `payment_method`, `shipping_method`, `shipping_street`, `shipping_apartment`, `shipping_province`, `shipping_city`, `shipping_postcode`, `shipping_country`) VALUES
+('5OjEuiJOnE', 1, '2023-04-04 00:00:00', 1, NULL, NULL, 1, 1895, 2141, '', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
+('92elZRCAcK', 1, '2023-01-19 00:00:00', 1, NULL, NULL, 1, 1379, 1558, '', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
+('GM2Uh1Iav2', 1, '2023-05-11 00:00:00', 1, NULL, NULL, 1, 1579, 1784, '', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
+('HYfDcEX16w', 1, '2022-11-01 00:00:00', 4, '2023-04-04', NULL, 1, 2041, 2306, 'fyfff sthvhvhhh', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
+('jxFQwJ5TmF', 5, '2023-01-19 00:00:00', 2, NULL, NULL, 1, 400, 452, '', 'Cash On Delivery', 1, 'kasukabe shi kasukabe higashi', 'haitsunakai 202', 'Bagmati', 'Kathmandu', 3223345, 'Nepal'),
+('kMq23j7Fzr', 1, '2023-05-18 00:00:00', 1, NULL, NULL, 1, 900, 1017, '', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
+('slYHt5kD2E', 1, '2023-05-27 00:00:00', 1, NULL, NULL, 1, 850, 961, '', 'Cash On Delivery', 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 'Bagmati', 'Kathmandu', 123322, 'Nepal'),
+('uzXF5V3qE2', 18, '2022-11-05 00:00:00', 1, NULL, NULL, 1, 879, 993, '', 'Cash On Delivery', 1, 'siddhartha marga', 'kapan-07', 'Bagmati', 'Kathmandu', NULL, 'Nepal'),
+('zvcTbWGvzZ', 1, '2022-10-31 00:00:00', 1, NULL, NULL, 1, 1220, 1379, 'please deliver ASAP!!', 'Cash On Delivery', 1, 'Bigyan marga', 'Sankhamul, New baneshwor', 'Bagmati', 'Kathmandu', NULL, 'Nepal');
 
 -- --------------------------------------------------------
 
@@ -156,10 +163,11 @@ INSERT INTO `cart` (`id`, `user_id`, `book_id`, `quantity`, `created_date`) VALU
 (54, 9, 5, 1, '2022-09-13'),
 (55, 9, 4, 2, '2022-09-13'),
 (56, 9, 7, 1, '2022-09-13'),
-(86, 1, 5, 3, '2022-10-27'),
-(87, 5, 16, 4, '2022-10-28'),
-(89, 1, 7, 1, '2022-10-29'),
-(91, 3, 4, 1, '2022-11-01');
+(91, 3, 4, 1, '2022-11-01'),
+(107, 5, 16, 1, '2023-04-04'),
+(122, 1, 8, 1, '2023-05-27'),
+(123, 1, 5, 2, '2023-05-27'),
+(124, 1, 7, 1, '2023-06-01');
 
 -- --------------------------------------------------------
 
@@ -276,10 +284,17 @@ INSERT INTO `order_items` (`id`, `order_id`, `book_id`, `quantity`, `unit_price`
 (31, 'HYfDcEX16w', 7, 1, 400, 400, 52, 0),
 (32, 'HYfDcEX16w', 16, 1, 345, 345, 45, 0),
 (33, 'HYfDcEX16w', 4, 2, 33, 66, 9, 0),
-(34, 'aUdOReX4nB', 4, 1, 479, 479, 62, 0),
-(35, 'aUdOReX4nB', 7, 1, 400, 400, 52, 0),
-(36, 'uzXF5V3qE2', 4, 1, 479, 479, 62, 0),
-(37, 'uzXF5V3qE2', 7, 1, 400, 400, 52, 0);
+(45, 'jxFQwJ5TmF', 7, 1, 400, 400, 52, 0),
+(46, '92elZRCAcK', 5, 2, 450, 900, 117, 0),
+(47, '92elZRCAcK', 4, 1, 479, 479, 62, 0),
+(48, '5OjEuiJOnE', 5, 1, 450, 450, 59, 0),
+(49, '5OjEuiJOnE', 8, 2, 550, 1100, 143, 0),
+(50, '5OjEuiJOnE', 16, 1, 345, 345, 45, 0),
+(53, 'GM2Uh1Iav2', 8, 2, 550, 1100, 143, 0),
+(54, 'GM2Uh1Iav2', 4, 1, 479, 479, 62, 0),
+(55, 'kMq23j7Fzr', 5, 2, 450, 900, 117, 0),
+(56, 'slYHt5kD2E', 5, 1, 450, 450, 59, 0),
+(57, 'slYHt5kD2E', 7, 1, 400, 400, 52, 0);
 
 -- --------------------------------------------------------
 
@@ -298,7 +313,10 @@ CREATE TABLE `order_status` (
 
 INSERT INTO `order_status` (`id`, `order_status`) VALUES
 (1, 'Pending'),
-(2, 'Accepted');
+(2, 'Accepted'),
+(3, 'On its way'),
+(4, 'Completed'),
+(5, 'Cancelled');
 
 -- --------------------------------------------------------
 
@@ -387,7 +405,9 @@ INSERT INTO `shipping_address` (`id`, `user_id`, `street`, `apartment`, `city`, 
 (1, 1, 'Simrik marga, Buddhanagar', 'New baneshwor', 1, 1, 123322, 1, 1),
 (20, 2, 'dfgsrthg tgwrth uolioliiu olololo', 'New baneshwor gaa', 1, 1, 1011, 1, 0),
 (25, 18, 'bindabasini marga', 'imaodol-3', 2, 1, NULL, 1, 1),
-(26, 18, 'siddhartha marga', 'kapan-07', 1, 1, NULL, 1, 0);
+(26, 18, 'siddhartha marga', 'kapan-07', 1, 1, NULL, 1, 0),
+(28, 5, 'kasukabe shi kasukabe higashi', 'haitsunakai 202', 1, 1, 3223345, 1, 1),
+(29, 19, 'Sas', 'AAAA,Zxy', 1, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -407,6 +427,27 @@ CREATE TABLE `shipping_method` (
 
 INSERT INTO `shipping_method` (`id`, `name`, `price`) VALUES
 (1, 'Standard Free Shipping', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_book_tbl`
+--
+
+CREATE TABLE `test_book_tbl` (
+  `id` int(11) NOT NULL,
+  `bookName` varchar(50) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `test_book_tbl`
+--
+
+INSERT INTO `test_book_tbl` (`id`, `bookName`, `author`, `price`) VALUES
+(7, 'The Alchemist', 'paulo coehlo', 510),
+(8, 'apple', 'umesh', 200);
 
 -- --------------------------------------------------------
 
@@ -451,15 +492,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `store_name`, `phone_number`, `email`, `password`, `profile_pic`, `profile_pic_name`, `user_type`) VALUES
-(1, 'Umesh', 'Niure', NULL, 9860474319, 'umesh@gmail.com', 'dW1lc2g=', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\user_profiles\\\\Umesh-Niure-1.png', 'Umesh-Niure-1.png', 1),
-(2, 'Admin', '', NULL, NULL, 'admin@gmail.com', 'YWRtaW4=', NULL, NULL, 3),
-(3, NULL, NULL, 'Himal book and stationery', 9860124322, 'vendor1@gmail.com', 'dmVuZG9yMQ==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles\\43294.jpg', 'Himal book and stationery-profile_pic.jpg', 2),
-(4, NULL, NULL, 'Buddha Books', 3453452222, 'vendor2@gmail.com', 'dmVuZG9yMg==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles\\0dd4207f83d869d21b6320d62736b48e-1000.jpg', 'buddha books-profile_pic.jpg', 2),
-(5, 'Simran', 'Acharya', NULL, NULL, 'simran@gmail.com', 'c2ltcmFu', NULL, NULL, 1),
-(8, 'Arjun', 'Sitoula', NULL, 0, 'arjun@gmail.com', 'YXJqdW4=', NULL, NULL, 1),
-(9, 'Prince', 'Singh', NULL, 0, 'prince@gmail.com.np', 'MTIzNDU=', NULL, NULL, 1),
-(13, NULL, NULL, 'Pairabi Prakashan PVT. LTD.', 9860452342, 'vendor3@gmail.com', 'dmVuZG9y', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles\\Pairabi Prakashan-profile_pic.png', 'Pairabi Prakashan-profile_pic.png', 2),
-(18, 'Ramesh', 'Niure Sharma', NULL, 1234567890, 'ramesh@gmail.com', 'cmFtZXNoMQ==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\user_profiles\\\\Ramesh-Niure Sharma-18.png', 'Ramesh-Niure Sharma-18.png', 1);
+(1, 'Umesh', 'Niure', NULL, 9860474319, 'umesh@gmail.com', 'd2YVclLbRFrrjEHCeKFSxw==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\user_profiles\\\\Umesh-Niure-1.png', 'Umesh-Niure-1.png', 1),
+(2, 'Admin', '', NULL, NULL, 'admin@gmail.com', 'kJtJkaA80+e8YdaBcIbV/Q==', NULL, NULL, 3),
+(3, NULL, NULL, 'Himal book and stationery', 9860124322, 'vendor1@gmail.com', '+gXlyymelJ1izfldD1BKKQ==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles\\43294.jpg', 'Himal book and stationery-profile_pic.jpg', 2),
+(4, NULL, NULL, 'Buddha Books', 3453452222, 'vendor2@gmail.com', 'fd5WcY9Frib89A/H+iDN9w==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles\\0dd4207f83d869d21b6320d62736b48e-1000.jpg', 'buddha books-profile_pic.jpg', 2),
+(5, 'Simran', 'Acharya', NULL, 0, 'simran@gmail.com', 'LDLcvOFyjEPOLf4Dx6jrpA==', NULL, NULL, 1),
+(8, 'Arjun', 'Sitoula', NULL, 0, 'arjun@gmail.com', 'yB7Lx9sWN06Silkz4dbOUA==', NULL, NULL, 1),
+(9, 'Prince', 'Singh', NULL, 0, 'prince@gmail.com.np', 'Aze7DbgfyAimASCWbFFmkQ==', NULL, NULL, 1),
+(13, NULL, NULL, 'Pairabi Prakashan PVT. LTD.', 9860452342, 'vendor3@gmail.com', 'YNQZEx9vyg30ki7t58xs9g==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles\\Pairabi Prakashan-profile_pic.png', 'Pairabi Prakashan-profile_pic.png', 2),
+(18, 'Ramesh', 'Niure Sharma', NULL, 1234567890, 'ramesh@gmail.com', '4S6i1pudRPnAhZ12/aEQCA==', 'C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\user_profiles\\\\Ramesh-Niure Sharma-18.png', 'Ramesh-Niure Sharma-18.png', 1);
 
 -- --------------------------------------------------------
 
@@ -602,6 +643,12 @@ ALTER TABLE `shipping_method`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `test_book_tbl`
+--
+ALTER TABLE `test_book_tbl`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `transaction_status`
 --
 ALTER TABLE `transaction_status`
@@ -628,7 +675,7 @@ ALTER TABLE `user_type`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `book_cover`
@@ -646,7 +693,7 @@ ALTER TABLE `book_type`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -676,13 +723,13 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `payment_method`
@@ -694,7 +741,7 @@ ALTER TABLE `payment_method`
 -- AUTO_INCREMENT for table `payment_type`
 --
 ALTER TABLE `payment_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `province`
@@ -706,13 +753,19 @@ ALTER TABLE `province`
 -- AUTO_INCREMENT for table `shipping_address`
 --
 ALTER TABLE `shipping_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `shipping_method`
 --
 ALTER TABLE `shipping_method`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `test_book_tbl`
+--
+ALTER TABLE `test_book_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `transaction_status`
@@ -724,7 +777,7 @@ ALTER TABLE `transaction_status`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user_type`
@@ -744,7 +797,7 @@ ALTER TABLE `books`
   ADD CONSTRAINT `books_ibfk_3` FOREIGN KEY (`cover_type`) REFERENCES `book_cover` (`id`),
   ADD CONSTRAINT `books_ibfk_4` FOREIGN KEY (`type`) REFERENCES `book_type` (`id`),
   ADD CONSTRAINT `books_ibfk_5` FOREIGN KEY (`language`) REFERENCES `language` (`id`),
-  ADD CONSTRAINT `books_ibfk_6` FOREIGN KEY (`vendor_id`) REFERENCES `users` (`ID`);
+  ADD CONSTRAINT `books_ibfk_6` FOREIGN KEY (`vendor_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `book_order`
@@ -759,7 +812,7 @@ ALTER TABLE `book_order`
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE;
 
 --

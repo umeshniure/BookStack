@@ -175,14 +175,24 @@
                                         function updateButtonContent() {
                                             var form = document.getElementById('OrderSubmitForm');
                                             var submitButton = document.getElementById("SubmitOrderButton");
+                                            var payButton = document.getElementById("PayOrderButton");
                                             var option1 = document.getElementById("1");
+                                       
 
                                             if (option1.checked) {
                                                 submitButton.textContent = "CONFIRM ORDER";
+                                                payButton.textContent = "";
                                                 form.action = "order";
+                                                payButton.style.visibility ="hidden";
+                                                submitButton.style.visibility ="visible";
+                                                
+                                                
                                             } else {
                                                 submitButton.textContent = "PAY NOW";
+                                                payButton.textContent = "PAY NOW";
                                                 form.action = "secureStripePayment";
+                                                payButton.style.visibility ="visible";
+                                                submitButton.style.visibility ="hidden";
                                             }
                                         }
                                     </script>
@@ -325,7 +335,7 @@
                                                 </button>
                                             </div>
                                             <div class="flex-initial a w-full ">
-                                                <button type="submit" id="SubmitOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
+                                                <button type="submit" style="visibility: hidden;" id="PayOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
 
                                                     <script
                                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"

@@ -5,7 +5,8 @@
 package com.web;
 
 import com.dao.UsersDAO;
-import com.secure.*;
+import com.secure.PasswordEncryption;
+import com.secure.PasswordValidator;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,13 +24,9 @@ import javax.servlet.http.HttpSession;
 public class ChangePassword extends HttpServlet {
 
     UsersDAO userDAO;
-    Decrypt decryption;
-    Encrypt encryption;
 
     public void init() {
         userDAO = new UsersDAO();
-        decryption = new Decrypt();
-        encryption = new Encrypt();
     }
 
     @Override
@@ -62,38 +59,46 @@ public class ChangePassword extends HttpServlet {
         String confirm_password = request.getParameter("confirm_password");
         if (!old_password.equals("") && !new_password.equals("") && !confirm_password.equals("")) {
             if (new_password.equals(confirm_password)) {
-                if (userDAO.selectUserByPassword(encryption.encryptPassword(old_password), id)) {
-                    if (!confirm_password.equals(old_password)) {
-                        if (userDAO.changePassword(encryption.encryptPassword(confirm_password), id)) {
-                            RequestDispatcher dispatcher;
-                            switch ((int) request.getSession(false).getAttribute("user_type")) {
-                                case 1:
-                                    String successMessage = "Your password has been successfully changed.";
-                                    request.setAttribute("successMessage", successMessage);
-                                    dispatcher = request.getRequestDispatcher("home");
-                                    dispatcher.forward(request, response);
-                                    break;
-                                case 2:
-                                    request.getSession(false).setAttribute("successMessage", "Your password has been successfully changed.");
-                                    response.sendRedirect("vendorDashboard");
-                                    break;
-                                case 3:
-                                    request.getSession(false).setAttribute("successMessage", "Your password has been successfully changed.");
-                                    response.sendRedirect("adminDashboard");
-                                    break;
+                if (PasswordValidator.isValidPassword(confirm_password)) {
+                    if (userDAO.selectUserByPassword(PasswordEncryption.encrypt(old_password), id)) {
+                        if (!confirm_password.equals(old_password)) {
+                            if (userDAO.changePassword(PasswordEncryption.encrypt(confirm_password), id)) {
+                                RequestDispatcher dispatcher;
+                                switch ((int) request.getSession(false).getAttribute("user_type")) {
+                                    case 1:
+                                        String successMessage = "Your password has been successfully changed.";
+                                        request.setAttribute("successMessage", successMessage);
+                                        dispatcher = request.getRequestDispatcher("home");
+                                        dispatcher.forward(request, response);
+                                        break;
+                                    case 2:
+                                        request.getSession(false).setAttribute("successMessage", "Your password has been successfully changed.");
+                                        response.sendRedirect("vendorDashboard");
+                                        break;
+                                    case 3:
+                                        request.getSession(false).setAttribute("successMessage", "Your password has been successfully changed.");
+                                        response.sendRedirect("adminDashboard");
+                                        break;
+                                }
+                            } else {
+                                request.getSession(false).setAttribute("errorMessage", "Sorry, password couldnot be changed at the moment.");
+                                response.sendRedirect("changePassword");
                             }
                         } else {
-                            request.getSession(false).setAttribute("errorMessage", "Sorry, password couldnot be changed at the moment.");
-                            response.sendRedirect("changePassword");
+                            String errorMessage = "Your old and new password are same. Please choose new password different from your current one.";
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("change-password.jsp");
+                            request.setAttribute("message", errorMessage);
+                            dispatcher.forward(request, response);
                         }
+
                     } else {
-                        String errorMessage = "Your old and new password are same. Please choose new password different from your current one.";
+                        String errorMessage = "Sorry! your old password is incorrect.";
                         RequestDispatcher dispatcher = request.getRequestDispatcher("change-password.jsp");
                         request.setAttribute("message", errorMessage);
                         dispatcher.forward(request, response);
                     }
                 } else {
-                    String errorMessage = "Sorry! your old password is incorrect.";
+                    String errorMessage = "Password must be at least 8 characters long, one capital letter, a number, and a special character.";
                     RequestDispatcher dispatcher = request.getRequestDispatcher("change-password.jsp");
                     request.setAttribute("message", errorMessage);
                     dispatcher.forward(request, response);
