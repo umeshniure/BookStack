@@ -7,14 +7,18 @@
 
 <c:if test="${sessionScope.id != null}">
     <%@ page import="com.dao.UsersDAO" %>
+    <%@ page import="com.dao.CartDAO" %>
     <%@ page import="com.dao.ShippingAddressDAO" %>
     <%@ page import="com.model.ShippingAddress" %>
     <%@ page import="com.model.Users" %>
     <%@ page import="java.util.List"%>
 
     <%
-        Users user = new UsersDAO().selectUser((int) session.getAttribute("id"));
-        List<ShippingAddress> addresses = new ShippingAddressDAO().selectShippingAddressByUserId((int) session.getAttribute("id"));
+        int userId = (int) session.getAttribute("id");
+        Users user = new UsersDAO().selectUser(userId);
+        List<ShippingAddress> addresses = new ShippingAddressDAO().selectShippingAddressByUserId(userId);
+        int cartCount = new CartDAO().userCartCount(userId);
+        pageContext.setAttribute("cartCount", cartCount);
         pageContext.setAttribute("user", user);
         pageContext.setAttribute("addresses", addresses);
     %>
@@ -40,11 +44,12 @@
         <c:if test="${sessionScope.id != null}">
 
             <div class="flex md:order-2 space-x-5 items-center">
-                <a href="cart">
+                <a href="cart" class="relative">
                     <div class="flex -space-x-2 overflow-hidden hover:text-purple-500" title="My cart">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg>
+                        <span class="absolute top-0 right-0 -mt-2 -mr-3 px-1.5 py-0.5 text-xs rounded-full text-white bg-purple-500 ring-purple-500">${cartCount}</span>
                     </div>
                 </a>
                 <div class="flex -space-x-2 overflow-hidden">

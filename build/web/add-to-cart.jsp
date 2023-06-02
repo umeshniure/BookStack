@@ -113,7 +113,7 @@
                         <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase text-gray-400">Promo Code</label>
                         <input type="text" id="promo" placeholder="Coming soon..." class="p-2 text-sm w-full border rounded cursor-not-allowed" disabled>
                     </div>
-                    <button class="bg-red-400 px-5 py-2 text-sm text-gray-300 uppercase rounded cursor-not-allowed" disabled>Apply</button>
+                    <button class="bg-gray-300 px-5 py-2 text-sm text-gray-100 uppercase rounded cursor-not-allowed" disabled>Apply</button>
                     <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                         <span>Tax</span>
                         <span>NPR. ${Double.parseDouble(String.format("%.0f", total_tax))}</span>

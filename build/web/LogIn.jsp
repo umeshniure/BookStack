@@ -74,9 +74,8 @@
                                             </c:if>
 
                                             <div class="text-center pt-1 mb-12 pb-1">
-                                                <button class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
-                                                        type="submit" data-mdb-ripple="true" data-mdb-ripple-color="light"
-                                                        style=" background: linear-gradient(to right, #C2DBFE, #bf66bf, #b44cb4, #950095);">
+                                                <button class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md bg-purple-600 hover:bg-purple-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                                                        type="submit" data-mdb-ripple="true" data-mdb-ripple-color="light">
                                                     Log in
                                                 </button>
                                                 <a class="text-gray-500 hover:text-purple-600" href="forgotPassword">Forgot password?</a>
@@ -96,14 +95,16 @@
                                     </div>
                                 </div>
                                 <div class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
-                                     style=" background: linear-gradient(to right, #C2DBFE, #bf66bf, #b44cb4, #950095);">
+                                     style="background-image: url('./images/static/general_images/smokey_book1.jpeg');
+                                     background-size: cover;
+                                     background-repeat: no-repeat;">
+                                    <!--linear-gradient(to right, #C2DBFE, #bf66bf, #b44cb4, #950095)-->
                                     <div class="text-white px-4 py-6 md:p-12 md:mx-6">
-                                        <h4 class="text-xl font-semibold mb-6">We are more than just a company</h4>
-                                        <p class="text-sm">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
+                                        <h4 class="text-xl font-semibold mb-6">Embark on a Journey of Knowledge</h4>
+                                        <p class="text-md">
+                                            Welcome to our online bookstore! Discover the vast world of literature, where stories come alive and imagination knows no bounds.
+                                            With a vast collection of books at your fingertips, embark on a journey of learning, inspiration, and self-discovery. Let the pages ignite your curiosity and transport you to new worlds.
+                                            Start your reading adventure today and unlock the doors to knowledge, wisdom, and endless possibilities.
                                         </p>
                                     </div>
                                 </div>

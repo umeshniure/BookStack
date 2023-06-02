@@ -29,14 +29,16 @@
                         <div class="block bg-white drop-shadow-lg rounded-lg">
                             <div class="lg:flex lg:flex-wrap g-0">
                                 <div class="lg:w-6/12 flex items-center lg:rounded-r-none rounded-b-none lg:rounded-bl-lg lg:rounded-tl-lg"
-                                     style="background: linear-gradient(to left, #C2DBFE, #bf66bf, #b44cb4, #950095);">
+                                     style="background-image: url('./images/static/general_images/smokey_book2.jpeg');
+                                     background-size: cover;
+                                     background-repeat: no-repeat;">
                                     <div class="text-white px-4 py-6 md:p-12 md:mx-6">
-                                        <h4 class="text-xl font-semibold mb-6">We are more than just a company</h4>
-                                        <p class="text-sm">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.
+                                        <h4 class="text-xl font-semibold mb-6">Unlock a World of Reading Pleasure</h4>
+                                        <p class="text-md">
+                                            Welcome to our online bookstore community! Join us on a journey where reading expands horizons and ignites imaginations.
+                                            Register now to gain access to a vast collection of books, personalized recommendations, and exclusive literary experiences.
+                                            Discover hidden gems, connect with fellow book lovers, and embark on a literary adventure that will leave you inspired and enlightened.
+                                            Let the power of books transform your world. Sign up today and unlock the doors to a world of reading pleasure.
                                         </p>
                                     </div>
                                 </div>
@@ -121,11 +123,10 @@
 
                                             <div class="text-center pt-1 mb-12 pb-1">
                                                 <button
-                                                    class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                                                    class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md bg-purple-600 hover:bg-purple-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
                                                     type="submit"
                                                     data-mdb-ripple="true"
-                                                    data-mdb-ripple-color="light"
-                                                    style="background: linear-gradient(to left, #C2DBFE, #bf66bf, #b44cb4, #950095);">
+                                                    data-mdb-ripple-color="light">
                                                     Register
                                                 </button>
                                             </div>

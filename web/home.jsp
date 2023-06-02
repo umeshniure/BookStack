@@ -23,59 +23,6 @@
 
         <jsp:include page="display-message.jsp"/>
 
-
-
-        <!--carousal section-->
-        <!--        <div id="carouselExampleIndicators" class="carousel slide relative mr-6 ml-6 rounded" data-bs-ride="carousel">
-                    <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner relative w-full rounded">
-                        <div class="carousel-item active bg-black rounded">
-                            <div class="flex relative text-center rounded">
-                                <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Welcome to Lightning deals</h1>
-                                <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
-                                     src="https://dealsoftheday.net/wp-content/uploads/2021/09/0001-8193923584_20210919_175608_0000-1.png"
-                                     alt="Banner" width="1920" height="288" />
-                            </div>
-                        </div>
-                        <div class="carousel-item bg-black rounded">
-                            <div class="flex relative text-center rounded">
-                                <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Your only book hub</h1>
-                                <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
-                                     src="https://cdn.pixabay.com/photo/2020/04/26/01/34/books-5093228_960_720.png"
-                                     alt="Banner" width="1920" height="288" />
-                            </div>
-                        </div>
-                        <div class="carousel-item bg-black rounded">
-                            <div class="flex relative text-center rounded">
-                                <h1 class="text-3xl tracking-wider text-white text-sha uppercase font-bold p-4 self-center z-10 content-center absolute text-center w-full md:text-4xl">Unbelievable discount on bundles</h1>
-                                <img class="w-full object-cover h-80 block mx-auto  sm:block sm:w-full rounded" 
-                                     src="https://waukeepubliclibrary.org/sites/default/files/BookBundles.png"
-                                     alt="Banner" width="1920" height="288" />
-                            </div>
-                        </div>
-                    </div>
-                    <button
-                        class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-                        type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button
-                        class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-                        type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>-->
-
-
         <div id="default-carousel" class="relative mr-6 ml-6" data-carousel="slide">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96 bg-gray-900">
@@ -178,9 +125,6 @@
                                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                                 </div>
                                 <input name="search" type="text" id="Search" onkeyup="myFunction()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title/Author/ISBN" required>
-                                <button type="button" class="flex absolute inset-y-0 right-0 items-center pr-3">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"></path></svg>
-                                </button>
                             </div>
                             <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-purple-600 rounded-lg border border-purple-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search</button>
                         </form>
