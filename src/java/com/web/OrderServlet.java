@@ -196,7 +196,8 @@ public class OrderServlet extends HttpServlet {
         String shipping_country = countryDAO.selectCountry(country_id).getCountry_name();
         Double order_subtotal_amount = Double.parseDouble(request.getParameter("order_subtotal"));
         Double order_total_amount = Double.parseDouble(request.getParameter("order_total"));
-        String payment_method = request.getParameter("paymentMethod");
+        String payment_method = "Cash On Delivery";
+//        String payment_method = request.getParameter("paymentMethod");
         int shipping_method = 1;
         BookOrder order = new BookOrder(id, user_id, transaction_id, shipping_postcode, order_date, order_status, transaction_satus,
                 special_instruction, payment_method, shipping_method, shipping_street, shipping_apartment, shipping_province,

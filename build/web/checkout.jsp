@@ -154,7 +154,7 @@
                                     </div>
 
                                     <c:forEach var="payment" items="${paymentTypes}">
-                                        <c:if test="${payment.id != 2}">
+                                        <c:if test="${payment.id == 1}">
                                             <div class="flex items-center justify-start mt-2">
                                                 <c:if test="${payment.id == 1}">
                                                     <input id="${payment.id}" form="myform" type="radio" onchange="updateButtonContent()" value="${payment.payment_type}" name="paymentMethod"  class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required checked>
@@ -335,7 +335,7 @@
                                                 </button>
                                             </div>
                                             <div class="flex-initial a w-full ">
-                                                <button type="submit" style="visibility: hidden;" id="PayOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
+<!--                                                <button type="submit" style="visibility: hidden;" id="PayOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
 
                                                     <script
                                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -347,7 +347,7 @@
                                                         data-locale="auto"
                                                         data-currency="jpy">
                                                     </script>
-                                                </button>
+                                                </button>-->
 
                                                 <button type="submit" id="SubmitOrderButton" name="action" value="submitOrder" class="w-full justify-center p-3 font-medium text-white uppercase bg-purple-600 rounded-md shadow item-center hover:bg-purple-700 focus:shadow-outline focus:outline-none">
                                                     Confirm order

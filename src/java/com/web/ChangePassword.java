@@ -66,10 +66,8 @@ public class ChangePassword extends HttpServlet {
                                 RequestDispatcher dispatcher;
                                 switch ((int) request.getSession(false).getAttribute("user_type")) {
                                     case 1:
-                                        String successMessage = "Your password has been successfully changed.";
-                                        request.setAttribute("successMessage", successMessage);
-                                        dispatcher = request.getRequestDispatcher("home");
-                                        dispatcher.forward(request, response);
+                                        request.getSession(false).setAttribute("successMessage", "Your password has been successfully changed.");
+                                        response.sendRedirect("home");
                                         break;
                                     case 2:
                                         request.getSession(false).setAttribute("successMessage", "Your password has been successfully changed.");
