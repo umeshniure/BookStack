@@ -217,10 +217,16 @@ public class VendorBooks extends HttpServlet {
                 //String fileName = validateVendor.extractFileName(pic_part);
                 fileName = bookname + "-vendor" + vendor_id + ".png";
                 //String contextPath = request.getContextPath();
-                String imageFolderPath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id");
+                String appRoot = "/home/umesh/Documents/Java Projects/BookStack/web/images";
+                String imageFolderPath = appRoot + "/book_cover_photos/" + session.getAttribute("id");
                 File fileSaveDir = new File(imageFolderPath);
                 fileSaveDir.mkdir();
-                imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\book_cover_photos\\" + session.getAttribute("id") + File.separator + fileName;
+
+                imageSavePath = appRoot
+                        + File.separator + "book_cover_photos"
+                        + File.separator + session.getAttribute("id")
+                        + File.separator + fileName;
+
                 System.out.println("image save path: " + imageSavePath);
                 pic_part.write(imageSavePath + File.separator);
             }

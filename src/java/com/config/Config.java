@@ -6,8 +6,8 @@ import java.sql.*;
 public class Config {
 
     private static final String jdbcURL = "jdbc:mysql://localhost:3306/bookstack_db?";
-    private static String jdbcUsername = "root";
-    private static String jdbcPassword = "";
+    private static String jdbcUsername = "admin";
+    private static String jdbcPassword = "Root@123";
     private static Connection connection = null;
 
     public static Connection getConnection() {

@@ -91,7 +91,11 @@ public class ValidateVendorRegistration extends HttpServlet {
                                         pic_part = request.getPart("profile_pic");
                                         //String fileName = extractFileName(pic_part);
                                         String fileName = store_name + "-profile_pic.png";
-                                        String imageSavePath = "C:\\Users\\Umesh\\OneDrive\\Documents\\NetBeansProjects\\BookStack\\web\\images\\vendor_profiles" + File.separator + fileName;
+                                        String appRoot = "/home/umesh/Documents/Java Projects/BookStack/web/images";
+                                        String imageSavePath = appRoot
+                                                + File.separator + "vendor_profiles"
+                                                + File.separator + fileName;
+
                                         File fileSaveDir = new File(imageSavePath);
                                         pic_part.write(imageSavePath + File.separator);
                                         Users newVendor = new Users(first_name, last_name, store_name, phone_number, email, imageSavePath, fileName, PasswordEncryption.encrypt(_password1), user_type);
